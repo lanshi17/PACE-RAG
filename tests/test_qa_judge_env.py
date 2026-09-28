@@ -10,6 +10,7 @@ from benchmark.qa import (
     JudgeConfig,
     judge_model_from_env,
 )
+from benchmark.qa.judge import _clip
 
 ENV_KEYS = (
     "JUDGE_API_KEY",
@@ -98,3 +99,23 @@ class TestResolveApiBase:
     def test_empty_string_treated_as_none(self, clean_judge_env) -> None:
         clean_judge_env.setenv("JUDGE_API_BASE", "")
         assert JudgeConfig().resolve_api_base() is None
+
+
+class TestJudgeTruncationDefaults:
+    """评分必须使用实际生成时的完整证据包（续记 §4#2）。"""
+
+    def test_defaults_do_not_truncate(self) -> None:
+        config = JudgeConfig()
+        assert config.max_context_chars is None
+        assert config.max_answer_chars is None
+        assert config.max_gold_chars is None
+
+    def test_clip_passes_through_without_limit(self) -> None:
+        text = "x" * 200
+        assert _clip(text, None) == text
+
+    def test_clip_truncates_with_explicit_limit(self) -> None:
+        assert _clip("abcdef", 4) == "abcd\n...[truncated]"
+
+    def test_clip_handles_none_value(self) -> None:
+        assert _clip(None, None) == ""  # type: ignore[arg-type]

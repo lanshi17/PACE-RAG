@@ -36,7 +36,11 @@ def merge_usage(*usages: dict[str, Any]) -> dict[str, Any]:
     )
     result = empty_usage()
     for field in numeric_fields:
-        values = [item.get(field) for item in usages if item.get(field) is not None]
+        values = [
+            value
+            for item in usages
+            if (value := item.get(field)) is not None
+        ]
         if values:
             result[field] = sum(float(value) for value in values)
             if field.endswith("tokens"):

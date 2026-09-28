@@ -21,6 +21,12 @@ from benchmark.common.corpus import (
     source_id_from_text,
     write_manifest,
 )
+from benchmark.common.embeddings import (
+    decode_vector,
+    embed_queries,
+    encode_vector,
+    load_query_vectors,
+)
 from benchmark.common.retrieval import (
     as_string_list,
     context_frames,
@@ -35,9 +41,13 @@ __all__ = [
     "as_string_list",
     "canonical_source_id",
     "context_frames",
+    "decode_vector",
+    "embed_queries",
     "empty_usage",
+    "encode_vector",
     "extract_pdf_text",
     "extract_retrieved_context",
+    "load_query_vectors",
     "load_scoring_options",
     "merge_usage",
     "normalize_response",

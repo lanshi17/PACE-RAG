@@ -25,3 +25,9 @@ benchmark/baseline/libs/
 
 # Generated evaluation output; keep report source code and Markdown summaries
 /benchmark/results/
+
+# session / gauntlet temp dirs and coverage artifacts
+.session_tmp/
+.gauntlet_tmp/
+.coverage
+coverage.json

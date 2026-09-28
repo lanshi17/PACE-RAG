@@ -1,0 +1,1548 @@
+[
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "First-trimester NT measurement",
+    "gold_answer": "For standardized NT screening, fetal CRL should be 45–84 mm, usually corresponding to 11+0 to 13+6 weeks of gestation. NT should be measured in a median sagittal section with the fetus in a neutral position; the image should include only the fetal head and upper thorax and distinguish the fetus from the amnion. Obtain three valid measurements on separate images and use the largest for risk assessment. Interpret NT using a validated gestation-specific percentile and risk algorithm. NT ≥3.5 mm is an indication for detailed fetal cardiac evaluation, not a diagnosis by itself.",
+    "gold_entities": [
+      "NT",
+      "CRL",
+      "45–84 mm",
+      "11+0–13+6 weeks",
+      "neutral position",
+      "median sagittal plane",
+      "detailed fetal cardiac evaluation"
+    ],
+    "gold_relations": [
+      {
+        "src": "NT",
+        "rel": "measured_at",
+        "tgt": "median sagittal plane"
+      },
+      {
+        "src": "NT measurement",
+        "rel": "required_in",
+        "tgt": "11+0–13+6 weeks (CRL 45–84 mm)"
+      },
+      {
+        "src": "NT ≥3.5 mm",
+        "rel": "recommended_for",
+        "tgt": "detailed fetal cardiac evaluation"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Nuchal translucency",
+        "evidence_level": "L1",
+        "page": null
+      },
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Indications for fetal echocardiography",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "CRL should be 45–84 mm",
+      "Corresponds to 11+0 to 13+6 weeks of gestation",
+      "The fetus should be in a neutral position",
+      "Measure in the median sagittal plane"
+    ],
+    "safety_flags": [
+      "Do not treat an increased NT measurement as a diagnosis by itself."
+    ],
+    "question_id": "PU-L1-001-cp-01a",
+    "question": "At 11 to 14 weeks of gestation, what crown-rump length (CRL) range is required when measuring nuchal translucency (NT)?",
+    "variant_group": "CP-01",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "11-14 weeks",
+    "condition_note": "NT/CRL 测量是一孕周专属；把查询孕周远移到第三孕周应使首孕周证据全部不适用。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "First-trimester NT measurement",
+    "gold_answer": "For standardized NT screening, fetal CRL should be 45–84 mm, usually corresponding to 11+0 to 13+6 weeks of gestation. NT should be measured in a median sagittal section with the fetus in a neutral position; the image should include only the fetal head and upper thorax and distinguish the fetus from the amnion. Obtain three valid measurements on separate images and use the largest for risk assessment. Interpret NT using a validated gestation-specific percentile and risk algorithm. NT ≥3.5 mm is an indication for detailed fetal cardiac evaluation, not a diagnosis by itself.",
+    "gold_entities": [
+      "NT",
+      "CRL",
+      "45–84 mm",
+      "11+0–13+6 weeks",
+      "neutral position",
+      "median sagittal plane",
+      "detailed fetal cardiac evaluation"
+    ],
+    "gold_relations": [
+      {
+        "src": "NT",
+        "rel": "measured_at",
+        "tgt": "median sagittal plane"
+      },
+      {
+        "src": "NT measurement",
+        "rel": "required_in",
+        "tgt": "11+0–13+6 weeks (CRL 45–84 mm)"
+      },
+      {
+        "src": "NT ≥3.5 mm",
+        "rel": "recommended_for",
+        "tgt": "detailed fetal cardiac evaluation"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Nuchal translucency",
+        "evidence_level": "L1",
+        "page": null
+      },
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Indications for fetal echocardiography",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "CRL should be 45–84 mm",
+      "Corresponds to 11+0 to 13+6 weeks of gestation",
+      "The fetus should be in a neutral position",
+      "Measure in the median sagittal plane"
+    ],
+    "safety_flags": [
+      "Do not treat an increased NT measurement as a diagnosis by itself."
+    ],
+    "question_id": "PU-L1-001-cp-01b",
+    "question": "At 32 to 36 weeks of gestation, what crown-rump length (CRL) range is required when measuring nuchal translucency (NT)?",
+    "variant_group": "CP-01",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "NT/CRL 测量是一孕周专属；把查询孕周远移到第三孕周应使首孕周证据全部不适用。"
+  },
+  {
+    "question_type": "plane_identification",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Mid-trimester cardiac screening",
+    "gold_answer": "The mid-trimester four-chamber view should assess: 1) cardiac position, predominantly in the left chest, and an apex pointing left at 45° ± 20°; 2) cardiac size (no more than approximately one third of the thoracic area) and regular rhythm; 3) two atria and two ventricles of approximately equal size; 4) the atrial septum primum, ventricular septum from apex to crux, and an intact cardiac crux; and 5) separate, freely opening mitral and tricuspid valves with normal apical offset of the tricuspid septal leaflet. The four-chamber view alone does not exclude all congenital heart disease; a complete screening examination also includes LVOT, RVOT, three-vessel, and three-vessel-and-trachea views.",
+    "gold_entities": [
+      "four-chamber view",
+      "cardiac position",
+      "cardiac axis",
+      "cardiac crux",
+      "interventricular septum",
+      "atrioventricular valves",
+      "LVOT",
+      "RVOT",
+      "three-vessel view",
+      "three-vessel-and-trachea view"
+    ],
+    "gold_relations": [
+      {
+        "src": "cardiac position",
+        "rel": "observed_at",
+        "tgt": "four-chamber view"
+      },
+      {
+        "src": "atrioventricular valves",
+        "rel": "observed_at",
+        "tgt": "four-chamber view"
+      },
+      {
+        "src": "four-chamber view",
+        "rel": "part_of",
+        "tgt": "fetal cardiac screening"
+      },
+      {
+        "src": "LVOT/RVOT/3VV/3VTV",
+        "rel": "part_of",
+        "tgt": "fetal cardiac screening"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Four-chamber view; outflow-tract, three-vessel and three-vessel-and-trachea views",
+        "evidence_level": "L1",
+        "page": null
+      },
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Cardiac examination",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Assess cardiac position and cardiac axis",
+      "Assess size and approximate symmetry of the four chambers",
+      "Assess the cardiac crux and interventricular septum",
+      "Assess the atrioventricular valves and their normal offset",
+      "State that outflow-tract and three-vessel views are needed for complete cardiac screening"
+    ],
+    "safety_flags": [
+      "Do not claim that a normal four-chamber view alone excludes congenital heart disease."
+    ],
+    "question_id": "PU-L1-002-cp-02a",
+    "question": "At 18 to 24 weeks of gestation, which structures should be assessed in the four-chamber view?",
+    "variant_group": "CP-02",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "18-24 weeks",
+    "condition_note": "四腔心为中孕基本切面；远移第三孕周后中孕切面证据应转为不适用。"
+  },
+  {
+    "question_type": "plane_identification",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Mid-trimester cardiac screening",
+    "gold_answer": "The mid-trimester four-chamber view should assess: 1) cardiac position, predominantly in the left chest, and an apex pointing left at 45° ± 20°; 2) cardiac size (no more than approximately one third of the thoracic area) and regular rhythm; 3) two atria and two ventricles of approximately equal size; 4) the atrial septum primum, ventricular septum from apex to crux, and an intact cardiac crux; and 5) separate, freely opening mitral and tricuspid valves with normal apical offset of the tricuspid septal leaflet. The four-chamber view alone does not exclude all congenital heart disease; a complete screening examination also includes LVOT, RVOT, three-vessel, and three-vessel-and-trachea views.",
+    "gold_entities": [
+      "four-chamber view",
+      "cardiac position",
+      "cardiac axis",
+      "cardiac crux",
+      "interventricular septum",
+      "atrioventricular valves",
+      "LVOT",
+      "RVOT",
+      "three-vessel view",
+      "three-vessel-and-trachea view"
+    ],
+    "gold_relations": [
+      {
+        "src": "cardiac position",
+        "rel": "observed_at",
+        "tgt": "four-chamber view"
+      },
+      {
+        "src": "atrioventricular valves",
+        "rel": "observed_at",
+        "tgt": "four-chamber view"
+      },
+      {
+        "src": "four-chamber view",
+        "rel": "part_of",
+        "tgt": "fetal cardiac screening"
+      },
+      {
+        "src": "LVOT/RVOT/3VV/3VTV",
+        "rel": "part_of",
+        "tgt": "fetal cardiac screening"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Four-chamber view; outflow-tract, three-vessel and three-vessel-and-trachea views",
+        "evidence_level": "L1",
+        "page": null
+      },
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Cardiac examination",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Assess cardiac position and cardiac axis",
+      "Assess size and approximate symmetry of the four chambers",
+      "Assess the cardiac crux and interventricular septum",
+      "Assess the atrioventricular valves and their normal offset",
+      "State that outflow-tract and three-vessel views are needed for complete cardiac screening"
+    ],
+    "safety_flags": [
+      "Do not claim that a normal four-chamber view alone excludes congenital heart disease."
+    ],
+    "question_id": "PU-L1-002-cp-02b",
+    "question": "At 32 to 36 weeks of gestation, which structures should be assessed in the four-chamber view?",
+    "variant_group": "CP-02",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "四腔心为中孕基本切面；远移第三孕周后中孕切面证据应转为不适用。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Mid-trimester renal assessment",
+    "gold_answer": "The fetal bladder and both kidneys should be visualized. A renal pelvis ≥7 mm indicates a need for reassessment in the third trimester. If either the bladder or the renal pelvis appears enlarged, a detailed assessment should follow.",
+    "gold_entities": [
+      "renal pelvis",
+      "7 mm",
+      "fetal bladder",
+      "kidneys"
+    ],
+    "gold_relations": [
+      {
+        "src": "renal pelvis ≥7 mm",
+        "rel": "follow_up",
+        "tgt": "third-trimester reassessment"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Kidneys and bladder",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "The bladder and both kidneys should be visualized",
+      "A renal pelvis ≥7 mm requires third-trimester reassessment",
+      "Enlarged bladder or renal pelvis should prompt detailed assessment"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-013-cp-03a",
+    "question": "At the 18 to 24 week scan, what renal pelvis measurement should prompt reassessment?",
+    "variant_group": "CP-03",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "18-24 weeks",
+    "condition_note": "肾盂测量标准是中孕筛查语境；第三孕周变体应触发大量不适用。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Mid-trimester renal assessment",
+    "gold_answer": "The fetal bladder and both kidneys should be visualized. A renal pelvis ≥7 mm indicates a need for reassessment in the third trimester. If either the bladder or the renal pelvis appears enlarged, a detailed assessment should follow.",
+    "gold_entities": [
+      "renal pelvis",
+      "7 mm",
+      "fetal bladder",
+      "kidneys"
+    ],
+    "gold_relations": [
+      {
+        "src": "renal pelvis ≥7 mm",
+        "rel": "follow_up",
+        "tgt": "third-trimester reassessment"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Kidneys and bladder",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "The bladder and both kidneys should be visualized",
+      "A renal pelvis ≥7 mm requires third-trimester reassessment",
+      "Enlarged bladder or renal pelvis should prompt detailed assessment"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-013-cp-03b",
+    "question": "At the 32 to 36 week scan, what renal pelvis measurement should prompt reassessment?",
+    "variant_group": "CP-03",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "肾盂测量标准是中孕筛查语境；第三孕周变体应触发大量不适用。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Gestational age assessment",
+    "gold_answer": "Head circumference (HC) alone, or HC plus femur length (FL), may be used for dating after 14 weeks; recent INTERGROWTH-21st evidence indicates these are among the most accurate predictors of gestational age at this stage. Once gestational age has been established by a high-quality earlier scan, subsequent scans should not be used to calculate a new due date.",
+    "gold_entities": [
+      "HC",
+      "FL",
+      "gestational age",
+      "dating after 14 weeks"
+    ],
+    "gold_relations": [
+      {
+        "src": "HC/FL",
+        "rel": "recommended_for",
+        "tgt": "dating after 14 weeks"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Fetal biometry and wellbeing",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "HC alone or HC plus FL may be used after 14 weeks",
+      "HC/FL are among the most accurate predictors at this stage",
+      "Do not reset the due date with later scans once established"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-008-cp-04a",
+    "question": "At 18 to 24 weeks of gestation, if gestational age was not established in the first trimester, which parameters are preferred for dating?",
+    "variant_group": "CP-04",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "18-24 weeks",
+    "condition_note": "孕周校正参数语境为中/晚孕；远移第三孕周验证过滤方向。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Gestational age assessment",
+    "gold_answer": "Head circumference (HC) alone, or HC plus femur length (FL), may be used for dating after 14 weeks; recent INTERGROWTH-21st evidence indicates these are among the most accurate predictors of gestational age at this stage. Once gestational age has been established by a high-quality earlier scan, subsequent scans should not be used to calculate a new due date.",
+    "gold_entities": [
+      "HC",
+      "FL",
+      "gestational age",
+      "dating after 14 weeks"
+    ],
+    "gold_relations": [
+      {
+        "src": "HC/FL",
+        "rel": "recommended_for",
+        "tgt": "dating after 14 weeks"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Fetal biometry and wellbeing",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "HC alone or HC plus FL may be used after 14 weeks",
+      "HC/FL are among the most accurate predictors at this stage",
+      "Do not reset the due date with later scans once established"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-008-cp-04b",
+    "question": "At 32 to 36 weeks of gestation, if gestational age was not established in the first trimester, which parameters are preferred for dating?",
+    "variant_group": "CP-04",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "孕周校正参数语境为中/晚孕；远移第三孕周验证过滤方向。"
+  },
+  {
+    "question_type": "plane_identification",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Mid-trimester cardiac screening",
+    "gold_answer": "The mid-trimester cardiac screening examination includes the four-chamber view (4CV), the left and right ventricular outflow-tract views (LVOT/RVOT), and the three-vessel view (3VV). The closely related three-vessel-and-trachea view (3VTV) improves detection of outflow-tract, aortic arch and systemic vein anomalies. The four-chamber view alone does not exclude congenital heart disease.",
+    "gold_entities": [
+      "four-chamber view",
+      "LVOT",
+      "RVOT",
+      "three-vessel view",
+      "three-vessel-and-trachea view"
+    ],
+    "gold_relations": [
+      {
+        "src": "LVOT/RVOT/3VV/3VTV",
+        "rel": "part_of",
+        "tgt": "fetal cardiac screening"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Heart",
+        "evidence_level": "L1",
+        "page": null
+      },
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Outflow-tract, three-vessel and three-vessel-and-trachea views",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Includes the four-chamber view and outflow-tract views",
+      "Includes the three-vessel view",
+      "The 3VTV improves detection of outflow, arch and vein anomalies",
+      "The four-chamber view alone does not exclude congenital heart disease"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-011-cp-05a",
+    "question": "At 18 to 24 weeks of gestation, which views are included in the fetal cardiac screening examination?",
+    "variant_group": "CP-05",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "18-24 weeks",
+    "condition_note": "胎儿心脏筛查为中孕检查；第三孕周变体应使中孕切面证据不适用。"
+  },
+  {
+    "question_type": "plane_identification",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Mid-trimester cardiac screening",
+    "gold_answer": "The mid-trimester cardiac screening examination includes the four-chamber view (4CV), the left and right ventricular outflow-tract views (LVOT/RVOT), and the three-vessel view (3VV). The closely related three-vessel-and-trachea view (3VTV) improves detection of outflow-tract, aortic arch and systemic vein anomalies. The four-chamber view alone does not exclude congenital heart disease.",
+    "gold_entities": [
+      "four-chamber view",
+      "LVOT",
+      "RVOT",
+      "three-vessel view",
+      "three-vessel-and-trachea view"
+    ],
+    "gold_relations": [
+      {
+        "src": "LVOT/RVOT/3VV/3VTV",
+        "rel": "part_of",
+        "tgt": "fetal cardiac screening"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Heart",
+        "evidence_level": "L1",
+        "page": null
+      },
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Outflow-tract, three-vessel and three-vessel-and-trachea views",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Includes the four-chamber view and outflow-tract views",
+      "Includes the three-vessel view",
+      "The 3VTV improves detection of outflow, arch and vein anomalies",
+      "The four-chamber view alone does not exclude congenital heart disease"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-011-cp-05b",
+    "question": "At 32 to 36 weeks of gestation, which views are included in the fetal cardiac screening examination?",
+    "variant_group": "CP-05",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "胎儿心脏筛查为中孕检查；第三孕周变体应使中孕切面证据不适用。"
+  },
+  {
+    "question_type": "plane_identification",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Mid-trimester cardiac screening",
+    "gold_answer": "From left to right, the three-vessel view shows the main pulmonary artery, the ascending aorta and the right superior vena cava. The pulmonary artery is the largest and most anterior vessel, and the superior vena cava is the smallest and most posterior. Their relative size, alignment and arrangement should be normal; abnormalities may reveal conotruncal anomalies such as transposition of the great arteries, tetralogy of Fallot, double-outlet right ventricle and common arterial trunk.",
+    "gold_entities": [
+      "three-vessel view",
+      "pulmonary artery",
+      "ascending aorta",
+      "right superior vena cava",
+      "conotruncal anomalies"
+    ],
+    "gold_relations": [
+      {
+        "src": "three-vessel view",
+        "rel": "screening_for",
+        "tgt": "conotruncal anomalies"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Right ventricular outflow-tract view, three-vessel view (3VV) and three-vessel-and-trachea view (3VTV)",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Shows pulmonary artery, ascending aorta and right superior vena cava",
+      "The pulmonary artery is the largest and most anterior",
+      "The SVC is the smallest and most posterior",
+      "Abnormalities may reveal conotruncal anomalies"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-012-cp-06a",
+    "question": "At 18 to 24 weeks of gestation, what does the normal three-vessel view (3VV) show?",
+    "variant_group": "CP-06",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "18-24 weeks",
+    "condition_note": "三血管切面为中孕标准切面；第三孕周变体触发过滤。"
+  },
+  {
+    "question_type": "plane_identification",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Mid-trimester cardiac screening",
+    "gold_answer": "From left to right, the three-vessel view shows the main pulmonary artery, the ascending aorta and the right superior vena cava. The pulmonary artery is the largest and most anterior vessel, and the superior vena cava is the smallest and most posterior. Their relative size, alignment and arrangement should be normal; abnormalities may reveal conotruncal anomalies such as transposition of the great arteries, tetralogy of Fallot, double-outlet right ventricle and common arterial trunk.",
+    "gold_entities": [
+      "three-vessel view",
+      "pulmonary artery",
+      "ascending aorta",
+      "right superior vena cava",
+      "conotruncal anomalies"
+    ],
+    "gold_relations": [
+      {
+        "src": "three-vessel view",
+        "rel": "screening_for",
+        "tgt": "conotruncal anomalies"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Right ventricular outflow-tract view, three-vessel view (3VV) and three-vessel-and-trachea view (3VTV)",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Shows pulmonary artery, ascending aorta and right superior vena cava",
+      "The pulmonary artery is the largest and most anterior",
+      "The SVC is the smallest and most posterior",
+      "Abnormalities may reveal conotruncal anomalies"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-012-cp-06b",
+    "question": "At 32 to 36 weeks of gestation, what does the normal three-vessel view (3VV) show?",
+    "variant_group": "CP-06",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "三血管切面为中孕标准切面；第三孕周变体触发过滤。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Placental location assessment",
+    "gold_answer": "If the lower placental edge is ≤15 mm from the internal os on transvaginal scan, or the placenta reaches or overlaps the internal os, a follow-up examination in the third trimester is recommended because most low-lying placentae 'migrate' as pregnancy advances.",
+    "gold_entities": [
+      "low-lying placenta",
+      "internal cervical os",
+      "15 mm",
+      "third-trimester follow-up"
+    ],
+    "gold_relations": [
+      {
+        "src": "low-lying placenta",
+        "rel": "follow_up",
+        "tgt": "third-trimester follow-up"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Placenta",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Lower placental edge ≤15 mm from the internal os requires follow-up",
+      "Placenta reaching or overlapping the internal os requires follow-up",
+      "Most low-lying placentae migrate later in pregnancy"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-014-cp-07a",
+    "question": "At the 18 to 24 week scan, which placental findings indicate the need for third-trimester follow-up?",
+    "variant_group": "CP-07",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "18-24 weeks",
+    "condition_note": "胎盘位置评估原为中孕；把查询放到第三孕周制造条件错配。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L1",
+    "rag_arch_type": "basic",
+    "kg_hops": null,
+    "clinical_scenario": "Placental location assessment",
+    "gold_answer": "If the lower placental edge is ≤15 mm from the internal os on transvaginal scan, or the placenta reaches or overlaps the internal os, a follow-up examination in the third trimester is recommended because most low-lying placentae 'migrate' as pregnancy advances.",
+    "gold_entities": [
+      "low-lying placenta",
+      "internal cervical os",
+      "15 mm",
+      "third-trimester follow-up"
+    ],
+    "gold_relations": [
+      {
+        "src": "low-lying placenta",
+        "rel": "follow_up",
+        "tgt": "third-trimester follow-up"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-midtrimester-2022",
+        "section": "Placenta",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Lower placental edge ≤15 mm from the internal os requires follow-up",
+      "Placenta reaching or overlapping the internal os requires follow-up",
+      "Most low-lying placentae migrate later in pregnancy"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L1-014-cp-07b",
+    "question": "At the 32 to 36 week scan, which placental findings indicate the need for third-trimester follow-up?",
+    "variant_group": "CP-07",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "胎盘位置评估原为中孕；把查询放到第三孕周制造条件错配。"
+  },
+  {
+    "question_type": "structural_anomaly",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 3,
+    "clinical_scenario": "Standard first-trimester planes",
+    "gold_answer": "For the ISUOG 2023 basic examination at 11+0–14+0 weeks, document a systematic set of anatomical assessments rather than treating a fixed image list as a complete anomaly screen: 1) axial head/brain view—calvarial contour, interhemispheric falx, and choroid plexuses, which can identify major cranial abnormalities; 2) median sagittal head-and-neck view—CRL and standardized NT; 3) axial thoracic view at the level of the heart—intrathoracic cardiac position and regular rhythm; 4) axial abdominal view—stomach and intact abdominal wall; 5) axial or sagittal pelvic view—visible, non-dilated bladder; and 6) views of all four limbs, each with three segments. These views support detection of selected major abnormalities, such as major cranial defects, abdominal-wall defects, megacystis, and major limb-reduction defects, but do not exclude all anomalies. Nasal bone and detailed cardiac views (four-chamber, outflow tracts, and three-vessel-and-trachea) are part of detailed assessment when available and appropriate. Increased NT is a risk marker requiring appropriate counseling and follow-up, not a structural diagnosis.",
+    "gold_entities": [
+      "axial head/brain view",
+      "median sagittal head-and-neck view",
+      "axial thoracic view",
+      "axial abdominal view",
+      "pelvic bladder view",
+      "limb views",
+      "increased NT",
+      "detailed cardiac assessment"
+    ],
+    "gold_relations": [
+      {
+        "src": "axial head/brain view",
+        "rel": "screening_for",
+        "tgt": "major cranial abnormalities"
+      },
+      {
+        "src": "NT",
+        "rel": "measured_at",
+        "tgt": "median sagittal head-and-neck view"
+      },
+      {
+        "src": "axial abdominal view",
+        "rel": "screening_for",
+        "tgt": "abdominal-wall defect"
+      },
+      {
+        "src": "limb views",
+        "rel": "screening_for",
+        "tgt": "major limb-reduction defect"
+      },
+      {
+        "src": "increased NT",
+        "rel": "associated_with",
+        "tgt": "increased risk of cardiac and genetic abnormalities"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Minimum requirements and detailed assessment of fetal anatomy",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "The basic examination includes axial head/brain assessment",
+      "The median sagittal head-and-neck view measures CRL and NT",
+      "The abdominal assessment checks the stomach and intact abdominal wall",
+      "The basic examination assesses the bladder and all four limbs with three segments",
+      "Detailed cardiac views are additional to the basic examination"
+    ],
+    "safety_flags": [
+      "Do not state that the basic first-trimester examination excludes all structural anomalies.",
+      "Do not call increased NT a structural diagnosis."
+    ],
+    "question_id": "PU-L2-018-cp-08a",
+    "question": "At 11 to 14 weeks of gestation, what is the minimum set of stored planes for first-trimester screening?",
+    "variant_group": "CP-08",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "11-14 weeks",
+    "condition_note": "一孕周留存切面是一孕周专属要求；第三孕周变体应全部不适用。"
+  },
+  {
+    "question_type": "structural_anomaly",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 3,
+    "clinical_scenario": "Standard first-trimester planes",
+    "gold_answer": "For the ISUOG 2023 basic examination at 11+0–14+0 weeks, document a systematic set of anatomical assessments rather than treating a fixed image list as a complete anomaly screen: 1) axial head/brain view—calvarial contour, interhemispheric falx, and choroid plexuses, which can identify major cranial abnormalities; 2) median sagittal head-and-neck view—CRL and standardized NT; 3) axial thoracic view at the level of the heart—intrathoracic cardiac position and regular rhythm; 4) axial abdominal view—stomach and intact abdominal wall; 5) axial or sagittal pelvic view—visible, non-dilated bladder; and 6) views of all four limbs, each with three segments. These views support detection of selected major abnormalities, such as major cranial defects, abdominal-wall defects, megacystis, and major limb-reduction defects, but do not exclude all anomalies. Nasal bone and detailed cardiac views (four-chamber, outflow tracts, and three-vessel-and-trachea) are part of detailed assessment when available and appropriate. Increased NT is a risk marker requiring appropriate counseling and follow-up, not a structural diagnosis.",
+    "gold_entities": [
+      "axial head/brain view",
+      "median sagittal head-and-neck view",
+      "axial thoracic view",
+      "axial abdominal view",
+      "pelvic bladder view",
+      "limb views",
+      "increased NT",
+      "detailed cardiac assessment"
+    ],
+    "gold_relations": [
+      {
+        "src": "axial head/brain view",
+        "rel": "screening_for",
+        "tgt": "major cranial abnormalities"
+      },
+      {
+        "src": "NT",
+        "rel": "measured_at",
+        "tgt": "median sagittal head-and-neck view"
+      },
+      {
+        "src": "axial abdominal view",
+        "rel": "screening_for",
+        "tgt": "abdominal-wall defect"
+      },
+      {
+        "src": "limb views",
+        "rel": "screening_for",
+        "tgt": "major limb-reduction defect"
+      },
+      {
+        "src": "increased NT",
+        "rel": "associated_with",
+        "tgt": "increased risk of cardiac and genetic abnormalities"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Minimum requirements and detailed assessment of fetal anatomy",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "The basic examination includes axial head/brain assessment",
+      "The median sagittal head-and-neck view measures CRL and NT",
+      "The abdominal assessment checks the stomach and intact abdominal wall",
+      "The basic examination assesses the bladder and all four limbs with three segments",
+      "Detailed cardiac views are additional to the basic examination"
+    ],
+    "safety_flags": [
+      "Do not state that the basic first-trimester examination excludes all structural anomalies.",
+      "Do not call increased NT a structural diagnosis."
+    ],
+    "question_id": "PU-L2-018-cp-08b",
+    "question": "At 32 to 36 weeks of gestation, what is the minimum set of stored planes for first-trimester screening?",
+    "variant_group": "CP-08",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "一孕周留存切面是一孕周专属要求；第三孕周变体应全部不适用。"
+  },
+  {
+    "question_type": "workflow_decision",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 2,
+    "clinical_scenario": "First-trimester cardiac assessment",
+    "gold_answer": "Combined B-mode and color Doppler confirms two separate ventricles with separate diastolic filling and helps exclude significant atrioventricular valve insufficiency. Identification of the left ventricular outflow tract and the three-vessel-and-trachea view in color Doppler shows the presence, number and size of the great vessels, their relationships and blood-flow direction, and ductal and aortic-arch continuity, excluding most complex great-vessel anomalies. For safety, Doppler is not indicated during routine first-trimester scanning.",
+    "gold_entities": [
+      "color Doppler",
+      "LVOT",
+      "three-vessel-and-trachea view",
+      "atrioventricular valve insufficiency",
+      "great vessels"
+    ],
+    "gold_relations": [
+      {
+        "src": "color Doppler",
+        "rel": "supports_diagnosis_of",
+        "tgt": "separate ventricular diastolic filling"
+      },
+      {
+        "src": "3VTV",
+        "rel": "screening_for",
+        "tgt": "complex great-vessel anomalies"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Thorax and heart; Doppler safety",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Color Doppler confirms two separate ventricles with separate diastolic filling",
+      "It helps exclude significant atrioventricular valve insufficiency",
+      "LVOT and 3VTV in color Doppler assess great-vessel anatomy and continuity",
+      "Doppler is not indicated during routine first-trimester scanning"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L2-028-cp-09a",
+    "question": "At 11 to 14 weeks of gestation, what is the role of color Doppler in early fetal cardiac assessment?",
+    "variant_group": "CP-09",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "11-14 weeks",
+    "condition_note": "早孕期彩色多普勒是一孕周专属；远移第三孕周验证过滤。"
+  },
+  {
+    "question_type": "workflow_decision",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 2,
+    "clinical_scenario": "First-trimester cardiac assessment",
+    "gold_answer": "Combined B-mode and color Doppler confirms two separate ventricles with separate diastolic filling and helps exclude significant atrioventricular valve insufficiency. Identification of the left ventricular outflow tract and the three-vessel-and-trachea view in color Doppler shows the presence, number and size of the great vessels, their relationships and blood-flow direction, and ductal and aortic-arch continuity, excluding most complex great-vessel anomalies. For safety, Doppler is not indicated during routine first-trimester scanning.",
+    "gold_entities": [
+      "color Doppler",
+      "LVOT",
+      "three-vessel-and-trachea view",
+      "atrioventricular valve insufficiency",
+      "great vessels"
+    ],
+    "gold_relations": [
+      {
+        "src": "color Doppler",
+        "rel": "supports_diagnosis_of",
+        "tgt": "separate ventricular diastolic filling"
+      },
+      {
+        "src": "3VTV",
+        "rel": "screening_for",
+        "tgt": "complex great-vessel anomalies"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Thorax and heart; Doppler safety",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Color Doppler confirms two separate ventricles with separate diastolic filling",
+      "It helps exclude significant atrioventricular valve insufficiency",
+      "LVOT and 3VTV in color Doppler assess great-vessel anatomy and continuity",
+      "Doppler is not indicated during routine first-trimester scanning"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L2-028-cp-09b",
+    "question": "At 32 to 36 weeks of gestation, what is the role of color Doppler in early fetal cardiac assessment?",
+    "variant_group": "CP-09",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "早孕期彩色多普勒是一孕周专属；远移第三孕周验证过滤。"
+  },
+  {
+    "question_type": "genetic_counseling",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 3,
+    "clinical_scenario": "First-trimester increased NT",
+    "gold_answer": "Increased NT can be a marker for rarer aneuploidies and for structural and genetic anomalies, and it is associated with an increased risk of intrauterine fetal death. NT is increased in up to 40% of fetuses with a severe heart defect. It is a risk marker interpreted with a validated gestation-specific percentile and algorithm, not a diagnosis. cfDNA screens only a limited set of common aneuploidies and does not replace the NT-based assessment or its follow-up.",
+    "gold_entities": [
+      "increased NT",
+      "aneuploidy",
+      "structural anomaly",
+      "cardiac defect",
+      "cfDNA"
+    ],
+    "gold_relations": [
+      {
+        "src": "increased NT",
+        "rel": "indicates",
+        "tgt": "increased risk of aneuploidy and structural anomalies"
+      },
+      {
+        "src": "increased NT",
+        "rel": "associated_with",
+        "tgt": "cardiac defects"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Nuchal translucency; fetal anatomy and cardiac assessment",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Increased NT is a risk marker, not a diagnosis",
+      "It is associated with aneuploidy, structural and genetic anomalies and intrauterine fetal death",
+      "NT is increased in up to 40% of fetuses with a severe heart defect",
+      "cfDNA does not replace the NT-based assessment"
+    ],
+    "safety_flags": [
+      "Do not treat increased NT as a diagnosis by itself."
+    ],
+    "question_id": "PU-L2-029-cp-10a",
+    "question": "At 11 to 14 weeks of gestation, how should an increased nuchal translucency measurement be interpreted?",
+    "variant_group": "CP-10",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "11-14 weeks",
+    "condition_note": "NT 增大解释是一孕周专属（NT 非三孕周筛查项目）；远移第三孕周应强触发。"
+  },
+  {
+    "question_type": "genetic_counseling",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 3,
+    "clinical_scenario": "First-trimester increased NT",
+    "gold_answer": "Increased NT can be a marker for rarer aneuploidies and for structural and genetic anomalies, and it is associated with an increased risk of intrauterine fetal death. NT is increased in up to 40% of fetuses with a severe heart defect. It is a risk marker interpreted with a validated gestation-specific percentile and algorithm, not a diagnosis. cfDNA screens only a limited set of common aneuploidies and does not replace the NT-based assessment or its follow-up.",
+    "gold_entities": [
+      "increased NT",
+      "aneuploidy",
+      "structural anomaly",
+      "cardiac defect",
+      "cfDNA"
+    ],
+    "gold_relations": [
+      {
+        "src": "increased NT",
+        "rel": "indicates",
+        "tgt": "increased risk of aneuploidy and structural anomalies"
+      },
+      {
+        "src": "increased NT",
+        "rel": "associated_with",
+        "tgt": "cardiac defects"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Nuchal translucency; fetal anatomy and cardiac assessment",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Increased NT is a risk marker, not a diagnosis",
+      "It is associated with aneuploidy, structural and genetic anomalies and intrauterine fetal death",
+      "NT is increased in up to 40% of fetuses with a severe heart defect",
+      "cfDNA does not replace the NT-based assessment"
+    ],
+    "safety_flags": [
+      "Do not treat increased NT as a diagnosis by itself."
+    ],
+    "question_id": "PU-L2-029-cp-10b",
+    "question": "At 32 to 36 weeks of gestation, how should an increased nuchal translucency measurement be interpreted?",
+    "variant_group": "CP-10",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "NT 增大解释是一孕周专属（NT 非三孕周筛查项目）；远移第三孕周应强触发。"
+  },
+  {
+    "question_type": "structural_anomaly",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 3,
+    "clinical_scenario": "First-trimester aneuploidy screening",
+    "gold_answer": "A hypoplastic or absent nasal bone at 11+0–14+0 weeks is a powerful marker for trisomy 21, reported as absent or hypoplastic in 50–60% of affected fetuses and rarely in euploid fetuses, and is associated with high positive and negative likelihood ratios. It is assessed in the same median sagittal plane as the nuchal translucency.",
+    "gold_entities": [
+      "nasal bone",
+      "trisomy 21",
+      "median sagittal plane",
+      "likelihood ratio"
+    ],
+    "gold_relations": [
+      {
+        "src": "hypoplastic/absent nasal bone",
+        "rel": "indicator_of",
+        "tgt": "trisomy 21"
+      },
+      {
+        "src": "nasal bone",
+        "rel": "measured_at",
+        "tgt": "median sagittal plane"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Additional ultrasound markers: nasal bone",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Absent/hypoplastic nasal bone is a marker for trisomy 21",
+      "It is present in 50–60% of affected fetuses and rarely in euploid fetuses",
+      "It is assessed in the median sagittal plane"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L2-030-cp-11a",
+    "question": "At 11 to 14 weeks of gestation, what is the role of the nasal bone in first-trimester screening?",
+    "variant_group": "CP-11",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "11-14 weeks",
+    "condition_note": "鼻骨是一孕周筛查标志；第三孕周变体应使一孕周证据不适用。"
+  },
+  {
+    "question_type": "structural_anomaly",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 3,
+    "clinical_scenario": "First-trimester aneuploidy screening",
+    "gold_answer": "A hypoplastic or absent nasal bone at 11+0–14+0 weeks is a powerful marker for trisomy 21, reported as absent or hypoplastic in 50–60% of affected fetuses and rarely in euploid fetuses, and is associated with high positive and negative likelihood ratios. It is assessed in the same median sagittal plane as the nuchal translucency.",
+    "gold_entities": [
+      "nasal bone",
+      "trisomy 21",
+      "median sagittal plane",
+      "likelihood ratio"
+    ],
+    "gold_relations": [
+      {
+        "src": "hypoplastic/absent nasal bone",
+        "rel": "indicator_of",
+        "tgt": "trisomy 21"
+      },
+      {
+        "src": "nasal bone",
+        "rel": "measured_at",
+        "tgt": "median sagittal plane"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Additional ultrasound markers: nasal bone",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Absent/hypoplastic nasal bone is a marker for trisomy 21",
+      "It is present in 50–60% of affected fetuses and rarely in euploid fetuses",
+      "It is assessed in the median sagittal plane"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L2-030-cp-11b",
+    "question": "At 32 to 36 weeks of gestation, what is the role of the nasal bone in first-trimester screening?",
+    "variant_group": "CP-11",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "鼻骨是一孕周筛查标志；第三孕周变体应使一孕周证据不适用。"
+  },
+  {
+    "question_type": "structural_anomaly",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 3,
+    "clinical_scenario": "First-trimester aneuploidy screening",
+    "gold_answer": "DV flow is assessed in a right paramedian plane using color Doppler. Early studies linked a reversed DV A-wave with aneuploidy, while newer data emphasize an increased ductus venosus pulsatility index (PIV) as a continuous variable associated with an increased risk of common trisomies. Functional cardiac anomalies are also associated with abnormal DV flow.",
+    "gold_entities": [
+      "ductus venosus",
+      "A-wave",
+      "pulsatility index",
+      "aneuploidy"
+    ],
+    "gold_relations": [
+      {
+        "src": "reversed DV A-wave / increased PIV",
+        "rel": "indicates",
+        "tgt": "increased risk of aneuploidy"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Ductus venosus flow",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "DV flow is assessed in a right paramedian plane",
+      "Reversed A-wave is associated with aneuploidy in early studies",
+      "Increased PIV is used as a continuous risk variable"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L2-031-cp-12a",
+    "question": "At 11 to 14 weeks of gestation, what is the role of ductus venosus (DV) flow assessment?",
+    "variant_group": "CP-12",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "11-14 weeks",
+    "condition_note": "静脉导管血流评估是一孕周项目；远移第三孕周验证过滤。"
+  },
+  {
+    "question_type": "structural_anomaly",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 3,
+    "clinical_scenario": "First-trimester aneuploidy screening",
+    "gold_answer": "DV flow is assessed in a right paramedian plane using color Doppler. Early studies linked a reversed DV A-wave with aneuploidy, while newer data emphasize an increased ductus venosus pulsatility index (PIV) as a continuous variable associated with an increased risk of common trisomies. Functional cardiac anomalies are also associated with abnormal DV flow.",
+    "gold_entities": [
+      "ductus venosus",
+      "A-wave",
+      "pulsatility index",
+      "aneuploidy"
+    ],
+    "gold_relations": [
+      {
+        "src": "reversed DV A-wave / increased PIV",
+        "rel": "indicates",
+        "tgt": "increased risk of aneuploidy"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Ductus venosus flow",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "DV flow is assessed in a right paramedian plane",
+      "Reversed A-wave is associated with aneuploidy in early studies",
+      "Increased PIV is used as a continuous risk variable"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L2-031-cp-12b",
+    "question": "At 32 to 36 weeks of gestation, what is the role of ductus venosus (DV) flow assessment?",
+    "variant_group": "CP-12",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "静脉导管血流评估是一孕周项目；远移第三孕周验证过滤。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 2,
+    "clinical_scenario": "First-trimester basic examination",
+    "gold_answer": "By 12 weeks of gestation, the fetal bladder should be visible as a median, round, hypoechoic structure in the lower abdomen with a longitudinal diameter <7 mm. The stomach and bladder are the only hypoechoic fluid-filled structures in the abdomen and pelvis. A non-dilated visible bladder is part of the basic minimum examination.",
+    "gold_entities": [
+      "fetal bladder",
+      "12 weeks",
+      "7 mm",
+      "basic minimum examination"
+    ],
+    "gold_relations": [
+      {
+        "src": "fetal bladder",
+        "rel": "observed_at",
+        "tgt": "11+0–14+0 weeks basic examination"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Abdominal content and bladder",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "The bladder should be visible by 12 weeks as a median hypoechoic structure",
+      "Normal longitudinal diameter is <7 mm",
+      "A non-dilated bladder is part of the basic minimum examination"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L2-032-cp-13a",
+    "question": "At 11 to 14 weeks of gestation, what should be documented about the fetal bladder?",
+    "variant_group": "CP-13",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "11-14 weeks",
+    "condition_note": "膀胱检查内容随孕周变化（11–14 周口径 vs 晚孕口径）；远移验证过滤。"
+  },
+  {
+    "question_type": "measurement_standard",
+    "difficulty": "L2",
+    "rag_arch_type": "multi-vector",
+    "kg_hops": 2,
+    "clinical_scenario": "First-trimester basic examination",
+    "gold_answer": "By 12 weeks of gestation, the fetal bladder should be visible as a median, round, hypoechoic structure in the lower abdomen with a longitudinal diameter <7 mm. The stomach and bladder are the only hypoechoic fluid-filled structures in the abdomen and pelvis. A non-dilated visible bladder is part of the basic minimum examination.",
+    "gold_entities": [
+      "fetal bladder",
+      "12 weeks",
+      "7 mm",
+      "basic minimum examination"
+    ],
+    "gold_relations": [
+      {
+        "src": "fetal bladder",
+        "rel": "observed_at",
+        "tgt": "11+0–14+0 weeks basic examination"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Abdominal content and bladder",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "The bladder should be visible by 12 weeks as a median hypoechoic structure",
+      "Normal longitudinal diameter is <7 mm",
+      "A non-dilated bladder is part of the basic minimum examination"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L2-032-cp-13b",
+    "question": "At 32 to 36 weeks of gestation, what should be documented about the fetal bladder?",
+    "variant_group": "CP-13",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "膀胱检查内容随孕周变化（11–14 周口径 vs 晚孕口径）；远移验证过滤。"
+  },
+  {
+    "question_type": "structural_anomaly",
+    "difficulty": "L3",
+    "rag_arch_type": "graph-enhanced",
+    "kg_hops": 4,
+    "clinical_scenario": "Fetal cardiac axis abnormality",
+    "gold_answer": "An abnormal cardiac axis increases the risk of a cardiac malformation, especially involving the outflow tracts, and may be associated with a chromosomal anomaly. The normal apex points to the left at about 45 ± 20°. Axis displacement can also be caused by a diaphragmatic hernia or a space-occupying lesion such as a congenital pulmonary airway malformation.",
+    "gold_entities": [
+      "cardiac axis",
+      "cardiac malformation",
+      "outflow tract",
+      "diaphragmatic hernia",
+      "CPAM"
+    ],
+    "gold_relations": [
+      {
+        "src": "abnormal cardiac axis",
+        "rel": "indicates",
+        "tgt": "increased risk of cardiac malformation"
+      },
+      {
+        "src": "abnormal cardiac axis",
+        "rel": "associated_with",
+        "tgt": "chromosomal anomaly"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Situs and general appearance",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Normal cardiac apex points left at about 45 ± 20°",
+      "Abnormal axis increases risk of cardiac malformation, especially outflow tract",
+      "Abnormal axis may be associated with chromosomal anomalies and thoracic masses"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L3-031-cp-14a",
+    "question": "At 18 to 24 weeks of gestation, what is the clinical significance of an abnormal fetal cardiac axis?",
+    "variant_group": "CP-14",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "18-24 weeks",
+    "condition_note": "心脏轴异常评估为中孕心筛语境；第三孕周变体触发过滤。"
+  },
+  {
+    "question_type": "structural_anomaly",
+    "difficulty": "L3",
+    "rag_arch_type": "graph-enhanced",
+    "kg_hops": 4,
+    "clinical_scenario": "Fetal cardiac axis abnormality",
+    "gold_answer": "An abnormal cardiac axis increases the risk of a cardiac malformation, especially involving the outflow tracts, and may be associated with a chromosomal anomaly. The normal apex points to the left at about 45 ± 20°. Axis displacement can also be caused by a diaphragmatic hernia or a space-occupying lesion such as a congenital pulmonary airway malformation.",
+    "gold_entities": [
+      "cardiac axis",
+      "cardiac malformation",
+      "outflow tract",
+      "diaphragmatic hernia",
+      "CPAM"
+    ],
+    "gold_relations": [
+      {
+        "src": "abnormal cardiac axis",
+        "rel": "indicates",
+        "tgt": "increased risk of cardiac malformation"
+      },
+      {
+        "src": "abnormal cardiac axis",
+        "rel": "associated_with",
+        "tgt": "chromosomal anomaly"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-fetal-cardiac-screening-2023",
+        "section": "Situs and general appearance",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "Normal cardiac apex points left at about 45 ± 20°",
+      "Abnormal axis increases risk of cardiac malformation, especially outflow tract",
+      "Abnormal axis may be associated with chromosomal anomalies and thoracic masses"
+    ],
+    "safety_flags": [],
+    "question_id": "PU-L3-031-cp-14b",
+    "question": "At 32 to 36 weeks of gestation, what is the clinical significance of an abnormal fetal cardiac axis?",
+    "variant_group": "CP-14",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "心脏轴异常评估为中孕心筛语境；第三孕周变体触发过滤。"
+  },
+  {
+    "question_type": "cross_guideline",
+    "difficulty": "L3",
+    "rag_arch_type": "graph-enhanced",
+    "kg_hops": 3,
+    "clinical_scenario": "Cross-guideline comparison",
+    "gold_answer": "ISUOG 2023 distinguishes a basic minimum examination from a more detailed first-trimester anatomical assessment. At 11+0–14+0 weeks, the basic minimum includes: axial assessment of the head and brain (calvarial contour, interhemispheric falx, and choroid plexuses); a sagittal head-and-neck image with NT; an axial thoracic image at the level of the heart to confirm intrathoracic location and regular rhythm; axial abdominal assessment of stomach and intact abdominal wall; bladder visualization without dilatation; and four limbs, each with three segments. Nasal bone assessment, a detailed four-chamber view, outflow-tract views, and the three-vessel-and-trachea view belong to the detailed assessment and should not be misrepresented as ISUOG minimum requirements. The cited 2022 Chinese source has not been independently verified from a primary publication in this dataset; therefore, no exact Chinese mandatory/optional comparison should be asserted here. In clinical use, verify the current, officially adopted local protocol, meet its regulatory requirements, and document any additional ISUOG-based assessment as an enhancement rather than a substitute for local rules.",
+    "gold_entities": [
+      "ISUOG-11-14w-2023",
+      "basic minimum examination",
+      "detailed first-trimester assessment",
+      "nasal bone",
+      "four-chamber view",
+      "LVOT",
+      "three-vessel-and-trachea view",
+      "locally adopted protocol"
+    ],
+    "gold_relations": [
+      {
+        "src": "ISUOG-11-14w-2023",
+        "rel": "defined_by",
+        "tgt": "basic minimum examination"
+      },
+      {
+        "src": "nasal bone",
+        "rel": "part_of",
+        "tgt": "detailed first-trimester assessment"
+      },
+      {
+        "src": "four-chamber view",
+        "rel": "part_of",
+        "tgt": "detailed first-trimester assessment"
+      },
+      {
+        "src": "locally adopted protocol",
+        "rel": "defined_by",
+        "tgt": "local regulatory authority"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Minimum requirements and detailed assessment of fetal anatomy",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "ISUOG distinguishes a basic minimum examination from detailed assessment",
+      "The basic examination includes head/brain, NT, cardiac location/rhythm, abdomen, bladder, and limbs",
+      "Nasal bone and detailed cardiac views are not ISUOG minimum requirements",
+      "The exact local Chinese protocol must be verified from its current official primary text",
+      "Local regulatory requirements remain the clinical compliance baseline"
+    ],
+    "safety_flags": [
+      "Do not state unverified local mandatory or optional requirements as facts.",
+      "Do not represent detailed ISUOG views as minimum requirements."
+    ],
+    "question_id": "PU-L3-026-cp-15a",
+    "question": "At 11 to 14 weeks of gestation, how do ISUOG and Chinese guidelines differ in their minimum requirements for first-trimester structural examination?",
+    "variant_group": "CP-15",
+    "variant_axis": "gestational_age",
+    "variant_role": "matched",
+    "window_label": "11-14 weeks",
+    "condition_note": "一孕周最低要求对比是一孕周语境；远移第三孕周验证过滤。"
+  },
+  {
+    "question_type": "cross_guideline",
+    "difficulty": "L3",
+    "rag_arch_type": "graph-enhanced",
+    "kg_hops": 3,
+    "clinical_scenario": "Cross-guideline comparison",
+    "gold_answer": "ISUOG 2023 distinguishes a basic minimum examination from a more detailed first-trimester anatomical assessment. At 11+0–14+0 weeks, the basic minimum includes: axial assessment of the head and brain (calvarial contour, interhemispheric falx, and choroid plexuses); a sagittal head-and-neck image with NT; an axial thoracic image at the level of the heart to confirm intrathoracic location and regular rhythm; axial abdominal assessment of stomach and intact abdominal wall; bladder visualization without dilatation; and four limbs, each with three segments. Nasal bone assessment, a detailed four-chamber view, outflow-tract views, and the three-vessel-and-trachea view belong to the detailed assessment and should not be misrepresented as ISUOG minimum requirements. The cited 2022 Chinese source has not been independently verified from a primary publication in this dataset; therefore, no exact Chinese mandatory/optional comparison should be asserted here. In clinical use, verify the current, officially adopted local protocol, meet its regulatory requirements, and document any additional ISUOG-based assessment as an enhancement rather than a substitute for local rules.",
+    "gold_entities": [
+      "ISUOG-11-14w-2023",
+      "basic minimum examination",
+      "detailed first-trimester assessment",
+      "nasal bone",
+      "four-chamber view",
+      "LVOT",
+      "three-vessel-and-trachea view",
+      "locally adopted protocol"
+    ],
+    "gold_relations": [
+      {
+        "src": "ISUOG-11-14w-2023",
+        "rel": "defined_by",
+        "tgt": "basic minimum examination"
+      },
+      {
+        "src": "nasal bone",
+        "rel": "part_of",
+        "tgt": "detailed first-trimester assessment"
+      },
+      {
+        "src": "four-chamber view",
+        "rel": "part_of",
+        "tgt": "detailed first-trimester assessment"
+      },
+      {
+        "src": "locally adopted protocol",
+        "rel": "defined_by",
+        "tgt": "local regulatory authority"
+      }
+    ],
+    "gold_sources": [
+      {
+        "guide": "ISUOG-11-14w-2023",
+        "section": "Minimum requirements and detailed assessment of fetal anatomy",
+        "evidence_level": "L1",
+        "page": null
+      }
+    ],
+    "must_have_statements": [
+      "ISUOG distinguishes a basic minimum examination from detailed assessment",
+      "The basic examination includes head/brain, NT, cardiac location/rhythm, abdomen, bladder, and limbs",
+      "Nasal bone and detailed cardiac views are not ISUOG minimum requirements",
+      "The exact local Chinese protocol must be verified from its current official primary text",
+      "Local regulatory requirements remain the clinical compliance baseline"
+    ],
+    "safety_flags": [
+      "Do not state unverified local mandatory or optional requirements as facts.",
+      "Do not represent detailed ISUOG views as minimum requirements."
+    ],
+    "question_id": "PU-L3-026-cp-15b",
+    "question": "At 32 to 36 weeks of gestation, how do ISUOG and Chinese guidelines differ in their minimum requirements for first-trimester structural examination?",
+    "variant_group": "CP-15",
+    "variant_axis": "gestational_age",
+    "variant_role": "mismatched",
+    "window_label": "32-36 weeks",
+    "condition_note": "一孕周最低要求对比是一孕周语境；远移第三孕周验证过滤。"
+  }
+]

@@ -108,10 +108,17 @@ class RelationType(str, Enum):
 
 
 class EvidenceLevel(str, Enum):
-    """证据层级。"""
+    """证据层级。
+
+    已知设计缺陷（PACE 主文档 §3 / 续记 §1#7）：本枚举把“来源组织范围”与
+    “研究设计/推荐强度”压缩进单一维度——L1 同时容纳国际指南与 FDA 网页，
+    L3 同时容纳教材与 2014 年回顾性研究。拆轴方向为
+    来源组织范围 × 研究设计 × 推荐强度 × 适用情境；国际指南不自动高于本地规范。
+    拆轴前仅以本注释标记，不改运行代码。
+    """
 
     L1 = "L1"
-    """国际权威指南（ISUOG / ACOG / ISPD）。"""
+    """国际权威指南（ISUOG / ACOG / ISPD / SMFM）。"""
 
     L2 = "L2"
     """国内规范（中华医学会 / 国家卫健委）。"""
@@ -282,6 +289,82 @@ GUIDELINE_REGISTRY: dict[str, dict] = {
         "organization": "中华医学会超声医学分会",
         "year": 2019,
         "evidence_level": EvidenceLevel.L2,
+        "valid_until": None,
+    },
+    "ISPD-nipt-2023": {
+        "title": "Position statement from the International Society for Prenatal Diagnosis on the use of non-invasive prenatal testing for the detection of fetal chromosomal conditions in singleton pregnancies",
+        "organization": "ISPD",
+        "year": 2023,
+        "evidence_level": EvidenceLevel.L1,
+        "doi": "10.1002/pd.6357",
+        "url": "https://doi.org/10.1002/pd.6357",
+        "valid_until": None,
+    },
+    "ISPD-genome-wide-sequencing-2022": {
+        "title": "International Society for Prenatal Diagnosis (ISPD) Updated Position Statement on the use of genome-wide sequencing for prenatal diagnosis",
+        "organization": "ISPD",
+        "year": 2022,
+        "evidence_level": EvidenceLevel.L1,
+        "doi": "10.1002/pd.6157",
+        "url": "https://doi.org/10.1002/pd.6157",
+        "valid_until": None,
+    },
+    "SMFM-consult-57-soft-markers-2021": {
+        "title": "SMFM Consult Series #57: Evaluation and management of isolated soft ultrasound markers for aneuploidy in the second trimester",
+        "organization": "SMFM",
+        "year": 2021,
+        "evidence_level": EvidenceLevel.L1,
+        "doi": "10.1016/j.ajog.2021.06.016",
+        "url": "https://doi.org/10.1016/j.ajog.2021.06.016",
+        "note": "Replaces Consults #10 (2010)、#16 (2011)、#17 (2011)、#25 (2013)、#27 (2013)；Replaces 列表经语料页首核对，是 SUPERSEDES 题源。",
+        "valid_until": None,
+    },
+    "SMFM-cfdna-ultrasound-2017": {
+        "title": "The role of ultrasound in women who undergo cell-free DNA screening",
+        "organization": "SMFM",
+        "year": 2017,
+        "evidence_level": EvidenceLevel.L1,
+        "doi": "10.1016/j.ajog.2017.01.005",
+        "url": "https://doi.org/10.1016/j.ajog.2017.01.005",
+        "valid_until": None,
+    },
+    "ISUOG-fetal-mri-2017": {
+        "title": "ISUOG Practice Guidelines: performance of fetal magnetic resonance imaging",
+        "organization": "ISUOG",
+        "year": 2017,
+        "evidence_level": EvidenceLevel.L1,
+        "doi": "10.1002/uog.17412",
+        "url": "https://doi.org/10.1002/uog.17412",
+        "superseded_by": "ISUOG-fetal-mri-2023",
+        "valid_until": None,
+    },
+    "ISUOG-fetal-mri-2023": {
+        "title": "ISUOG Practice Guidelines (updated): performance of fetal magnetic resonance imaging",
+        "organization": "ISUOG",
+        "year": 2023,
+        "evidence_level": EvidenceLevel.L1,
+        "doi": "10.1002/uog.26129",
+        "url": "https://doi.org/10.1002/uog.26129",
+        "valid_until": None,
+    },
+    "ISUOG-basic-cardiac-screening-2006": {
+        "title": "Cardiac screening examination of the fetus: guidelines for performing the 'basic' and 'extended basic' cardiac scan",
+        "organization": "ISUOG",
+        "year": 2006,
+        "evidence_level": EvidenceLevel.L1,
+        "doi": "10.1002/uog.2677",
+        "url": "https://doi.org/10.1002/uog.2677",
+        "superseded_by": "ISUOG-sonographic-screening-fetal-heart-2013",
+        "valid_until": None,
+    },
+    "ISUOG-sonographic-screening-fetal-heart-2013": {
+        "title": "ISUOG Practice Guidelines (updated): sonographic screening examination of the fetal heart",
+        "organization": "ISUOG",
+        "year": 2013,
+        "evidence_level": EvidenceLevel.L1,
+        "doi": "10.1002/uog.12403",
+        "url": "https://doi.org/10.1002/uog.12403",
+        "superseded_by": "ISUOG-fetal-cardiac-screening-2023",
         "valid_until": None,
     },
 }

@@ -19,8 +19,10 @@ from pathlib import Path
 from typing import Any
 
 from benchmark.common.corpus import (
+    KNOWN_SOURCE_ISSUES,
     MANIFEST_NAME,
     canonical_source_id,
+    extract_page1_doi,
     extract_pdf_text,
     now_iso,
     safe_slug,
@@ -53,6 +55,77 @@ def load_corpus_manifest(corpus_dir: Path | None = None) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def plan_family_duplicates(
+    documents: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[tuple[str, str]]]:
+    """Decide same-article duplicate drops from page-1 DOI identity.
+
+    Two PDFs may hold the same article with different bytes (publisher layout
+    vs scanned reprint).  When their page-1 DOIs match, only the copy with the
+    most extracted characters is kept; the others become duplicate records
+    referencing the kept text.  Source groups that still hold several records
+    with diverging or missing DOIs are reported as unresolved warnings instead
+    of being merged.  Byte-identical duplicates (status ``duplicate``) and
+    failures (``error``) are never candidates.
+    """
+    candidates = [
+        record for record in documents if record["status"] in {"ok", "partial"}
+    ]
+    by_source: dict[str, list[dict[str, Any]]] = {}
+    for record in candidates:
+        by_source.setdefault(record["source_id"], []).append(record)
+
+    duplicate_records: list[dict[str, Any]] = []
+    warnings: list[tuple[str, str]] = []
+    for source_id in sorted(by_source):
+        group = by_source[source_id]
+        by_doi: dict[str, list[dict[str, Any]]] = {}
+        for record in group:
+            doi = record.get("page1_doi")
+            if doi:
+                by_doi.setdefault(doi, []).append(record)
+        dropped_names: set[str] = set()
+        for doi in sorted(by_doi):
+            members = by_doi[doi]
+            if len(members) < 2:
+                continue
+            ranked = sorted(
+                members,
+                key=lambda record: (-record["text_characters"], record["pdf_file"]),
+            )
+            kept = ranked[0]
+            for dropped in ranked[1:]:
+                dropped_names.add(dropped["pdf_file"])
+                duplicate_records.append(
+                    {
+                        "source_id": source_id,
+                        "pdf_file": dropped["pdf_file"],
+                        "pdf_sha256": dropped["pdf_sha256"],
+                        "input_file": kept["input_file"],
+                        "page_count": kept["page_count"],
+                        "text_characters": kept["text_characters"],
+                        "status": "duplicate",
+                        "duplicate_of": kept["pdf_file"],
+                        "duplicate_reason": "same-page1-doi",
+                        "page1_doi": doi,
+                        "warnings": [],
+                    }
+                )
+        remaining = [
+            record for record in group if record["pdf_file"] not in dropped_names
+        ]
+        distinct_dois = {record.get("page1_doi") for record in remaining}
+        if len(remaining) > 1 and (None in distinct_dois or len(distinct_dois) > 1):
+            warnings.append(
+                (
+                    source_id,
+                    f"{len(remaining)} 个同 source_id 版本无法用页首 DOI 归并 "
+                    f"(page1_doi: {sorted(str(doi) for doi in distinct_dois)})",
+                )
+            )
+    return duplicate_records, warnings
+
+
 def prepare_corpus(
     *,
     raw_dir: Path,
@@ -63,8 +136,13 @@ def prepare_corpus(
     """Extract every PDF once into the unified corpus directory.
 
     The output filename embeds the PDF's sha256 so a changed PDF produces a new
-    file instead of silently mutating the shared corpus.  Duplicates (same
-    source_id + content hash) are recorded but not re-extracted.
+    file instead of silently mutating the shared corpus.  Duplicates are
+    recorded but not re-indexed: byte-identical copies by sha256, and
+    same-article copies whose page-1 DOI matches (the copy with the most
+    extracted text is kept).  Kept texts are written only after dedup, so
+    dropped copies never touch disk.  Texts under ``input/`` that no manifest
+    document references are pruned; ``pruned_text_count`` only counts
+    orphans that predate this run.
     """
     raw_dir = raw_dir.resolve()
     corpus_root = (corpus_dir or DEFAULT_CORPUS_DIR).resolve()
@@ -90,7 +168,9 @@ def prepare_corpus(
         questions = load_questions(dataset_path)
 
     documents: list[dict[str, Any]] = []
+    preexisting_texts = {path.name for path in input_dir.glob("*.txt")}
     extracted_documents: dict[tuple[str, str], dict[str, Any]] = {}
+    pending_bodies: dict[str, str] = {}
     for index, pdf_path in enumerate(pdf_paths, start=1):
         pdf_hash = sha256_file(pdf_path)
         source_id = canonical_source_id(pdf_path)
@@ -112,26 +192,23 @@ def prepare_corpus(
                     "text_characters": duplicate["text_characters"],
                     "status": "duplicate",
                     "duplicate_of": duplicate["pdf_file"],
+                    "duplicate_reason": "identical-bytes",
+                    "page1_doi": duplicate["page1_doi"],
                     "warnings": [],
                 }
             )
             continue
 
         print(f"[{index}/{len(pdf_paths)}] 提取 {pdf_path.name}", flush=True)
+        known_issue_warnings: list[str] = []
+        if pdf_path.name in KNOWN_SOURCE_ISSUES:
+            known_issue_warnings.append(KNOWN_SOURCE_ISSUES[pdf_path.name])
 
         try:
             body, page_count, page_warnings = extract_pdf_text(pdf_path)
             if not body.strip():
                 raise ValueError("未提取到可索引文本")
 
-            header = "\n".join(
-                [
-                    f"SOURCE_ID: {source_id}",
-                    f"ORIGINAL_FILE: {pdf_path.name}",
-                    f"PDF_SHA256: {pdf_hash}",
-                ]
-            )
-            output_path.write_text(f"{header}\n\n{body}\n", encoding="utf-8")
             status = "partial" if page_warnings else "ok"
             document = {
                 "source_id": source_id,
@@ -141,9 +218,11 @@ def prepare_corpus(
                 "page_count": page_count,
                 "text_characters": len(body),
                 "status": status,
-                "warnings": page_warnings,
+                "page1_doi": extract_page1_doi(body),
+                "warnings": [*page_warnings, *known_issue_warnings],
             }
             documents.append(document)
+            pending_bodies[pdf_path.name] = body
             extracted_documents[(source_id, pdf_hash)] = document
         except Exception as exc:  # noqa: BLE001
             documents.append(
@@ -155,9 +234,58 @@ def prepare_corpus(
                     "page_count": 0,
                     "text_characters": 0,
                     "status": "error",
+                    "page1_doi": None,
                     "warnings": [f"{type(exc).__name__}: {exc}"],
                 }
             )
+
+    duplicate_records, family_warnings = plan_family_duplicates(documents)
+    if duplicate_records:
+        family_dropped = {record["pdf_file"] for record in duplicate_records}
+        documents = [
+            record
+            for record in documents
+            if record["pdf_file"] not in family_dropped
+            or record["status"] not in {"ok", "partial"}
+        ]
+        documents.extend(duplicate_records)
+    for warning_source_id, message in family_warnings:
+        for record in documents:
+            if (
+                record["source_id"] == warning_source_id
+                and record["status"] in {"ok", "partial"}
+            ):
+                record["warnings"] = [*record["warnings"], message]
+    documents.sort(key=lambda record: record["pdf_file"].casefold())
+
+    # Materialize kept texts only after dedup: dropped copies never touch disk.
+    for record in documents:
+        if record["status"] not in {"ok", "partial"}:
+            continue
+        body = pending_bodies.pop(record["pdf_file"])
+        header = "\n".join(
+            [
+                f"SOURCE_ID: {record['source_id']}",
+                f"ORIGINAL_FILE: {record['pdf_file']}",
+                f"PDF_SHA256: {record['pdf_sha256']}",
+            ]
+        )
+        (input_dir / Path(record["input_file"]).name).write_text(
+            f"{header}\n\n{body}\n", encoding="utf-8"
+        )
+
+    referenced_inputs = {
+        Path(record["input_file"]).name
+        for record in documents
+        if record.get("input_file")
+    }
+    pruned_text_count = 0
+    for txt_path in sorted(input_dir.glob("*.txt")):
+        if txt_path.name not in referenced_inputs:
+            txt_path.unlink()
+            if txt_path.name in preexisting_texts:
+                pruned_text_count += 1
+                print(f"移除失效语料文本 {txt_path.name}", flush=True)
 
     successful_source_ids = {
         item["source_id"] for item in documents if item["status"] in {"ok", "partial"}
@@ -173,6 +301,7 @@ def prepare_corpus(
         "duplicate_count": sum(item["status"] == "duplicate" for item in documents),
         "error_count": sum(item["status"] == "error" for item in documents),
         "partial_count": sum(item["status"] == "partial" for item in documents),
+        "pruned_text_count": pruned_text_count,
         "documents": documents,
     }
     if questions is not None:

@@ -1,14 +1,28 @@
-# Prenatal GraphRAG Benchmark
+# PACE-RAG：产前超声条件化证据检索与可核验生成
 
-使用 Microsoft GraphRAG、LightRAG、PathRAG 和本地 OpenSPG KAG 对产前超声指南
-语料建库，并用 `benchmark/qa/dataset/sample_questions.json` 执行离线基线评测。
+本仓库实现 **PACE**（Prenatal Applicability-Constrained Evidence，产前适用性约束证据）：
+在孕周与检查条件约束下做证据集合检索与可核验生成——不只找到语义相关片段，而是找到一组
+共同支持回答、条件适用、来源可定位且保留真实分歧的证据。研究设计见
+[docs/2026-09-12/prenatal-ace-framework.md](docs/2026-09-12/prenatal-ace-framework.md)（主文档）
+及同日续记；实现进度见 [docs/2026-09-14/](docs/2026-09-14/) 与
+[docs/2026-09-15/](docs/2026-09-15/) 的基础批次记录。
+
+仓库同时保留基线评测（原 Prenatal GraphRAG Benchmark）：使用 Microsoft GraphRAG、
+LightRAG、PathRAG、HippoRAG 2 和本地 OpenSPG KAG 对产前超声指南语料建库，
+并用 `benchmark/qa/dataset/sample_questions.json` 执行离线基线评测。
 
 ## 代码架构
 
 ```
+prenatal_rag/             # PACE 研究包（证据真值层与检索/条件模块，不依赖 benchmark.*）
+├── evidence_store/       # 证据真值层：来源身份、页/span 锚点、chunk 文本（SQLite）
+├── applicability/        # 孕周以天解析与三值适用性判断
+├── retrieval/            # BM25/图/向量三通道，各通道只输出排名，上层 RRF 合并
+├── conditions/           # chunk 级条件抽取、GaWindow、三值分类与 B1 过滤
+├── evidence/             # 证据选择、版本引用核验与 supersession
 benchmark/
-├── .env                  # 统一 LLM 供应商配置（RAG_* 变量，五个基线共用）
-├── common/               # 五个基线共享的评测逻辑（不重复造轮子）
+├── .env                  # 统一 LLM 供应商配置（RAG_* 变量，各评测客户端共用）
+├── common/               # 各评测客户端共享的评测逻辑（不重复造轮子）
 │   ├── corpus.py         # PDF 提取、来源 ID 映射、manifest 写入
 │   ├── unified_corpus.py # 统一语料目录（data/corpus）提取与读取
 │   ├── usage.py          # token/成本统计聚合
@@ -22,7 +36,8 @@ benchmark/
 │   ├── light_rag_client/            # LightRAG 客户端 + 评测入口
 │   ├── pathrag_client/              # PathRAG 客户端 + 评测入口
 │   ├── kag_client/                  # 本地 OpenSPG KAG 客户端 + 评测入口
-│   └── hippo_rag_client/            # HippoRAG 2 客户端 + 评测入口
+│   ├── hippo_rag_client/            # HippoRAG 2 客户端 + 评测入口
+│   └── prenatal_rag_client/         # PACE 评测客户端（B0 冻结上下文 + B1 双臂）
 ├── data/
 │   ├── corpus/           # ★ 统一输入语料：input/ + corpus_manifest.json
 │   ├── microsoft_graphrag/  # GraphRAG 专属索引产物（output/、cache/）
@@ -35,6 +50,7 @@ tests/                    # pytest 测试（与源码结构对应）
 ├── conftest.py           # sys.path 与 vendored LightRAG/PathRAG/KAG 引导
 ├── test_common_*.py      # 共享模块单元测试
 └── baseline/             # 各基线的行为/冒烟测试
+docs/                     # 研究设计（2026-09-12）与基础批次进度（09-14/09-15）
 ```
 
 ### 统一输入输出
@@ -49,6 +65,43 @@ tests/                    # pytest 测试（与源码结构对应）
   向量化产物写 `benchmark/data/proceed/`，索引产物留在各基线目录。
 
 运行测试：`uv run --with pytest python -m pytest tests/ -v`
+
+## PACE 实现与当前进度
+
+PACE 把检索目标从"片段相关性"扩展为"证据集合的条件一致性与支持覆盖"，分四层：
+
+1. **证据真值层**（`prenatal_rag/evidence_store/`）：来源身份（manifest `source_id`、
+   PDF SHA-256）、页/span 锚点与 chunk 文本只有一份真值；LightRAG 图与向量库是可重建
+   投影，span 级引用只能由本层承担。
+2. **适用性判断**（`prenatal_rag/applicability/`）：孕周以天解析（GaWindow），对证据
+   输出 Applicable / Inapplicable / Unknown 三值判断，不做隐式区间模糊。
+3. **多通道检索**（`prenatal_rag/retrieval/`）：BM25、图通道、向量通道各自只输出排名，
+   由 `rrf.py` 合并为统一候选（k=16）；通道接线见 `pipeline.py` / `bridge.py`。
+4. **条件过滤与受控生成**（`prenatal_rag/conditions/` + `prenatal_rag_client`）：
+   chunk 级条件抽取后，按题目查询条件丢弃明确 Inapplicable 的上下文（B1 显式过滤）；
+   生成器使用 `[E1..En]` 编号证据与来源标识，并对版本引用做零 token 的一致性核验。
+
+### 当前状态（2026-09-15）
+
+- **B0**：LightRAG 新 namespace `light_rag_pace_b0_20260914`（26/26 索引、50 题、
+  不截断 Judge），final 0.9299；结果冻结于
+  `benchmark/results/light_rag/pace-b0-evaluation-20260914.json`。
+- **B1**：同检索、显式过滤的受控双臂（`b0_ctrl` vs `b1`），只隔离"是否条件过滤"一个变量。
+- **运行时检索臂**（批次十一/十二）：BM25+图 vs BM25+图+向量，逐题配对。检索层
+  recall 0.94→0.98，但收益集中在 2 题（其余 48 题 recall 已达天花板），final 仅
+  +0.0011（噪声级），且 faithfulness/completeness 轻微回退——层 N 的指标改善不自动
+  抬高层 N+1；下一步是候选池对齐与上下文取舍，而非继续堆通道。见
+  [批次十一](docs/2026-09-15/pace-foundation-batch-11.md)与
+  [批次十二](docs/2026-09-15/pace-foundation-batch-12.md)。
+
+### 运行 PACE 评测
+
+```bash
+# B1 双臂受控生成（复用冻结 B0 检索上下文；--dry-run 为零 token 管道验证）
+uv run python -m benchmark.baseline.prenatal_rag_client.benchmark \
+    --results benchmark/results/light_rag/pace-b0-evaluation-20260914.json \
+    --judge-mode optional
+```
 
 ## 运行
 

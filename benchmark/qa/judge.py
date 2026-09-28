@@ -41,9 +41,12 @@ class JudgeConfig:
     model: str | None = None
     api_key_env: str | None = None
     api_base: str | None = None
-    max_context_chars: int = 12000
-    max_answer_chars: int = 8000
-    max_gold_chars: int = 8000
+    # 评分必须使用实际生成时的完整证据包（docs/2026-09-12 续记 §4#2：旧默认 12000
+    # 字符截断曾造成 faithfulness 0.78→0.99 翻转）。历史报告系在截断下产出，
+    # 不可与新结果直接混比。
+    max_context_chars: int | None = None
+    max_answer_chars: int | None = None
+    max_gold_chars: int | None = None
 
     def resolve_model(self) -> str:
         """解析 Judge 模型名：显式参数 > ``JUDGE_COMPLETION_MODEL`` > 默认值。"""
@@ -77,8 +80,10 @@ def judge_model_from_env() -> str | None:
     return os.getenv(JUDGE_ENVIRONMENT["completion_model"], "").strip() or None
 
 
-def _clip(value: str, limit: int) -> str:
+def _clip(value: str, limit: int | None) -> str:
     value = str(value or "")
+    if limit is None:
+        return value
     return value if len(value) <= limit else value[:limit] + "\n...[truncated]"
 
 

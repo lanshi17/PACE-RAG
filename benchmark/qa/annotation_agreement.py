@@ -112,8 +112,8 @@ def fleiss_kappa(ratings: Sequence[Sequence[str]]) -> float:
     p_i_list = []
     for row in matrix:
         total = sum(row)  # = n_raters
-        p_i = sum(c * c for c in row) - total
-        p_i /= total * (total - 1) if total > 1 else 1
+        denominator = total * (total - 1) if total > 1 else 1
+        p_i = (sum(c * c for c in row) - total) / denominator
         p_i_list.append(p_i)
 
     p_bar = sum(p_i_list) / n_items  # 观察一致率
