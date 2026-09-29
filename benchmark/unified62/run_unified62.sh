@@ -7,16 +7,12 @@
 #   bash benchmark/unified62/run_unified62.sh evaluate  # 阶段 B：五框架评测
 #   bash benchmark/unified62/run_unified62.sh gate      # 门禁：benchmark_conditions 两两可比性校验
 set -euo pipefail
-cd "$(dirname "$0")/../.."
-
-MODE="${1:-}"
 DATASET="benchmark/qa/dataset/unified_62.json"
+# 题序 seed=42 预打乱文件（各客户端按数据集文件顺序执行，不保留 --question-id
+# 传入顺序，故用预打乱文件保证五框架同序；生成见下）
+SHUFFLED="benchmark/qa/dataset/unified_62_seed42.json"
 ORDER="benchmark/unified62/run_order_seed42.txt"
 OUTDIR="benchmark/results/unified62"
-
-# seed=42 打乱后的 question_id 顺序（预注册 §1；各框架 --question-id 逐题传入保证同序）。
-# 生成：python3 -c "import random,json; rng=random.Random(42); qs=json.load(open('benchmark/qa/dataset/unified_62.json')); o=list(range(62)); rng.shuffle(o); print('\n'.join(qs[i]['question_id'] for i in o))"
-
 MODE="${1:-}"
 # GraphRAG 的 settings.yaml 模板默认引用 ${GRAPHRAG_API_KEY}（上游 graphrag-llm
 # 约定），而本仓统一用 benchmark/.env 的 RAG_API_KEY；此处做别名导出，不改模板。
@@ -43,23 +39,35 @@ case "$MODE" in
       --save-dir benchmark/data/hipporag_unified62 --force
     ;;
   evaluate)
-    mkdir -p "$OUTDIR"
-    run_fw() { # $1=key, 余下为evaluate命令前缀
-      local key="$1"; shift
-      echo "==> $key evaluate (62题)"
-      local args=()
-      for q in "${QIDS[@]}"; do args+=(--question-id "$q"); done
-      # shellcheck disable=SC2068
-      uv run python $@ --output "$OUTDIR/$key/evaluation.json" "${args[@]}"
-    }
-    run_fw graphrag -m benchmark.baseline.microsoft_graphrag_client.benchmark evaluate \
-      --project-dir benchmark/data/microsoft_graphrag_unified62 $COMMON_EVAL --method adaptive
-    run_fw lightrag -m benchmark.baseline.light_rag_client.benchmark evaluate \
-      --project-dir benchmark/data/light_rag_unified62 $COMMON_EVAL --method adaptive
-    run_fw pathrag -m benchmark.baseline.pathrag_client.benchmark evaluate \
-      --project-dir benchmark/data/path_rag_unified62 $COMMON_EVAL --method adaptive
-    run_fw kag -m benchmark.baseline.kag_client.benchmark evaluate \
-      --project-dir benchmark/data/kag_unified62 $COMMON_EVAL --method adaptive
-    run_fw hipporag -m benchmark.baseline.hippo_rag_client.benchmark evaluate \
-      --save-dir benchmark/data/hipporag_unified62 $COMMON_EVAL
+    mkdir -p "$OUTDIR"/{graphrag,lightrag,pathrag,kag,hipporag}
+    # 各客户端按数据集文件顺序执行：用预打乱文件保证五框架同序（§1）。
+    COMMON_EVAL="--dataset $SHUFFLED --judge-mode required --judge-model gpt-5"
+    echo "==> [1/5] graphrag evaluate (62题)"
+    uv run python -m benchmark.baseline.microsoft_graphrag_client.benchmark evaluate \
+      --project-dir benchmark/data/microsoft_graphrag_unified62 $COMMON_EVAL --method adaptive \
+      --output "$OUTDIR/graphrag/evaluation.json"
+    echo "==> [2/5] lightrag evaluate (62题)"
+    uv run python -m benchmark.baseline.light_rag_client.benchmark evaluate \
+      --project-dir benchmark/data/light_rag_unified62 $COMMON_EVAL --method adaptive \
+      --output "$OUTDIR/lightrag/evaluation.json"
+    echo "==> [3/5] pathrag evaluate (62题)"
+    uv run python -m benchmark.baseline.pathrag_client.benchmark evaluate \
+      --project-dir benchmark/data/path_rag_unified62 $COMMON_EVAL --method adaptive \
+      --output "$OUTDIR/pathrag/evaluation.json"
+    echo "==> [4/5] kag evaluate (62题)"
+    uv run python -m benchmark.baseline.kag_client.benchmark evaluate \
+      --project-dir benchmark/data/kag_unified62 $COMMON_EVAL --method adaptive \
+      --output "$OUTDIR/kag/evaluation.json"
+    echo "==> [5/5] hipporag evaluate (62题)"
+    uv run python -m benchmark.baseline.hippo_rag_client.benchmark evaluate \
+      --save-dir benchmark/data/hipporag_unified62 $COMMON_EVAL \
+      --output "$OUTDIR/hipporag/evaluation.json"
+    ;;
+  gate)
+    uv run python benchmark/unified62/check_conditions.py
+    ;;
+  *)
+    echo "用法: $0 {index|evaluate|gate}" >&2
+    exit 1
+    ;;
 esac
