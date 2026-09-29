@@ -349,6 +349,7 @@ class LightRAGClient:
         )
 
     async def _retry_failed_async(self) -> int:
+        global _active_llm_func, _active_usage_tracker
         from lightrag.base import DocStatus
         from lightrag.kg.shared_storage import (
             commit_manual_retry_request,
@@ -364,30 +365,40 @@ class LightRAGClient:
         if not failed_before:
             return 0
 
-        pipeline_status = await get_namespace_data(
-            "pipeline_status", workspace=rag.workspace
-        )
-        pipeline_status_lock = get_namespace_lock(
-            "pipeline_status", workspace=rag.workspace
-        )
-        ingress = await get_pipeline_ingress(rag.workspace)
-        request_id = uuid4().hex
-        state: dict[str, bool] = {}
-        refusal = await commit_manual_retry_request(
-            pipeline_status,
-            pipeline_status_lock,
-            ingress,
-            request_id,
-            state,
-        )
-        if refusal is not None:
-            raise RuntimeError(f"failed to request LightRAG retry: {refusal}")
+        # 管道 worker 经 _tracked_llm 调用 LLM，与 index() 一样需要激活的
+        # telemetry 上下文；此前缺失导致重试中所有真实 LLM 调用直接抛错。
+        tracker = self._begin_usage_tracking()
+        _active_llm_func = self._llm_model_func or self._default_llm
+        _active_usage_tracker = tracker
+        try:
+            pipeline_status = await get_namespace_data(
+                "pipeline_status", workspace=rag.workspace
+            )
+            pipeline_status_lock = get_namespace_lock(
+                "pipeline_status", workspace=rag.workspace
+            )
+            ingress = await get_pipeline_ingress(rag.workspace)
+            request_id = uuid4().hex
+            state: dict[str, bool] = {}
+            refusal = await commit_manual_retry_request(
+                pipeline_status,
+                pipeline_status_lock,
+                ingress,
+                request_id,
+                state,
+            )
+            if refusal is not None:
+                raise RuntimeError(f"failed to request LightRAG retry: {refusal}")
 
-        await rag.apipeline_process_enqueue_documents()
-        failed_after = await rag.doc_status.get_docs_by_statuses(
-            [DocStatus.FAILED], strict=True
-        )
-        return len(failed_before) - len(failed_after)
+            await rag.apipeline_process_enqueue_documents()
+            failed_after = await rag.doc_status.get_docs_by_statuses(
+                [DocStatus.FAILED], strict=True
+            )
+            return len(failed_before) - len(failed_after)
+        finally:
+            _active_usage_tracker = None
+            _active_llm_func = None
+            self._usage_tracker = None
 
     def index(
         self,

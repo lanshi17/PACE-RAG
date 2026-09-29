@@ -147,3 +147,38 @@ def test_query_records_llm_usage(tmp_path: Path) -> None:
         assert result.telemetry["usage"]["cost_available"] is False
     finally:
         client.close()
+
+
+def test_retry_failed_activates_llm_context(tmp_path: Path) -> None:
+    """回归：retry-failed 管道 worker 走 _tracked_llm，必须激活上下文。
+
+    此前 _retry_failed_async 未设置 _active_llm_func，重试中所有真实 LLM
+    调用直接抛 RuntimeError（unified62 实测 135 次）。
+    """
+    from benchmark.baseline.light_rag_client import client as client_module
+
+    input_dir = tmp_path / "input"
+    input_dir.mkdir()
+    (input_dir / "guide.txt").write_text(
+        "SOURCE_ID: test-guide\nUltrasound assessment of the fetal heart is recommended.",
+        encoding="utf-8",
+    )
+    client = LightRAGClient(
+        tmp_path,
+        llm_model_func=_llm,
+        embedding_func=EmbeddingFunc(
+            embedding_dim=16,
+            max_token_size=4096,
+            func=_embedding,
+        ),
+    )
+    try:
+        client.index()
+        assert client_module._active_llm_func is None
+        assert client_module._active_usage_tracker is None
+        # 无失败文档时直接返回，不触碰上下文。
+        assert client.retry_failed() == 0
+        assert client_module._active_llm_func is None
+        assert client_module._active_usage_tracker is None
+    finally:
+        client.close()
