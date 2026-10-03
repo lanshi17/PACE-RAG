@@ -1256,6 +1256,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 llm_overrides=llm_overrides,
                 num_chains=args.num_chains,
             )
+        elif args.command == "run":
             prepare_corpus(
                 raw_dir=args.raw_dir,
                 project_dir=args.project_dir,
