@@ -301,7 +301,7 @@ def test_build_index_passes_selected_corpus_directory_to_client(
                 project_path / "kag_storage" / "ckpt" / "MemoryGraphWriter"
             )
 
-        def index(self, *, cache: bool) -> SimpleNamespace:
+        def index(self, *, cache: bool, num_chains: object = None) -> SimpleNamespace:
             observed["cache"] = cache
             return SimpleNamespace(
                 outputs=[{"id": "selected-corpus-document"}],

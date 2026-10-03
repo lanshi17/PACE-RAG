@@ -543,6 +543,7 @@ def build_index(
     cache: bool = True,
     verbose: bool = False,
     llm_overrides: LLMConfigOverrides | None = None,
+    num_chains: int | None = None,
 ) -> dict[str, Any]:
     """Build KAG's local graph/checkpoint index over the shared corpus."""
     resolved_corpus_dir = (corpus_dir or DEFAULT_CORPUS_DIR).resolve()
@@ -565,7 +566,7 @@ def build_index(
         verbose=verbose,
     )
     try:
-        result = client.index(cache=cache)
+        result = client.index(cache=cache, num_chains=num_chains)
         if result.has_errors:
             raise RuntimeError("KAG indexing failed:\n" + "\n".join(result.errors))
         return {
@@ -1157,6 +1158,12 @@ def build_parser() -> argparse.ArgumentParser:
     index.add_argument("--corpus-dir", type=Path, default=DEFAULT_CORPUS_DIR)
     index.add_argument("--no-cache", action="store_true")
     index.add_argument("--verbose", action="store_true")
+    index.add_argument(
+        "--num-chains",
+        type=int,
+        default=None,
+        help="并行建库 chain 数（默认 4；网关限流时用 1 串行）",
+    )
     _add_llm_override_arguments(index)
 
     evaluate_parser = sub.add_parser(
@@ -1247,8 +1254,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 cache=not args.no_cache,
                 verbose=args.verbose,
                 llm_overrides=llm_overrides,
+                num_chains=args.num_chains,
             )
-        elif args.command == "run":
             prepare_corpus(
                 raw_dir=args.raw_dir,
                 project_dir=args.project_dir,
