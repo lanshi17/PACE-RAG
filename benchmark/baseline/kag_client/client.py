@@ -748,14 +748,15 @@ class KAGClient:
         fingerprint = self._fingerprint(payload)
         if not cache:
             self._reset_storage()
-        elif (
-            self._has_index_artifacts()
-            and self._read_index_fingerprint() != fingerprint
-        ):
-            logger.info(
-                "KAG index inputs/configuration changed; rebuilding checkpoint storage"
-            )
-            self._reset_storage()
+        elif self._has_index_artifacts():
+            stored = self._read_index_fingerprint()
+            if stored is not None and stored != fingerprint:
+                logger.info(
+                    "KAG index inputs/configuration changed; rebuilding checkpoint storage"
+                )
+                self._reset_storage()
+            # stored 为空（历史失败残留或旧版 state）：保留 checkpoints 续跑，
+            # 由本次 index 结束时落盘的新 state 确立 fingerprint。
         return payload, fingerprint
 
     def _write_index_state(self, payload: Mapping[str, Any], fingerprint: str) -> None:
@@ -939,6 +940,7 @@ class KAGClient:
         skip_validation: bool = False,
         callbacks: list[Any] | None = None,
         input_documents: Any | None = None,
+        num_chains: int | None = None,
     ) -> IndexResult:
         """Run an index operation while this client's KAG globals are active."""
 
@@ -954,6 +956,7 @@ class KAGClient:
                 skip_validation=skip_validation,
                 callbacks=callbacks,
                 input_documents=input_documents,
+                num_chains=num_chains,
             )
 
     def _index(
@@ -965,6 +968,7 @@ class KAGClient:
         skip_validation: bool = False,
         callbacks: list[Any] | None = None,
         input_documents: Any | None = None,
+        num_chains: int | None = None,
     ) -> IndexResult:
         """Run the KAG builder chain over the project's input documents.
 
@@ -1029,7 +1033,8 @@ class KAGClient:
                 return f"{record.document_id}: {type(exc).__name__}: {exc}"
 
         try:
-            with ThreadPoolExecutor(max_workers=self._num_chains) as pool:
+            chains = num_chains if num_chains else self._num_chains
+            with ThreadPoolExecutor(max_workers=chains) as pool:
                 for result in pool.map(_build, records):
                     if isinstance(result, str):
                         errors.append(result)
@@ -1046,8 +1051,14 @@ class KAGClient:
                 for key in tokens_before
             }
         )
-        if not errors:
-            self._write_index_state(index_state, index_fingerprint)
+        self._write_index_state(
+            {
+                **index_state,
+                "completed_documents": sorted(o["id"] for o in outputs),
+                "failed_documents": sorted(e.split(":")[0] for e in errors),
+            },
+            index_fingerprint,
+        )
         return IndexResult(
             outputs=outputs,
             errors=errors,

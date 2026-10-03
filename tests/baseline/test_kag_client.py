@@ -792,9 +792,50 @@ def test_cache_true_rebuilds_when_documents_or_index_config_change(
         reconfigured.close()
 
 
+def test_cache_true_keeps_checkpoints_when_state_missing(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """无 state 文件的残留 checkpoints 不得被指纹门禁清空。
+
+    unified62 实测：失败的 index 不落盘 state；重跑时旧门禁把
+    `stored=None != fingerprint` 当"配置漂移"清空 checkpoints，
+    导致每次重跑都从零开始。现仅在 stored 非空且不一致时重建。
+    """
+
+    root = tmp_path / "resume"
+    root.mkdir()
+    client = _make_client(root)
+    guide = root / "input" / "guide.txt"
+    guide.write_text(
+        "FIRST-VERSION: nuchal translucency is measured at 11 to 14 weeks.",
+        encoding="utf-8",
+    )
+    try:
+        assert not client.index(cache=False).has_errors
+        (client.data_dir / "kag_index_state.json").unlink()
+        (client.data_dir / "ckpt").mkdir(exist_ok=True)
+        sentinel = client.data_dir / "ckpt" / "sentinel.txt"
+        sentinel.write_text("keep", encoding="utf-8")
+
+        reset_calls = 0
+        original_reset = client._reset_storage
+
+        def tracked_reset() -> None:
+            nonlocal reset_calls
+            reset_calls += 1
+            original_reset()
+
+        monkeypatch.setattr(client, "_reset_storage", tracked_reset)
+        assert not client.index(cache=True).has_errors
+        assert reset_calls == 0
+        assert sentinel.is_file()
+        assert (client.data_dir / "kag_index_state.json").is_file()
+    finally:
+        client.close()
+
+
 def test_openai_extra_body_drops_default_thinking_marker(monkeypatch) -> None:
     """Strict OpenAI-compatible gateways reject KAG's vLLM template marker.
-
     The vendored chat client injects ``chat_template_kwargs`` into every
     request's ``extra_body``; gateways that 400 on the unknown field would
     otherwise empty every extraction/solve call (the builder invokes the LLM
