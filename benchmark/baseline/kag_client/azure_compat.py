@@ -293,6 +293,30 @@ __all__ = [
     "ensure_azure_openai_compatibility",
     "ensure_chunk_content_compatibility",
     "ensure_logic_form_parse_compatibility",
+    "ensure_ner_none_compatibility",
     "ensure_openai_extra_body_compatibility",
     "ensure_ppr_chunk_content_compatibility",
 ]
+
+
+def ensure_ner_none_compatibility() -> None:
+    """Treat a failed NER LLM call (``with_except=False`` → ``None``) as zero entities.
+
+    上游 ``SchemaFreeExtractor._named_entity_recognition_process`` 直接迭代
+    NER 结果；当网关 429/断连导致 ``invoke`` 吞错返回 ``None``（`with_except=False`
+    语义），整文档建库崩溃为 ``TypeError``。空列表语义：该 passage 本轮无抽取实体，
+    后续 triples/标准化照常进行——宁可少边，不丢整文档。
+    """
+    from kag.builder.component.extractor import (
+        schema_free_extractor as extractor_module,
+    )
+
+    if getattr(extractor_module, "_PRENATAL_KAG_NER_NONE_COMPAT", False):
+        return
+    original = extractor_module.SchemaFreeExtractor._named_entity_recognition_process
+
+    def _process_with_none_guard(self: Any, passage: Any, ner_result: Any) -> Any:
+        return original(self, passage, ner_result or [])
+
+    extractor_module.SchemaFreeExtractor._named_entity_recognition_process = _process_with_none_guard  # type: ignore[method-assign]
+    extractor_module._PRENATAL_KAG_NER_NONE_COMPAT = True

@@ -53,6 +53,7 @@ from .provider_guard import ensure_provider_guard, guarded_query
 from .azure_compat import ensure_azure_openai_compatibility
 from .azure_compat import ensure_chunk_content_compatibility
 from .azure_compat import ensure_logic_form_parse_compatibility
+from .azure_compat import ensure_ner_none_compatibility
 from .azure_compat import ensure_openai_extra_body_compatibility
 from .azure_compat import ensure_ppr_chunk_content_compatibility
 from .constants import (
@@ -78,6 +79,7 @@ ensure_openai_extra_body_compatibility()
 ensure_chunk_content_compatibility()
 ensure_ppr_chunk_content_compatibility()
 ensure_logic_form_parse_compatibility()
+ensure_ner_none_compatibility()
 ensure_provider_guard()
 
 from kag.common.checkpointer import CheckpointerManager  # noqa: E402

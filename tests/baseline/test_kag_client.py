@@ -925,3 +925,30 @@ def test_logic_form_parse_survives_backticked_plan_lines() -> None:
     tasks = prompt.parse_response(wrapped_action)
     assert len(tasks) == 1
     assert tasks[0].executor.lower() in {"retrieval", "retriever"}
+
+
+def test_ner_none_result_treated_as_zero_entities() -> None:
+    """NER LLM 失败（`with_except=False` → `None`）不得崩溃整文档建库。
+
+    unified62 实测：网关 429/断连时 `invoke` 吞错返回 `None`，上游直接迭代
+    抛 `TypeError`，8 个文档建库失败。shim 将其视为空实体列表。
+    """
+
+    from kag.builder.component.extractor.schema_free_extractor import (
+        SchemaFreeExtractor,
+    )
+
+    from benchmark.baseline.kag_client.azure_compat import (
+        ensure_ner_none_compatibility,
+    )
+
+    ensure_ner_none_compatibility()
+    ensure_ner_none_compatibility()
+
+    process = SchemaFreeExtractor._named_entity_recognition_process
+
+    class _Extractor:
+        external_graph = None
+
+    assert process(_Extractor(), "passage", None) == []
+    assert process(_Extractor(), "passage", []) == []
