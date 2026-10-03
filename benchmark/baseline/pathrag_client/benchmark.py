@@ -184,6 +184,7 @@ def build_index(
     cache: bool = True,
     verbose: bool = False,
     llm_overrides: LLMConfigOverrides | None = None,
+    max_async: int | None = None,
 ) -> dict[str, Any]:
     report = preflight(
         project_dir=project_dir,
@@ -192,7 +193,13 @@ def build_index(
     )
     _require_preflight(report)
     started = time.monotonic()
-    client = PathRAGClient(project_dir, llm_overrides=llm_overrides, verbose=verbose)
+    rag_options: dict[str, Any] = {}
+    if max_async:
+        # 网关限流时降并发：16 路齐发 extract 会 self-DDoS（unified62 实测卡死）。
+        rag_options = {"llm_model_max_async": max_async, "embedding_func_max_async": max_async}
+    client = PathRAGClient(
+        project_dir, llm_overrides=llm_overrides, verbose=verbose, **rag_options
+    )
     try:
         result = client.index(cache=cache)
         if result.has_errors:
@@ -667,6 +674,12 @@ def build_parser() -> argparse.ArgumentParser:
     index.add_argument("--corpus-dir", type=Path, default=DEFAULT_CORPUS_DIR)
     index.add_argument("--no-cache", action="store_true")
     index.add_argument("--verbose", action="store_true")
+    index.add_argument(
+        "--max-async",
+        type=int,
+        default=None,
+        help="LLM/embedding 并发上限（默认 16；网关限流时用 2 串行）",
+    )
     _add_llm_override_arguments(index)
     evaluate_parser = sub.add_parser("evaluate")
     evaluate_parser.add_argument(
@@ -777,6 +790,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 cache=not args.no_cache,
                 verbose=args.verbose,
                 llm_overrides=llm_overrides,
+                max_async=args.max_async,
             )
         elif args.command == "run":
             prepare_corpus(
