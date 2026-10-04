@@ -65,12 +65,30 @@ baseline；两者保留，不替代 L3/L4 医学专家复核。
 - **结论**：层 N 的指标改善不自动抬高层 N+1；当 recall 已近天花板时，
   下一步是候选池对齐与上下文取舍，而非继续堆通道。
 
-### 表 2 — 五框架 62 题历史合并（描述性，非统一受控实验）
+### 表 2 — 统一受控实验（NEW，2026-10-04；LightRAG vs KAG 先行，余下三框架待建库）
+
+同语料（26 文件统一语料）/ 同生成（`gpt-5-mini`）/ 同 Judge（`gpt-5` required）/
+同 k=16 hybrid / 同题序（seed=42）下重建索引重跑；门禁（`benchmark_conditions` 两两一致）通过。
+详见[首批报告](benchmark/report/unified62-lightrag-kag-20261004.md)与预注册
+（`docs/2026-09-29/unified62-preregistration.md`）。
+
+| 框架（50 题成熟子集） | final | R@16 | coverage | faithfulness | completeness | correctness |
+|---|---:|---:|---:|---:|---:|---:|
+| LightRAG（统一索引 24/26，2 文档网关断连缺失） | 0.9091 | 0.94 | 0.9387 | 0.8915 | 0.7886 | 0.8894 |
+| KAG（统一索引 26/26） | 0.9067 | 0.96 | 0.9677 | 0.8914 | 0.7698 | 0.9416 |
+
+- 配对 Wilcoxon（n=50）：中位数差 −0.0010，`p = 0.658`；bootstrap 均值差 95% CI
+  `[-0.030, +0.045]`——**两框架无法区分**，数值差（+0.0024）是噪声。
+- 离群对称：|Δ|>0.15 的 6 题中 KAG 高 3 题、LR 高 2 题 + 1 安全判分题，互相抵消；
+  KAG PU-L4-002 安全违规（safety 0.0）是跨三次独立评测的稳定复现。
+- 历史表（下表 3）的 LightRAG−KAG 差 +0.033 很可能是旧混杂（32 文档索引、判分入口不一）的产物，
+  **不再引用历史表做排序**。
+
+### 表 3 — 五框架 62 题历史合并（描述性，非统一受控实验，已被表 2 部分取代）
 
 50 道基线题 + 12 道新增题，每框架 62 份答案；历史模型设置以保存元数据为准，
 执行日期/重试策略/安全评分入口不完全一致，不能声称统一受控实验或严格排名。
-详见[合并报告](benchmark/report/framework-comparison-62-20260912.md)
-（精确数值与源文件哈希见 `benchmark/results/preclinical-20260911/summary_62.json`）。
+详见[合并报告](benchmark/report/framework-comparison-62-20260912.md)。
 
 | 框架 | 总分 | Recall@16 | 生成均分 | 忠实性 | 完整性 | 正确性 |
 |---|---:|---:|---:|---:|---:|---:|
@@ -82,7 +100,7 @@ baseline；两者保留，不替代 L3/L4 医学专家复核。
 
 \* HippoRAG PRE008 生成 Judge 解析失败：总分及生成指标只统计 61 题，Recall 统计 62 题。
 
-### 表 3 — 50 题统一口径对照（同一评分框架 rescore；生成 `gpt-5-mini` / 判分 `gpt-5` / 向量 `text-embedding-3-large`）
+### 表 4 — 50 题统一口径对照（同一评分框架 rescore；生成 `gpt-5-mini` / 判分 `gpt-5` / 向量 `text-embedding-3-large`）
 
 | 框架 | recall@k | precision@k | 生成加权 | 正确性 | 安全 | **final** |
 |---|---:|---:|---:|---:|---:|---:|
@@ -91,7 +109,6 @@ baseline；两者保留，不替代 L3/L4 医学专家复核。
 | Microsoft GraphRAG | 0.900 | 0.681 | 0.772 | 0.837 | 1.000 | **0.843** |
 
 \* KAG 的 PU-L4-002（家用 Doppler "reassure" 表述）被判真实违规。final 差距远超
-dataset 级噪声带（±0.003），排序可信。详见[三框架对比](benchmark/report/three-framework-comparison-20260908.md)。
 
 分架构类型（basic n=23 / multi-vector n=17 / graph-enhanced n=10；列为 recall / precision / faithfulness / final）：
 
