@@ -48,15 +48,20 @@ def _load(framework: str) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _conditions_gate(products: dict[str, dict]) -> dict:
+def _conditions_gate(products: dict[str, dict], frameworks: list[str]) -> dict:
     """预注册 §2 门禁：GATE_FIELDS 两两一致才放行汇总。"""
-    record: dict = {"fields": GATE_FIELDS, "comparisons": [], "passed": True}
-    base = FRAMEWORKS[0]
+    record: dict = {
+        "fields": GATE_FIELDS,
+        "comparisons": [],
+        "passed": True,
+        "frameworks": frameworks,
+    }
+    base = frameworks[0]
     base_cond = {
         key: products[base]["metadata"]["benchmark_conditions"][key]
         for key in GATE_FIELDS
     }
-    for other in FRAMEWORKS[1:]:
+    for other in frameworks[1:]:
         other_cond = {
             key: products[other]["metadata"]["benchmark_conditions"][key]
             for key in GATE_FIELDS
@@ -74,15 +79,17 @@ def _conditions_gate(products: dict[str, dict]) -> dict:
             key: products[fw]["metadata"]["benchmark_conditions"][key]
             for key in GATE_FIELDS
         }
-        for fw in FRAMEWORKS
+        for fw in frameworks
     }
     return record
 
 
-def _per_question(products: dict[str, dict]) -> dict[str, dict[str, dict]]:
+def _per_question(
+    products: dict[str, dict], frameworks: list[str]
+) -> dict[str, dict[str, dict]]:
     """question_id -> framework -> {final, retrieval..., generation..., failed}."""
     table: dict[str, dict[str, dict]] = {}
-    for fw in FRAMEWORKS:
+    for fw in frameworks:
         for row in products[fw]["results"]:
             qid = row["question_id"]
             scoring = row.get("scoring", {})
@@ -127,10 +134,10 @@ def _mature_ids() -> tuple[set[str], set[str]]:
     return base, draft
 
 
-def _describe(ids: list[str], table: dict) -> dict:
+def _describe(ids: list[str], table: dict, frameworks: list[str]) -> dict:
     """各框架描述性均值 + 失败率（跳过失败单元）。"""
     out: dict = {}
-    for fw in FRAMEWORKS:
+    for fw in frameworks:
         vals: dict[str, list[float]] = {}
         n_fail = 0
         for qid in ids:
@@ -156,20 +163,20 @@ def _describe(ids: list[str], table: dict) -> dict:
     return out
 
 
-def _friedman(ids: list[str], table: dict) -> dict:
-    """Friedman 检验（5 相关组）+ Kendall's W。只用 5 框架全成功的题。"""
+def _friedman(ids: list[str], table: dict, frameworks: list[str]) -> dict:
+    """Friedman 检验（k 相关组）+ Kendall's W。只用全部框架成功的题。"""
     from scipy.stats import friedmanchisquare
 
     complete = [
         qid
         for qid in ids
-        if all(not table.get(qid, {}).get(fw, {}).get("failed") for fw in FRAMEWORKS)
+        if all(not table.get(qid, {}).get(fw, {}).get("failed") for fw in frameworks)
     ]
     if len(complete) < 3:
         return {"error": "complete-case 题数不足", "n_complete": len(complete)}
-    samples = [[table[qid][fw]["final"] for qid in complete] for fw in FRAMEWORKS]
+    samples = [[table[qid][fw]["final"] for qid in complete] for fw in frameworks]
     stat, p = friedmanchisquare(*samples)
-    k, n = len(FRAMEWORKS), len(complete)
+    k, n = len(frameworks), len(complete)
     kendall_w = float(stat / (n * (k - 1))) if n * (k - 1) else 0.0
     return {
         "statistic": float(stat),
@@ -180,12 +187,12 @@ def _friedman(ids: list[str], table: dict) -> dict:
     }
 
 
-def _holm_wilcoxon(ids: list[str], table: dict) -> dict:
-    """10 对配对 Wilcoxon + Holm 校正 + 配对中位数差（Hodges-Lehmann 近似用中位数差）。"""
+def _holm_wilcoxon(ids: list[str], table: dict, frameworks: list[str]) -> dict:
+    """配对 Wilcoxon + Holm 校正 + 配对中位数差。"""
     from scipy.stats import wilcoxon
 
     pairs = []
-    for a, b in itertools.combinations(FRAMEWORKS, 2):
+    for a, b in itertools.combinations(frameworks, 2):
         diffs = []
         for qid in ids:
             ca = table.get(qid, {}).get(a, {})
@@ -226,18 +233,18 @@ def _holm_wilcoxon(ids: list[str], table: dict) -> dict:
     return {"pairs": pairs, "m_tests": m}
 
 
-def _bootstrap_ci(ids: list[str], table: dict) -> dict:
+def _bootstrap_ci(ids: list[str], table: dict, frameworks: list[str]) -> dict:
     """按题 bootstrap（seed 固定）：框架均值差的 95% CI。只用全成功题。"""
     import random
 
     complete = [
         qid
         for qid in ids
-        if all(not table.get(qid, {}).get(fw, {}).get("failed") for fw in FRAMEWORKS)
+        if all(not table.get(qid, {}).get(fw, {}).get("failed") for fw in frameworks)
     ]
     rng = random.Random(BOOTSTRAP_SEED)
     out: dict = {}
-    for a, b in itertools.combinations(FRAMEWORKS, 2):
+    for a, b in itertools.combinations(frameworks, 2):
         base = [table[q][a]["final"] - table[q][b]["final"] for q in complete]
         reps = []
         for _ in range(N_BOOTSTRAP):
@@ -257,9 +264,17 @@ def _bootstrap_ci(ids: list[str], table: dict) -> dict:
 
 
 def main() -> int:
-    products = {fw: _load(fw) for fw in FRAMEWORKS}
-    gate = _conditions_gate(products)
-    table = _per_question(products)
+    available = [
+        fw
+        for fw in FRAMEWORKS
+        if (RESULTS / fw / "evaluation.json").is_file()
+    ]
+    if len(available) < 2:
+        print(f"汇总跳过：仅 {len(available)} 个框架产物，需 ≥2 个。")
+        return 2
+    products = {fw: _load(fw) for fw in available}
+    gate = _conditions_gate(products, available)
+    table = _per_question(products, available)
     mature, draft = _mature_ids()
     all_ids = sorted(table)
     mature_ids = sorted(set(all_ids) & mature)
@@ -271,28 +286,31 @@ def main() -> int:
         "n_questions_total": len(all_ids),
         "n_mature": len(mature_ids),
         "n_draft": len(draft_ids),
-        "descriptive_mature50": _describe(mature_ids, table),
-        "descriptive_draft12": _describe(draft_ids, table),
-        "descriptive_all62": _describe(all_ids, table),
+        "descriptive_mature50": _describe(mature_ids, table, available),
+        "descriptive_draft12": _describe(draft_ids, table, available),
+        "descriptive_all62": _describe(all_ids, table, available),
     }
     if gate["passed"]:
-        summary["friedman_mature50"] = _friedman(mature_ids, table)
-        summary["holm_wilcoxon_mature50"] = _holm_wilcoxon(mature_ids, table)
-        summary["bootstrap_ci_mature50"] = _bootstrap_ci(mature_ids, table)
+        if len(available) >= 3:
+            summary["friedman_mature50"] = _friedman(mature_ids, table, available)
+        summary["holm_wilcoxon_mature50"] = _holm_wilcoxon(mature_ids, table, available)
+        summary["bootstrap_ci_mature50"] = _bootstrap_ci(mature_ids, table, available)
         # 敏感性：62 全集重跑主分析
-        summary["sensitivity_all62"] = {
-            "friedman": _friedman(all_ids, table),
-            "holm_wilcoxon": _holm_wilcoxon(all_ids, table),
-        }
+        summary["sensitivity_all62"] = {"holm_wilcoxon": _holm_wilcoxon(all_ids, table, available)}
+        if len(available) >= 3:
+            summary["sensitivity_all62"]["friedman"] = _friedman(all_ids, table, available)
         # 敏感性：剔除缺源题（语料锁定的 recall 上限题）
         locked = {"PU-L4-001", "PU-L4-002", "PU-L4-003", "PU-L3-024", "PU-L3-027"}
         kept = [qid for qid in mature_ids if qid not in locked]
         summary["sensitivity_mature_excluding_source_locked"] = {
             "excluded": sorted(locked & set(mature_ids)),
             "n_kept": len(kept),
-            "friedman": _friedman(kept, table),
-            "holm_wilcoxon": _holm_wilcoxon(kept, table),
+            "holm_wilcoxon": _holm_wilcoxon(kept, table, available),
         }
+        if len(available) >= 3:
+            summary["sensitivity_mature_excluding_source_locked"]["friedman"] = _friedman(
+                kept, table, available
+            )
     else:
         summary["note"] = "门禁未通过，不做推断统计，只保留描述性统计。"
 

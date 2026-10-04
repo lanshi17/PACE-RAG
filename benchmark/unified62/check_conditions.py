@@ -41,8 +41,16 @@ def _load_conditions(framework: str) -> dict:
 
 
 def main() -> int:
-    conditions = {fw: _load_conditions(fw) for fw in FRAMEWORKS}
-    base, *rest = FRAMEWORKS
+    available = [
+        fw
+        for fw in FRAMEWORKS
+        if (REPO / "benchmark" / "results" / "unified62" / fw / "evaluation.json").is_file()
+    ]
+    if len(available) < 2:
+        print(f"门禁跳过：仅 {len(available)} 个框架产物，需 ≥2 个才能校验。")
+        return 2
+    conditions = {fw: _load_conditions(fw) for fw in available}
+    base, *rest = available
     failed = False
     for other in rest:
         try:
@@ -54,7 +62,7 @@ def main() -> int:
     if failed:
         print("门禁拒绝：按预注册 §2 不得汇总。", file=sys.stderr)
         return 1
-    print("门禁通过：5 框架统一条件一致，可以汇总。")
+    print(f"门禁通过：{len(available)} 框架统一条件一致，可以汇总（{', '.join(available)}）。")
     return 0
 
 
