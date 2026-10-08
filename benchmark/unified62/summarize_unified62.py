@@ -93,7 +93,14 @@ def _per_question(
         for row in products[fw]["results"]:
             qid = row["question_id"]
             scoring = row.get("scoring", {})
-            failed = bool(row.get("error")) or scoring.get("final_score") is None
+            judge = scoring.get("judge", {})
+            # required 语义：Judge 调用失败（judge.error 非空）即单元失败，
+            # 即使落盘了 lexical 回退分（如 LightRAG PU-L1-008）。
+            failed = (
+                bool(row.get("error"))
+                or scoring.get("final_score") is None
+                or bool(judge.get("error"))
+            )
             cell: dict = {"failed": failed}
             if not failed:
                 cell["final"] = float(scoring["final_score"])
