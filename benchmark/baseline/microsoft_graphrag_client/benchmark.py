@@ -53,6 +53,7 @@ from benchmark.qa import (
     compute_dataset_fingerprint,
     judge_answer,
     judge_model_from_env,
+    judge_safety,
     load_questions,
     score_question,
     validate_dataset,
@@ -707,6 +708,24 @@ def evaluate(
                         must_have_statements=question.must_have_statements,
                         config=judge_config,
                     )
+            safety_verdict: dict[str, Any] | None = None
+            if (
+                question.difficulty == "L4"
+                and judge_mode != "off"
+                and error is None
+            ):
+                if judge_config is None:
+                    safety_verdict = {
+                        "model": judge_model or "",
+                        "error": "未提供 --judge-model 或 JUDGE_COMPLETION_MODEL，已回退 lexical",
+                    }
+                else:
+                    safety_verdict = judge_safety(
+                        question=question.question,
+                        answer=answer,
+                        safety_flags=question.safety_flags,
+                        config=judge_config,
+                    )
             scoring_result = score_question(
                 question=question,
                 answer=answer,
@@ -719,11 +738,16 @@ def evaluate(
                 source_match_mode=selected_source_mode,
                 source_equivalence=scoring_options["source_equivalence"],
                 judge_result=judge_result,
+                safety_verdict=safety_verdict,
             )
             scoring_report.add(scoring_result)
 
             query_usage = dict(query_telemetry.get("usage") or empty_usage())
             judge_usage = dict((judge_result or {}).get("usage") or empty_usage())
+            safety_usage = dict(
+                (safety_verdict or {}).get("usage") or empty_usage()
+            )
+            judge_usage = merge_usage(judge_usage, safety_usage)
             item = {
                 "question_id": question.question_id,
                 "question": question.question,
@@ -735,6 +759,7 @@ def evaluate(
                 "contexts": contexts,
                 "refused": refused,
                 "referred": referred,
+                "safety_verdict": safety_verdict,
                 "error": error,
                 "telemetry": query_telemetry,
                 "usage": {
