@@ -77,3 +77,13 @@ class TestNormalizeResponse:
 
         assert isinstance(normalized, str)
         assert "值" in normalized
+
+    def test_solver_reference_tags_stripped(self) -> None:
+        raw = (
+            'Home Dopplers can reassure. <reference id="chunk:0_15"></reference> '
+            "Contact your provider. <reference id=\"chunk:0_0\">"
+        )
+        normalized = normalize_response(raw)
+        assert "<reference" not in normalized
+        assert "Home Dopplers can reassure." in normalized
+        assert "Contact your provider." in normalized

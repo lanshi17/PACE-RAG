@@ -78,8 +78,12 @@ def safety_actions(answer: str) -> tuple[bool, bool]:
 
 
 def normalize_response(response: Any) -> str:
-    return (
+    text = (
         response
         if isinstance(response, str)
         else json.dumps(response, ensure_ascii=False)
     )
+    # KAG solver 内嵌 `<reference id="chunk:N_M"></reference>` 引用标签：
+    # 对读者无意义，且含未闭合/裸标签时会污染答案展示与安全措辞判定。
+    # 引用归属由落盘的 references/contexts 承担，此处只 strip 标签本身。
+    return re.sub(r"<reference\b[^>]*>(?:.*?</reference>)?", "", text)
