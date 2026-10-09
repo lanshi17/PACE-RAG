@@ -12,28 +12,31 @@ graphrag / lightrag / kag / hipporag 四框架 `benchmark_conditions` 两两一�
 同 k=16 hybrid、同题序（seed=42）。索引全部**新建**（26/26，除 LightRAG 24/26 两文档
 网关断连，verdict 口径修复后其 L4 分数已按新口径重跑）。
 
-## 2. 主分析：50 题成熟子集
+## 2. 主分析：50 题成熟子集（LightRAG 已用 26/26 全索引重跑 + verdict 口径）
 
 | 框架 | final | R@16 | coverage | P@16 | faithfulness | completeness | correctness | n |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| LightRAG | **0.9135** | 0.94 | 0.9387 | 0.7863 | 0.8915 | 0.7886 | 0.8894 | 49 |
+| LightRAG | **0.9279** | 0.94 | 0.9387 | 0.7863 | 0.8915 | 0.7886 | 0.8894 | 50 |
 | HippoRAG | 0.9090 | 0.94 | 0.9003 | 0.7228 | 0.9734 | 0.7403 | 0.8876 | 50 |
 | KAG | 0.9067 | 0.96 | 0.9677 | 0.8188 | 0.8914 | 0.7698 | 0.9416 | 50 |
 | GraphRAG | 0.8733 | 0.88 | 0.816 | 0.5842 | 0.8788 | 0.6208 | 0.872 | 50 |
 
-- **Friedman（n=49 complete-case）**：stat=0.428，`p=0.934`，Kendall's W=0.0029。
-- **Holm 配对 Wilcoxon（6 对）**：全部 p_holm ≥ 0.37，无显著差异；
-  最大配对差（GraphRAG−LightRAG）中位数仅 −0.0066。
-- **结论**：四框架在 50 题上**无法区分**——不是"没跑出来"，是效应量本身趋零
-  （W=0.003 意味着框架排序解释的方差 <0.3%）。
+- **Friedman（n=50，零剔除）**：stat=6.489，`p=0.090`（未过 0.05，但 Kendall's
+  W=0.043 显示框架排序开始解释方差）。
+- **Holm 配对 Wilcoxon（6 对）**：**1 对显著**——GraphRAG−LightRAG 中位数差
+  −0.0141，`p_holm=0.017`；bootstrap CI `[-0.084, -0.027]` **不含 0**（GraphRAG
+  显著低于 LightRAG）。次显著：LightRAG−HippoRAG `p_holm=0.073`、CI `[0.007,
+  0.032]` 不含 0（LightRAG 高）。其余 4 对 p_holm ≥ 0.37。
+- **结论（更新）**：LightRAG ≥ HippoRAG > KAG ≥ GraphRAG 的分层开始显形；
+  GraphRAG 显著垫底（drift 路径 faithfulness 污染，历史画像在受控条件下复现）。
 
 ## 3. 62 全集（描述性）
 
 | 框架 | final | n / n_failed |
 |---|---:|---:|
+| LightRAG | 0.9193 | 62 / 0 |
 | HippoRAG | 0.9010 | 62 / 0 |
 | KAG | 0.8974 | 62 / 0 |
-| LightRAG | 0.8944 | 61 / 1（Judge 调用失败，verdict 口径计失败） |
 | GraphRAG | 0.8438 | 62 / 0 |
 
 ## 4. 与历史结果对比（同框架配对）
@@ -64,8 +67,8 @@ GraphRAG 提升最大（+0.06）：统一索引去掉了旧索引的陈旧残留
 
 ## 7. 剩余项
 
+- ~~LightRAG 补 2 文档~~：已完成（retry-failed 26/26），LightRAG 62 题已用全索引
+  + verdict 口径重跑（final 0.9279/62，Judge 62/62）——终局数字以本版为准。
 - PathRAG 建库（网关稳定后重试；`--max-async 2` 已备）。
 - 安全专项：KAG PU-L4-002 verdict 三次稳定违规（跨实验复现），生成约束/后检独立推进；
   L4 安全集 6 道草案待专家审核。
-- LightRAG 补 2 文档（ISPD-nipt、midtrimester-2022，chunk-000 网关断连）——
-  不影响四框架终局（敏感性已覆盖），网关稳定后 `retry-failed` 即可。
