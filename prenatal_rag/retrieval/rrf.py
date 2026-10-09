@@ -54,4 +54,34 @@ def top_k(merged: Sequence[Hashable], n: int) -> list[Hashable]:
     return list(merged[:n])
 
 
-__all__ = ["RANKING_K", "reciprocal_rank_fusion", "top_k"]
+def diverse_top_k(
+    merged: Sequence[Hashable],
+    n: int,
+    *,
+    source_of: dict[Hashable, Hashable] | None = None,
+    max_per_source: int = 2,
+) -> list[Hashable]:
+    """按融合顺序截断，同来源最多保留 ``max_per_source`` 条（去冗余）。
+
+    同一来源多片段挤占 k 预算是批次十二指出的取舍问题：预算让给互补角色。
+    ``source_of`` 缺省（None）时退化为 :func:`top_k`；``n <= 0`` 返回空列表；
+    ``max_per_source <= 0`` 视为不限制。
+    """
+    if n <= 0:
+        return []
+    if source_of is None or max_per_source <= 0:
+        return list(merged[:n])
+    picked: list[Hashable] = []
+    counts: dict[Hashable, int] = {}
+    for item in merged:
+        source = source_of.get(item, item)
+        if counts.get(source, 0) >= max_per_source:
+            continue
+        counts[source] = counts.get(source, 0) + 1
+        picked.append(item)
+        if len(picked) >= n:
+            break
+    return picked
+
+
+__all__ = ["RANKING_K", "diverse_top_k", "reciprocal_rank_fusion", "top_k"]

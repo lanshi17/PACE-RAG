@@ -213,3 +213,23 @@ class TestParallelRecall:
         first = parallel_recall([1, 2, 3], [3, 4, 5], k=7, embedding_ranking=[5, 6, 7])
         second = parallel_recall([1, 2, 3], [3, 4, 5], k=7, embedding_ranking=[5, 6, 7])
         assert first == second
+
+
+class TestCandidatesPrefilter:
+    def test_graph_channel_respects_candidates(self) -> None:
+        channel = GraphChannel(_graph(), _bridge())
+        assert channel.rank([1], candidates={2, 3}) == [2, 3]
+        assert channel.rank([1], candidates={3}) == [3]
+        assert channel.rank([1], candidates=set()) == []
+
+    def test_graph_channel_none_means_no_filter(self) -> None:
+        channel = GraphChannel(_graph(), _bridge())
+        assert channel.rank([1], candidates=None) == channel.rank([1])
+
+    def test_embedding_channel_respects_candidates(self) -> None:
+        channel = EmbeddingChannel(_index(), _bridge())
+        full = channel.rank([1.0, 0.0])
+        assert full
+        pool = set(full[1:])
+        assert channel.rank([1.0, 0.0], candidates=pool) == full[1:]
+        assert channel.rank([1.0, 0.0], candidates=set()) == []

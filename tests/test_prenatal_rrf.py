@@ -76,3 +76,21 @@ def test_duplicate_within_channel_counts_once() -> None:
     # 通道内重复条目只计最高排名处一次：[[10,20,20]] 去重后 10=1/61、20=1/62，
     # 故 20 应排在 10 之后；若重复计分则 20=1/62+1/63 反超 10，顺序翻转。
     assert reciprocal_rank_fusion([[10, 20, 20]], k=60) == [10, 20]
+
+def test_diverse_top_k_caps_per_source() -> None:
+    from prenatal_rag.retrieval import diverse_top_k
+
+    merged = [1, 2, 3, 4, 5, 6]
+    source_of = {1: "a", 2: "a", 3: "a", 4: "b", 5: "b", 6: "c"}
+    # a 最多 2 条：第 3 条被跳过，b/c 补位。
+    assert diverse_top_k(merged, 4, source_of=source_of, max_per_source=2) == [1, 2, 4, 5]
+    assert diverse_top_k(merged, 6, source_of=source_of, max_per_source=2) == [1, 2, 4, 5, 6]
+
+
+def test_diverse_top_k_fallbacks() -> None:
+    from prenatal_rag.retrieval import diverse_top_k
+
+    merged = [1, 2, 3]
+    assert diverse_top_k(merged, 2) == [1, 2]
+    assert diverse_top_k(merged, 0, source_of={1: "a"}) == []
+    assert diverse_top_k(merged, 5, source_of={1: "a"}, max_per_source=0) == [1, 2, 3]

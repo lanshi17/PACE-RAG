@@ -39,13 +39,20 @@ class GraphChannel:
     hops: int = 2
     k_expand: int = 20
 
-    def rank(self, seed_anchors: Iterable[int], *, k: int | None = None) -> list[int]:
+    def rank(
+        self,
+        seed_anchors: Iterable[int],
+        *,
+        k: int | None = None,
+        candidates: set[int] | None = None,
+    ) -> list[int]:
         """由种子锚点返回图通道锚点排名。
 
         种子按给定顺序经 ``anchor_to_chunks`` 收集（跨种子去重），
         图扩展出的每个 chunk 键只保留首次（最高图排名）出现的锚点；
         无映射的 chunk 键跳过。``k`` 为 None 时返回全部扩展结果；
         ``k <= 0`` 返回空列表（与 ``top_k`` 语义一致）。
+        ``candidates`` 非空时只保留池内锚点（前置过滤；None = 不过滤）。
         """
         if k is not None and k <= 0:
             return []
@@ -62,6 +69,8 @@ class GraphChannel:
         for chunk_key in expanded:
             anchor_id = self.bridge.chunk_to_anchor(chunk_key)
             if anchor_id is None or anchor_id in seen_anchors:
+                continue
+            if candidates is not None and anchor_id not in candidates:
                 continue
             seen_anchors.add(anchor_id)
             ranking.append(anchor_id)
@@ -83,12 +92,17 @@ class EmbeddingChannel:
     bridge: OverlapBridge
 
     def rank(
-        self, query_vector: Sequence[float], *, k: int | None = None
+        self,
+        query_vector: Sequence[float],
+        *,
+        k: int | None = None,
+        candidates: set[int] | None = None,
     ) -> list[int]:
         """由查询向量返回向量通道锚点排名。
 
         ``k`` 为 None 时返回全部回映结果；``k <= 0`` 返回空列表。向量维度
         与索引不符时由 :meth:`VectorIndex.rank` 抛 ``ValueError``。
+        ``candidates`` 非空时只保留池内锚点（前置过滤；None = 不过滤）。
         """
         if k is not None and k <= 0:
             return []
@@ -97,6 +111,8 @@ class EmbeddingChannel:
         for chunk_key in self.index.rank(query_vector):
             anchor_id = self.bridge.chunk_to_anchor(chunk_key)
             if anchor_id is None or anchor_id in seen_anchors:
+                continue
+            if candidates is not None and anchor_id not in candidates:
                 continue
             seen_anchors.add(anchor_id)
             ranking.append(anchor_id)

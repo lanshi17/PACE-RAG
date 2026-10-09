@@ -11,7 +11,7 @@ from prenatal_rag.retrieval.pipeline import (
     condition_seed_anchors,
     parallel_recall,
 )
-from prenatal_rag.retrieval.rrf import RANKING_K, reciprocal_rank_fusion, top_k
+from prenatal_rag.retrieval.rrf import RANKING_K, diverse_top_k, reciprocal_rank_fusion, top_k
 from prenatal_rag.retrieval.vectors import VectorIndex
 
 __all__ = [
@@ -21,6 +21,7 @@ __all__ = [
     "LightRagChunkGraph",
     "OverlapBridge",
     "RANKING_K",
+    "diverse_top_k",
     "ScoredChunk",
     "VectorIndex",
     "condition_seed_anchors",
