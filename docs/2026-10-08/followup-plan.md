@@ -5,7 +5,7 @@
 
 ## P0 收尾（阻塞一切）
 
-### 1. HippoRAG + GraphRAG 串行建库 → 五框架终局
+### 1. HippoRAG + GraphRAG 串行建库 → 四框架终局（PathRAG 缺席，网关问题，§9）
 - 低并发串行（KAG 已验证 11s/chunk 链路；LightRAG 用 `MAX_ASYNC_LLM=1`，KAG 用 `--num-chains 1`，PathRAG 用 `--max-async 2`——新框架沿用同级并发）。
 - GraphRAG 注意 `GRAPHRAG_API_KEY` 别名（`run_unified62.sh` 已处理）与 settings.yaml 模板。
 - 完成后跑 `gate` + `summarize_unified62.py` 出终局 Friedman + Holm（10 对）+ bootstrap，替换 README 表 2。
