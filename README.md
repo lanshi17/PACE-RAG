@@ -8,6 +8,10 @@
 （主文档）及同日续记；实现进度见 [docs/2026-09-14/](docs/2026-09-14/) 与
 [docs/2026-09-15/](docs/2026-09-15/) 的基础批次记录。
 
+后续执行见 [PACE-RAG 研究计划（2026-10-10）](docs/2026-10-10/pace-research-plan.md)：
+B1 四臂因子消融、联合证据选择、独立挑战集与确认性验证；当前四框架结果见
+[统一受控终局报告](benchmark/report/unified62-final-4fw-20261009.md)。
+
 ## 框架：四层
 
 1. **证据真值层**（`prenatal_rag/evidence_store/`）：来源身份（manifest `source_id`、
