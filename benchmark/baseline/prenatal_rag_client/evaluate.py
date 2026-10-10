@@ -147,6 +147,7 @@ def score_arm(
     k: int | None,
     source_match_mode: str,
     source_equivalence: dict[str, list[str]],
+    safety_verdict: dict[str, Any] | None = None,
 ) -> Any:
     from benchmark.qa import judge_answer, score_question
 
@@ -186,6 +187,7 @@ def score_arm(
         source_match_mode=source_match_mode,
         source_equivalence=source_equivalence,
         judge_result=judge_result,
+        safety_verdict=safety_verdict,
     )
 
 
