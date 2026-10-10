@@ -98,8 +98,19 @@ class Bm25Index:
             b=b,
         )
 
-    def search(self, query: str, k: int = 20) -> list[ScoredChunk]:
-        """返回前 k 名；无命中词或空库返回空列表。"""
+    def search(
+        self,
+        query: str,
+        k: int = 20,
+        *,
+        candidates: set[str] | None = None,
+    ) -> list[ScoredChunk]:
+        """返回前 k 名；无命中词或空库返回空列表。
+
+        ``candidates`` 非空时只保留 chunk_id 在池内的命中（前置过滤；
+        None = 不过滤）。过滤发生在全量打分排序之后、截断之前——不是
+        先取 top-k 再冒充全池过滤。
+        """
         if k <= 0:
             return []
         n_docs = len(self._doc_ids)
@@ -122,15 +133,24 @@ class Bm25Index:
         ordered = sorted(
             scores.items(), key=lambda item: (-item[1], self._doc_ids[item[0]][0])
         )
-        return [
-            ScoredChunk(
-                chunk_id=self._doc_ids[doc_idx][0],
-                source_id=self._doc_ids[doc_idx][1],
-                score=score,
-                rank=rank,
+        out: list[ScoredChunk] = []
+        rank = 0
+        for doc_idx, score in ordered:
+            chunk_id, source_id = self._doc_ids[doc_idx]
+            if candidates is not None and chunk_id not in candidates:
+                continue
+            rank += 1
+            out.append(
+                ScoredChunk(
+                    chunk_id=chunk_id,
+                    source_id=source_id,
+                    score=score,
+                    rank=rank,
+                )
             )
-            for rank, (doc_idx, score) in enumerate(ordered[:k], start=1)
-        ]
+            if len(out) >= k:
+                break
+        return out
 
     def __len__(self) -> int:
         return len(self._doc_ids)

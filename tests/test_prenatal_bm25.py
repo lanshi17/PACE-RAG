@@ -95,3 +95,51 @@ class TestFromStore:
         assert results
         assert results[0].source_id == "Doc-A"
         assert all(r.chunk_id > 0 for r in results)
+
+
+def _pool_index() -> Bm25Index:
+    return Bm25Index.build(
+        [
+            (1, "doc-a", "nuchal translucency measurement at 11 weeks"),
+            (2, "doc-b", "fetal cardiac screening includes nuchal translucency views"),
+            (3, "doc-c", "twin pregnancy chorionicity and growth monitoring"),
+        ]
+    )
+
+
+def test_pool_filters_after_full_scoring() -> None:
+    index = _pool_index()
+    # doc-b 在全量排名里排 doc-a 之后；只留池 {2,3} 时 doc-a 被剔除，
+    # 但剩余条目的顺序必须与全量排名一致（不是池内重排）。
+    full = index.search("nuchal translucency", k=3)
+    pooled = index.search("nuchal translucency", k=3, candidates={1, 2})
+    assert [r.chunk_id for r in full if r.chunk_id in {1, 2}] == [
+        r.chunk_id for r in pooled
+    ]
+    # 池外第一名（doc-a）不再出现
+    assert all(r.chunk_id != 3 for r in pooled)
+
+
+def test_pool_ranks_renumbered_not_reversed() -> None:
+    index = _pool_index()
+    pooled = index.search("nuchal translucency", k=3, candidates={1, 2})
+    assert [r.rank for r in pooled] == [1, 2]
+
+
+def test_pool_k_applies_after_filter() -> None:
+    index = _pool_index()
+    # k=1 是截断上限：池内应有 2 条候选，k 只决定截断。
+    assert len(index.search("nuchal translucency", k=1, candidates={1, 2})) == 1
+    assert index.search("nuchal translucency", k=0, candidates={1, 2}) == []
+
+
+def test_none_pool_means_no_filter() -> None:
+    index = _pool_index()
+    assert index.search(
+        "nuchal translucency", k=3, candidates=None
+    ) == index.search("nuchal translucency", k=3)
+
+
+def test_empty_pool_returns_empty() -> None:
+    index = _pool_index()
+    assert index.search("nuchal translucency", k=3, candidates=set()) == []
