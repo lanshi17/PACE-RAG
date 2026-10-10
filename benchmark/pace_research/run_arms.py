@@ -134,6 +134,12 @@ def main() -> int:
         )
     )
 
+    # 三值判定需要候选全文：从真值层按 anchor_id 取文本（零 LLM）。
+    from prenatal_rag.evidence_store import EvidenceStore
+
+    store = EvidenceStore(REPO / "benchmark" / "data" / "evidence_store")
+    anchor_text = {c.anchor_id: c.text for c in store.iter_chunks()}
+
     # RRF 合并三路（快照已有各路排名；融合序 = 三路 RRF，恒定，不随臂变化）
     from prenatal_rag.retrieval import reciprocal_rank_fusion
 
@@ -171,7 +177,7 @@ def main() -> int:
                 arm=arm,
                 k=args.k,
                 max_per_source=args.max_per_source,
-                text_lookup=None,  # 零 token：Inapplicable 判定需全文，dry-run 全 Unknown
+                text_lookup=lambda row: anchor_text.get(row["anchor_id"], ""),
             )
             arms_out[arm] = detail
             contexts_by_arm[arm] = [e["anchor_id"] for e in detail["kept"]]
