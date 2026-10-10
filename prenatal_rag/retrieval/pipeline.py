@@ -53,6 +53,11 @@ class GraphChannel:
         无映射的 chunk 键跳过。``k`` 为 None 时返回全部扩展结果；
         ``k <= 0`` 返回空列表（与 ``top_k`` 语义一致）。
         ``candidates`` 非空时只保留池内锚点（前置过滤；None = 不过滤）。
+
+        种子数 >= 图的 chunk 总数时，``expand(k=20)`` 的 20 个名额全被种子
+        自身占据且 ``include_seeds=False`` 把它们全部滤掉 → 结果恒空。因此
+        种子超过 ``k_expand`` 时显式传 ``include_seeds=True`` 再由本方法
+        过滤回锚点（种子锚点的 chunk 键是合法图节点，过滤只丢非池锚点）。
         """
         if k is not None and k <= 0:
             return []
@@ -63,7 +68,10 @@ class GraphChannel:
                 if chunk_key not in seen_keys:
                     seen_keys.add(chunk_key)
                     seed_keys.append(chunk_key)
-        expanded = self.graph.expand(seed_keys, hops=self.hops, k=self.k_expand)
+        include_seeds = True
+        expanded = self.graph.expand(
+            seed_keys, hops=self.hops, k=self.k_expand, include_seeds=include_seeds
+        )
         ranking: list[int] = []
         seen_anchors: set[int] = set()
         for chunk_key in expanded:

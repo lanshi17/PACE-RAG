@@ -309,7 +309,10 @@ def build_snapshot(out_dir: Path, *, m: int, limit: int | None, question_ids: li
                     "gestational_age": (
                         None
                         if query.gestational_age is None
-                        else {"start": query.gestational_age.start, "end": query.gestational_age.end}
+                        else {
+                            "lower_days": query.gestational_age.lower_days,
+                            "upper_days": query.gestational_age.upper_days,
+                        }
                     ),
                     "population": sorted(query.population),
                     "technique": sorted(query.technique),

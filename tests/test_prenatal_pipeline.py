@@ -42,13 +42,15 @@ def _bridge() -> OverlapBridge:
 
 class TestGraphChannelRank:
     def test_seed_anchor_expands_to_anchor_ranking(self) -> None:
+        # 种子锚点也入榜（前置过滤语义：种子是池内合法候选；
+        # include_seeds=True 修复了全池种子把 expand 名额占满导致恒空的缺陷）。
         channel = GraphChannel(_graph(), _bridge())
-        assert channel.rank([1]) == [2, 3, 4]
+        assert channel.rank([1]) == [1, 2, 3, 4]
 
     def test_k_truncates_and_none_returns_all(self) -> None:
         channel = GraphChannel(_graph(), _bridge())
-        assert channel.rank([1], k=2) == [2, 3]
-        assert channel.rank([1], k=None) == [2, 3, 4]
+        assert channel.rank([1], k=2) == [1, 2]
+        assert channel.rank([1], k=None) == [1, 2, 3, 4]
 
     def test_empty_and_unknown_seeds(self) -> None:
         channel = GraphChannel(_graph(), _bridge())
@@ -57,10 +59,11 @@ class TestGraphChannelRank:
 
     def test_duplicate_anchor_deduplicated_keep_first(self) -> None:
         # kB、kC 都映射到锚点 2：只保留图排名更高的 kB（首个）。
+        # 种子锚点 1 也在榜（include_seeds）。
         channel = GraphChannel(
             _graph(), OverlapBridge({"kA": 1, "kB": 2, "kC": 2})
         )
-        assert channel.rank([1]) == [2]
+        assert channel.rank([1]) == [1, 2]
 
     def test_deterministic_across_calls(self) -> None:
         channel = GraphChannel(_graph(), _bridge())
