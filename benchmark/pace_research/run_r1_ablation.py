@@ -59,8 +59,13 @@ def select_arm(
             if v is not Applicability_INAPPLICABLE()
         ]
     else:
+        # 后置过滤：先选取，再对入选行做三值分类并剔除 Inapplicable（不补位）。
+        # 此前 verdicts_all 被硬编码为 UNKNOWN → 后置过滤从未真正执行（核验发现）。
         eligible = ranked_rows
-        verdicts_all = [Applicability_UNKNOWN()] * len(ranked_rows)
+        verdicts_all = [
+            classify_text(anchor_text.get(row["anchor_id"], ""), query)
+            for row in ranked_rows
+        ]
 
     order = [row["anchor_id"] for row in eligible]
     if dedup:
@@ -84,8 +89,12 @@ def select_arm(
         }
         in_context = anchor in chosen_set
         inapplicable = verdict.name == "INAPPLICABLE"
-        if in_context:
+        if in_context and not inapplicable:
+            # 后置臂：inapplicable 的入选行在此被剔除（不补位）——这是处理机制。
             kept_rows.append(entry)
+        elif inapplicable and in_context:
+            entry["reason"] = "inapplicable_post_filter"
+            dropped_rows.append(entry)
         elif inapplicable:
             entry["reason"] = "inapplicable"
             dropped_rows.append(entry)
@@ -98,7 +107,9 @@ def select_arm(
         "dropped": dropped_rows,
         "n_context": len(kept_rows),
         "n_inapplicable_dropped": sum(
-            1 for d in dropped_rows if d.get("reason") == "inapplicable"
+            1
+            for d in dropped_rows
+            if d.get("reason") in ("inapplicable", "inapplicable_post_filter")
         ),
     }
 
