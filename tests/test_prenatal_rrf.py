@@ -102,3 +102,38 @@ def test_metadata_filter_keeps_unknown() -> None:
     rows = [{"anchor_id": 1}, {"anchor_id": 2}, {"anchor_id": 3}]
     assert metadata_filter(rows, inapplicable={2}) == [rows[0], rows[2]]
     assert metadata_filter(rows, inapplicable=set()) == rows
+
+
+def test_citation_contract_basic() -> None:
+    from benchmark.pace_research.citation_contract import check_citation_contract
+
+    r = check_citation_contract("结论 [E1] [E2]", 2, ["陈述一", "陈述二"])
+    assert r["has_citations"]
+    assert r["cited_indices"] == [1, 2]
+    assert r["invalid_citations"] == []
+    assert r["statement_coverage"] is not None
+
+def test_citation_contract_out_of_range() -> None:
+    from benchmark.pace_research.citation_contract import check_citation_contract
+
+    r = check_citation_contract("[E1] [E5]", 2, ["s"])
+    assert r["invalid_citations"] == [5]
+    assert r["cited_indices"] == [1]
+
+def test_citation_contract_no_citations() -> None:
+    from benchmark.pace_research.citation_contract import check_citation_contract
+
+    r = check_citation_contract("无引用答案", 2, ["必须陈述"])
+    assert not r["has_citations"]
+    assert r["uncovered_statements"] == ["必须陈述"]
+    assert r["statement_coverage"] == 0.0
+
+
+def test_safety_postcheck_rules() -> None:
+    from benchmark.pace_research.safety_postcheck import postcheck
+
+    hits = postcheck("可以只作辅助使用")
+    assert any(h["rule_id"] == "S1_reassuring_home_device" for h in hits)
+    assert not postcheck("应避免长时间非必要多普勒扫描")
+    assert any(h["rule_id"] == "S2_no_risk_claim" for h in postcheck("超声无风险"))
+    assert any(h["rule_id"] == "S3_definitive_diagnosis" for h in postcheck("肯定是单胎"))
