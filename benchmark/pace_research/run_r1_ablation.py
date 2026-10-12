@@ -126,6 +126,60 @@ def Applicability_UNKNOWN():
     return Applicability.UNKNOWN
 
 
+def _s_variant_recall(snapshot_dir: Path, per_question: list[dict[str, Any]]) -> dict[str, Any]:
+    """S 变体离线对比：A11 vs S_metadata（补位）gold-source recall（零 LLM）。"""
+    from prenatal_rag.retrieval import reciprocal_rank_fusion
+
+    snap_by_q = {}
+    for line in (snapshot_dir / "retrieval.jsonl").read_text(encoding="utf-8").splitlines():
+        row = json.loads(line)
+        snap_by_q[row["question_id"]] = row
+    seed_questions = json.loads(
+        (REPO / "benchmark" / "qa" / "dataset" / "unified_62_seed42.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    golds = {
+        q["question_id"]: [g["guide"] for g in q.get("gold_sources", []) if g.get("guide")]
+        for q in seed_questions
+    }
+    results: dict[str, list[float]] = {"A11": [], "S_metadata": [], "A00": []}
+    for q in per_question:
+        qid = q["question_id"]
+        row = snap_by_q.get(qid)
+        if not row:
+            continue
+        gold = golds.get(qid, [])
+        a11_anchors = [e["anchor_id"] for e in q["arm_detail"]["A11"]["kept"]]
+        a00_anchors = [e["anchor_id"] for e in q["arm_detail"]["A00"]["kept"]]
+        inapp = {
+            e["anchor_id"]
+            for e in q["arm_detail"]["A11"]["dropped"]
+            if e.get("reason") == "inapplicable"
+        }
+        fused = reciprocal_rank_fusion(
+            [row["bm25"]["ranking"], row["graph"]["ranking"], row["vector"]["ranking"]]
+        )
+        anchor_to_source = {}
+        for ch in ("bm25", "graph", "vector"):
+            for s in row[ch]["scored"]:
+                anchor_to_source[s["anchor_id"]] = s["source_id"]
+        s_meta = [a for a in fused if a not in inapp][:16]
+        a11_src = {anchor_to_source.get(a) for a in a11_anchors}
+        smeta_src = {anchor_to_source.get(a) for a in s_meta}
+        a00_src = {anchor_to_source.get(a) for a in a00_anchors}
+        for arm, src in (("A11", a11_src), ("S_metadata", smeta_src), ("A00", a00_src)):
+            if gold:
+                results[arm].append(len(src & set(gold)) / len(set(gold)))
+    out = {}
+    for arm, vals in results.items():
+        out[arm] = {
+            "mean_gold_source_recall": round(sum(vals) / len(vals), 4),
+            "n": len(vals),
+        }
+    return out
+
+
 async def run_r1(
     snapshot_dir: Path,
     out_dir: Path,
@@ -134,6 +188,7 @@ async def run_r1(
     k: int,
     max_per_source: int,
     limit: int | None,
+    include_s_variants: bool = False,
 ) -> dict[str, Any]:
     from benchmark.qa import (
         DatasetScoringReport,
@@ -260,6 +315,11 @@ async def run_r1(
         if n % 10 == 0:
             print(f"  {n} questions done, {round(time.monotonic() - started)}s", flush=True)
 
+    if include_s_variants:
+        # S 变体检索层对比（零 LLM）：gold-source recall（A11 vs S_metadata）
+        s_variant_report = _s_variant_recall(snapshot_dir, report["per_question"])
+        report["s_variants"] = s_variant_report
+
     summary: dict[str, Any] = {"n_questions": n, "repeats": repeats, "arms": {}}
     for arm in ARMS:
         rep = reports_by_arm[arm]
@@ -317,6 +377,11 @@ def main() -> int:
     parser.add_argument("--k", type=int, default=16)
     parser.add_argument("--max-per-source", type=int, default=2)
     parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument(
+        "--include-s-variants",
+        action="store_true",
+        help="附加 S_metadata/S_mmr 两臂（零 LLM 检索层对比）",
+    )
     args = parser.parse_args()
     asyncio.run(
         run_r1(
@@ -326,6 +391,7 @@ def main() -> int:
             k=args.k,
             max_per_source=args.max_per_source,
             limit=args.limit,
+            include_s_variants=args.include_s_variants,
         )
     )
     return 0
