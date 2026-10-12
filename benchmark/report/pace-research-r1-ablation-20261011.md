@@ -75,7 +75,18 @@
   [C1/C2 核验记录](../../docs/2026-10-12/c1-c2-results.md)与
   [四框架终局报告 §8](unified62-final-4fw-20261009.md)。
 
-## 5. 数据
+## 5. S 变体离线检索对比（2026-10-12 补充，零 LLM）
+
+S 冻结第一步：metadata filter（过滤+补位）作为 S 候选**被排除**——
+gold-source recall 与 A00（无过滤）完全相同（0.8145），“过滤+补位”不是
+有效的简单对照。A11 的去冗余提升 gold-source recall 至 0.8468（+0.03），
+但 R1 v2 已证明该检索层提升**未传导**到答案层（final ≈ 0）。详见
+[S 变体离线对比](../../docs/2026-10-12/s-variant-offline-comparison.md)。
+
+剩余 S 候选：MMR（需逐候选向量与逐对余弦，待实现）。若 MMR 离线也无
+检索层优势，S 退化为 A11 本身，H2 主比较变为 P vs A11。
+
+## 6. 数据
 
 - `benchmark/results/pace_research/r1/r1_ablation.json`（62 题 × 4 臂 × 3 重复，
   修复后代码产物；含逐题逐重复 final、四臂选取明细、39 题 Inapplicable 剔除）
