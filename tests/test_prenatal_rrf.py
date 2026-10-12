@@ -94,3 +94,11 @@ def test_diverse_top_k_fallbacks() -> None:
     assert diverse_top_k(merged, 2) == [1, 2]
     assert diverse_top_k(merged, 0, source_of={1: "a"}) == []
     assert diverse_top_k(merged, 5, source_of={1: "a"}, max_per_source=0) == [1, 2, 3]
+
+
+def test_metadata_filter_keeps_unknown() -> None:
+    from benchmark.pace_research.s_variants import metadata_filter
+
+    rows = [{"anchor_id": 1}, {"anchor_id": 2}, {"anchor_id": 3}]
+    assert metadata_filter(rows, inapplicable={2}) == [rows[0], rows[2]]
+    assert metadata_filter(rows, inapplicable=set()) == rows
