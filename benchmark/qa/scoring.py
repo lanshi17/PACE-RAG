@@ -657,6 +657,7 @@ def score_question(
     source_equivalence: dict[str, list[str]] | None = None,
     judge_result: dict[str, Any] | JudgeMetrics | None = None,
     safety_verdict: dict[str, Any] | None = None,
+    judge_mode: str = "optional",
 ) -> ScoringResult:
     """对单道题执行完整评分。
 
@@ -751,6 +752,13 @@ def score_question(
             )
             generation = judge_generation
             scoring_method = "judge"
+        elif judge_mode == "required":
+            # required 语义：Judge 调用失败（网络/限流/解析）不得静默降级为
+            # lexical 回退分——该单元判失败，由调用方捕获并记 n_failed。
+            raise ValueError(
+                f"judge_mode=required 但 Judge 调用失败: "
+                f"{judge_metrics.error}（question_id={question.question_id}）"
+            )
 
     # 安全层：优先使用 Judge 判定，回退短语词典
     if question.difficulty == "L4":
