@@ -170,7 +170,23 @@ def overlap_report_v3() -> dict[str, Any]:
         row["family_flagged_for_adjudication"] = row["family_id"] in flagged_families
 
     flagged_rows = [r for r in rows if r["family_flagged_for_adjudication"]]
+    # 互斥状态计数（题级，草案 27 题逐题唯一归类）
+    dev_family_ids = {r["scenario_family_id"] for r in dev["records"]}
+    status_counts: dict[str, int] = {}
+    for r in dev["records"]:
+        for v in r["variants"]:
+            fid = r["scenario_family_id"]
+            if fid in flagged_families:
+                status = "flagged_family_adjudication"
+            else:
+                status = "unflagged_semantic_review_pending"
+            status_counts[status] = status_counts.get(status, 0) + 1
     return {
+        "status_counts_mutually_exclusive": {
+            "unit": "dev draft variant (27 total)",
+            "counts": status_counts,
+            "note": "结构一致性通过是送审前置条件，不是互斥状态；语义有效性全部待专家。",
+        },
         "schema_version": "overlap-audit-v3",
         "score_name": "heuristic_candidate_score（概念 ID + 归一化孕周天数 jaccard）",
         "exposure_coverage": {

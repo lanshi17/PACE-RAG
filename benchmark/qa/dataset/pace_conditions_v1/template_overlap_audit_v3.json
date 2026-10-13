@@ -1,4 +1,12 @@
 {
+  "status_counts_mutually_exclusive": {
+    "unit": "dev draft variant (27 total)",
+    "counts": {
+      "flagged_family_adjudication": 15,
+      "unflagged_semantic_review_pending": 12
+    },
+    "note": "结构一致性通过是送审前置条件，不是互斥状态；语义有效性全部待专家。"
+  },
   "schema_version": "overlap-audit-v3",
   "score_name": "heuristic_candidate_score（概念 ID + 归一化孕周天数 jaccard）",
   "exposure_coverage": {
