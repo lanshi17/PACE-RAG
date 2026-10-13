@@ -14,7 +14,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-GA-01-02",
@@ -25,7 +28,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-GA-01-03",
@@ -36,7 +42,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-03",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-GA-02-01",
@@ -47,7 +56,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-GA-02-02",
@@ -58,7 +70,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-GA-02-03",
@@ -69,7 +84,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-03",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-PM-01-01",
@@ -80,7 +98,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-PM-01-02",
@@ -91,7 +112,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-PM-01-03",
@@ -102,7 +126,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-03",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-PM-02-01",
@@ -113,7 +140,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-PM-02-02",
@@ -124,7 +154,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-PM-02-03",
@@ -135,7 +168,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-03",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-UN-01-01",
@@ -146,7 +182,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-UN-01-02",
@@ -157,7 +196,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-UN-01-03",
@@ -168,7 +210,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-03",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-UN-02-01",
@@ -179,7 +224,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-UN-02-02",
@@ -190,7 +238,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-UN-02-03",
@@ -201,7 +252,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-03",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-VC-01-01",
@@ -212,7 +266,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-VC-01-02",
@@ -223,7 +280,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-VC-01-03",
@@ -234,7 +294,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-03",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-CE-01-01",
@@ -245,7 +308,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-CE-01-02",
@@ -256,7 +322,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-CE-01-03",
@@ -267,7 +336,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-03",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-CE-02-01",
@@ -278,7 +350,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-01",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-CE-02-02",
@@ -289,7 +364,10 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-02",
+      "完成时间": ""
     },
     {
       "draft_question_id": "R2-DEV-CE-02-03",
@@ -300,8 +378,42 @@
         "decision": "",
         "basis": "",
         "arbitrator": ""
-      }
+      },
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-03",
+      "完成时间": ""
     }
   ],
-  "arbitration_log": []
+  "arbitration_log": [],
+  "material_version": {
+    "description": "dev_families.json@audit_20261012 + evidence_candidates.json@audit_20261012",
+    "files": {
+      "dev_families.json": {
+        "sha256": "cc1433935c4d7160b1ad28ea6f0d8df87baa52646ccf7011c392e95a6e6b6413",
+        "bytes": 24046
+      },
+      "evidence_candidates.json": {
+        "sha256": "7e8d90db64a120e05b4e5b791acfe1265c1fe10c1c689d5cc4160d113dda08f7",
+        "bytes": 18842
+      },
+      "template_overlap_audit_v3.json": {
+        "sha256": "f56dd02f16068910cf9a95681041ed1eb364268d564a13bef0c6a1a901ba6c66",
+        "bytes": 10138
+      },
+      "legacy_exposure_inventory.json": {
+        "sha256": "f9f2626d832197de8b9c61fc4fc08657de38185faae6b7e03ab66e102cbbd13d",
+        "bytes": 3560
+      }
+    },
+    "git_baseline": "27c233a"
+  },
+  "reviewer_references": {
+    "reviewer_A": "review_package_A.json",
+    "reviewer_B": "review_package_B.json"
+  },
+  "arbitration_requirements": {
+    "仲裁时间": "ISO 格式时间戳",
+    "仲裁依据": "必填，引用双方原始意见",
+    "仲裁人": "第三名审核者标识"
+  }
 }
