@@ -12,6 +12,11 @@
 B1 四臂因子消融、联合证据选择、独立挑战集与确认性验证；当前四框架结果见
 [统一受控终局报告](benchmark/report/unified62-final-4fw-20261009.md)。
 
+R2 构建入口：[先例矩阵](docs/2026-10-13/r2-prior-art-matrix.md)、
+[挑战集与审核框架](docs/2026-10-13/r2-challenge-framework.md)、
+[结构化材料](benchmark/qa/dataset/pace_conditions_v1/README.md)。当前有 27 道公开开发草案，
+真实冲突家族缺源待补；60 个隐藏家族配额尚未出题，gold 和专家审核均未完成。
+
 ## 框架：四层
 
 1. **证据真值层**（`prenatal_rag/evidence_store/`）：来源身份（manifest `source_id`、
