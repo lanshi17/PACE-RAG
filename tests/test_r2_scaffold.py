@@ -1,6 +1,7 @@
 """Guard against public drafts being mistaken for independent hidden data."""
 
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
 
@@ -85,16 +86,44 @@ def test_evidence_excerpt_mutation_is_detected(bundle):
 
 def test_exposure_coverage_four_files_98_records() -> None:
     """审计 v2 §2：暴露集覆盖必须 4/4 文件通过、共 98 条。"""
-    import sys
-    from pathlib import Path
 
-    repo = Path(__file__).resolve().parents[1]
-    sys.path.insert(0, str(repo))
     from benchmark.pace_research.verify_exposure_coverage import verify_exposure_coverage
 
     rep = verify_exposure_coverage(
-        repo / "benchmark/qa/dataset/pace_conditions_v1/legacy_exposure_inventory.json"
+        Path(__file__).resolve().parents[1] / "benchmark/qa/dataset/pace_conditions_v1/legacy_exposure_inventory.json"
     )
     assert rep["files_failed"] == 0
     assert rep["total_exposure_questions"] == 98
     assert rep["files_passed"] == 4
+
+
+def test_ga_parsing_synonym_expressions() -> None:
+    """审计 v3 §2：孕周同义表达统一解析（14周6天 == 14+6周 == 14+6 == 104天）。"""
+    from benchmark.pace_research.template_overlap_audit_v3 import parse_ga_days
+
+    assert parse_ga_days("14周6天") == {104}
+    assert parse_ga_days("14+6周") == {104}
+    assert parse_ga_days("14+6") == {104}
+    assert parse_ga_days("15周0天") == {105}
+    assert parse_ga_days("22+3周") == {157}
+    assert parse_ga_days("104天") == {104}
+    # 单段 '6周' = 42 天（不能把 6 周中的 6 误解析为天数修饰）
+    assert parse_ga_days("6周") == {42}
+
+
+def test_ga_parsing_single_week_not_day_suffix() -> None:
+    """'6周' 不能被 '14周6天' 的天数模式误捕获。"""
+    from benchmark.pace_research.template_overlap_audit_v3 import parse_ga_days
+
+    # '6周' 无天数后缀 → 42 天，不含 6
+    assert 6 not in parse_ga_days("6周")
+
+
+def test_overlap_v3_exposure_gate() -> None:
+    """重叠审计 v3 必须在暴露集覆盖通过后才运行（审计补正 §2 验收）。"""
+    from benchmark.pace_research.verify_exposure_coverage import verify_exposure_coverage
+
+    rep = verify_exposure_coverage(
+        Path(__file__).resolve().parents[1] / "benchmark/qa/dataset/pace_conditions_v1/legacy_exposure_inventory.json"
+    )
+    assert rep["files_failed"] == 0, "exposure gate must pass before overlap audit"

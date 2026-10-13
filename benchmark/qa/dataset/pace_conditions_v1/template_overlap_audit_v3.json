@@ -1,0 +1,296 @@
+{
+  "schema_version": "overlap-audit-v3",
+  "score_name": "heuristic_candidate_score（概念 ID + 归一化孕周天数 jaccard）",
+  "exposure_coverage": {
+    "files_passed": 4,
+    "total_exposure_questions": 98,
+    "file_hashes": {
+      "benchmark/qa/dataset/sample_questions.json": "0d00cae164cda7570fd8ef06b6fd1b8a0510c4933dffcffcf23422df471e8c45",
+      "benchmark/qa/dataset/preclinical_challenge_draft.json": "91544fb20ce642134f83fd9fefcbe9860171fd79c62843f849e9e8057113bfff",
+      "benchmark/qa/dataset/sample_questions_l4_safety.json": "2528c4e3552629610b96dd326adb4b584d1cf75f34c2fbacd1a0a9952352b234",
+      "benchmark/qa/dataset/condition_pairs.json": "4612718e7c2752688d72f981c21c69f4181c4d3e6695592aa5f3c18df69d54d1"
+    }
+  },
+  "n_input_questions": 98,
+  "interpretation": "高分仅作人工语义复核的候选排序依据；不判定派生，不证明独立。全部家族保留语义复核要求。",
+  "flagged_families": [
+    "R2-DEV-CE-01",
+    "R2-DEV-CE-02",
+    "R2-DEV-PM-01",
+    "R2-DEV-UN-02"
+  ],
+  "n_flagged_families": 4,
+  "n_flagged_rows": 12,
+  "rows": [
+    {
+      "draft_question_id": "R2-DEV-GA-01-01",
+      "family_id": "R2-DEV-GA-01",
+      "heuristic_candidate_score": 0.25,
+      "closest_hist_id": "PU-L1-001",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-02",
+      "family_id": "R2-DEV-GA-01",
+      "heuristic_candidate_score": 0.25,
+      "closest_hist_id": "PU-L1-001",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-03",
+      "family_id": "R2-DEV-GA-01",
+      "heuristic_candidate_score": 0.25,
+      "closest_hist_id": "PU-L1-001",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-01",
+      "family_id": "R2-DEV-GA-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-02",
+      "family_id": "R2-DEV-GA-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-03",
+      "family_id": "R2-DEV-GA-02",
+      "heuristic_candidate_score": 0.167,
+      "closest_hist_id": "PU-L1-001",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-01",
+      "family_id": "R2-DEV-PM-01",
+      "heuristic_candidate_score": 0.25,
+      "closest_hist_id": "PU-L3-PRE007",
+      "closest_hist_src": "hist12",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-02",
+      "family_id": "R2-DEV-PM-01",
+      "heuristic_candidate_score": 0.25,
+      "closest_hist_id": "PU-L3-PRE007",
+      "closest_hist_src": "hist12",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-03",
+      "family_id": "R2-DEV-PM-01",
+      "heuristic_candidate_score": 0.333,
+      "closest_hist_id": "PU-L4-006",
+      "closest_hist_src": "l4safety6",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-01",
+      "family_id": "R2-DEV-PM-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-02",
+      "family_id": "R2-DEV-PM-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-03",
+      "family_id": "R2-DEV-PM-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-01",
+      "family_id": "R2-DEV-UN-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-02",
+      "family_id": "R2-DEV-UN-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-03",
+      "family_id": "R2-DEV-UN-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-01",
+      "family_id": "R2-DEV-UN-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L4-PRE004",
+      "closest_hist_src": "hist12",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-02",
+      "family_id": "R2-DEV-UN-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L4-PRE004",
+      "closest_hist_src": "hist12",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-03",
+      "family_id": "R2-DEV-UN-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L4-PRE004",
+      "closest_hist_src": "hist12",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-01",
+      "family_id": "R2-DEV-VC-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-02",
+      "family_id": "R2-DEV-VC-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-03",
+      "family_id": "R2-DEV-VC-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "match_reason": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-01",
+      "family_id": "R2-DEV-CE-01",
+      "heuristic_candidate_score": 0.5,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-02",
+      "family_id": "R2-DEV-CE-01",
+      "heuristic_candidate_score": 0.5,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-03",
+      "family_id": "R2-DEV-CE-01",
+      "heuristic_candidate_score": 0.5,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-01",
+      "family_id": "R2-DEV-CE-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-02",
+      "family_id": "R2-DEV-CE-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-03",
+      "family_id": "R2-DEV-CE-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L1-019",
+      "closest_hist_src": "hist50",
+      "match_reason": "shared concepts/numbers: []",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    }
+  ]
+}
