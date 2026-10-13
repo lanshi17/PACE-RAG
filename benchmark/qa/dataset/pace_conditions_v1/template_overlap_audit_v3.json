@@ -16,41 +16,42 @@
   "flagged_families": [
     "R2-DEV-CE-01",
     "R2-DEV-CE-02",
+    "R2-DEV-GA-01",
     "R2-DEV-PM-01",
     "R2-DEV-UN-02"
   ],
-  "n_flagged_families": 4,
-  "n_flagged_rows": 12,
+  "n_flagged_families": 5,
+  "n_flagged_rows": 15,
   "rows": [
     {
       "draft_question_id": "R2-DEV-GA-01-01",
       "family_id": "R2-DEV-GA-01",
-      "heuristic_candidate_score": 0.25,
+      "heuristic_candidate_score": 0.333,
       "closest_hist_id": "PU-L1-001",
       "closest_hist_src": "hist50",
       "match_reason": "shared concepts/numbers: []",
       "semantic_review_required": true,
-      "family_flagged_for_adjudication": false
+      "family_flagged_for_adjudication": true
     },
     {
       "draft_question_id": "R2-DEV-GA-01-02",
       "family_id": "R2-DEV-GA-01",
-      "heuristic_candidate_score": 0.25,
+      "heuristic_candidate_score": 0.333,
       "closest_hist_id": "PU-L1-001",
       "closest_hist_src": "hist50",
       "match_reason": "shared concepts/numbers: []",
       "semantic_review_required": true,
-      "family_flagged_for_adjudication": false
+      "family_flagged_for_adjudication": true
     },
     {
       "draft_question_id": "R2-DEV-GA-01-03",
       "family_id": "R2-DEV-GA-01",
-      "heuristic_candidate_score": 0.25,
+      "heuristic_candidate_score": 0.333,
       "closest_hist_id": "PU-L1-001",
       "closest_hist_src": "hist50",
       "match_reason": "shared concepts/numbers: []",
       "semantic_review_required": true,
-      "family_flagged_for_adjudication": false
+      "family_flagged_for_adjudication": true
     },
     {
       "draft_question_id": "R2-DEV-GA-02-01",
@@ -75,7 +76,7 @@
     {
       "draft_question_id": "R2-DEV-GA-02-03",
       "family_id": "R2-DEV-GA-02",
-      "heuristic_candidate_score": 0.167,
+      "heuristic_candidate_score": 0.25,
       "closest_hist_id": "PU-L1-001",
       "closest_hist_src": "hist50",
       "match_reason": "shared concepts/numbers: []",

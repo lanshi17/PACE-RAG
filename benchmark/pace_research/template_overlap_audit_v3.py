@@ -33,14 +33,26 @@ def parse_ga_days(question: str) -> set[int]:
       '104天'   → 104
     """
     days: set[int] = set()
-    # 两段式：N周M天 或 N+M（周），M 是天数修饰
-    for m in re.finditer(r"(\d+)\s*(?:周|\+)\s*[+＋]?\s*(\d+)\s*天?", question):
+    consumed: list[tuple[int, int]] = []
+    # 两段式优先：N周M天 或 N+M（M 是天数修饰），匹配后记录 span 防止单段式重复解析
+    for m in re.finditer(r"(\d+)\s*(?:周|\+)\s*(\d+)(?:\s*天|\s*周)?", question):
         days.add(int(m.group(1)) * 7 + int(m.group(2)))
-    # 单段式：'N周'（后面不跟数字/天）
-    for m in re.finditer(r"(\d+)\s*周(?! *[+＋]?\s*\d)", question):
+        # 消费整个两段式 span（含尾部的 周/天 单位字符）
+        start = m.start()
+        end = m.end()
+        # 如果后面紧跟 '周'（两段式第二段以 +N 结尾时），把 周 也消费掉
+        if question[end : end + 1] == "周":
+            end += 1
+        consumed.append((start, end))
+    # 单段式：'N周'（该 span 未被两段式消费）
+    for m in re.finditer(r"(\d+)\s*周", question):
+        if any(s <= m.start() and m.end() <= e for s, e in consumed):
+            continue
         days.add(int(m.group(1)) * 7)
-    # 纯天数：'N天'
+    # 纯天数：'N天'（未被消费）
     for m in re.finditer(r"(\d+)\s*天", question):
+        if any(s <= m.start() and m.end() <= e for s, e in consumed):
+            continue
         days.add(int(m.group(1)))
     return days
 
