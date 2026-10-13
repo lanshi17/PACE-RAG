@@ -1,0 +1,260 @@
+{
+  "schema_version": "overlap-audit-v2",
+  "score_name": "heuristic_candidate_score（术语概念+归一化数值 jaccard，启发式）",
+  "interpretation": "高分仅作人工语义复核的候选排序依据；不判定派生，不证明独立。全部家族保留语义复核要求。",
+  "n_new_questions": 27,
+  "flagged_families": [
+    "R2-DEV-CE-01",
+    "R2-DEV-CE-02",
+    "R2-DEV-GA-01",
+    "R2-DEV-PM-01",
+    "R2-DEV-UN-02"
+  ],
+  "n_flagged_families": 5,
+  "n_flagged_rows": 15,
+  "rows": [
+    {
+      "draft_question_id": "R2-DEV-GA-01-01",
+      "family_id": "R2-DEV-GA-01",
+      "heuristic_candidate_score": 0.333,
+      "closest_hist_id": "PU-L1-001",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-02",
+      "family_id": "R2-DEV-GA-01",
+      "heuristic_candidate_score": 0.333,
+      "closest_hist_id": "PU-L1-001",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-03",
+      "family_id": "R2-DEV-GA-01",
+      "heuristic_candidate_score": 0.333,
+      "closest_hist_id": "PU-L1-001",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-01",
+      "family_id": "R2-DEV-GA-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-02",
+      "family_id": "R2-DEV-GA-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-03",
+      "family_id": "R2-DEV-GA-02",
+      "heuristic_candidate_score": 0.25,
+      "closest_hist_id": "PU-L1-001",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-01",
+      "family_id": "R2-DEV-PM-01",
+      "heuristic_candidate_score": 0.25,
+      "closest_hist_id": "PU-L3-PRE007",
+      "closest_hist_src": "hist12",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-02",
+      "family_id": "R2-DEV-PM-01",
+      "heuristic_candidate_score": 0.25,
+      "closest_hist_id": "PU-L3-PRE007",
+      "closest_hist_src": "hist12",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-03",
+      "family_id": "R2-DEV-PM-01",
+      "heuristic_candidate_score": 0.333,
+      "closest_hist_id": "PU-L4-006",
+      "closest_hist_src": "l4safety6",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-01",
+      "family_id": "R2-DEV-PM-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-02",
+      "family_id": "R2-DEV-PM-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-03",
+      "family_id": "R2-DEV-PM-02",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-01",
+      "family_id": "R2-DEV-UN-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-02",
+      "family_id": "R2-DEV-UN-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-03",
+      "family_id": "R2-DEV-UN-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-01",
+      "family_id": "R2-DEV-UN-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L4-PRE004",
+      "closest_hist_src": "hist12",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-02",
+      "family_id": "R2-DEV-UN-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L4-PRE004",
+      "closest_hist_src": "hist12",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-03",
+      "family_id": "R2-DEV-UN-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L4-PRE004",
+      "closest_hist_src": "hist12",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-01",
+      "family_id": "R2-DEV-VC-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-02",
+      "family_id": "R2-DEV-VC-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-03",
+      "family_id": "R2-DEV-VC-01",
+      "heuristic_candidate_score": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null,
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": false
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-01",
+      "family_id": "R2-DEV-CE-01",
+      "heuristic_candidate_score": 0.5,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-02",
+      "family_id": "R2-DEV-CE-01",
+      "heuristic_candidate_score": 0.5,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-03",
+      "family_id": "R2-DEV-CE-01",
+      "heuristic_candidate_score": 0.5,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-01",
+      "family_id": "R2-DEV-CE-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-02",
+      "family_id": "R2-DEV-CE-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-03",
+      "family_id": "R2-DEV-CE-02",
+      "heuristic_candidate_score": 1.0,
+      "closest_hist_id": "PU-L1-019",
+      "closest_hist_src": "hist50",
+      "semantic_review_required": true,
+      "family_flagged_for_adjudication": true
+    }
+  ]
+}
