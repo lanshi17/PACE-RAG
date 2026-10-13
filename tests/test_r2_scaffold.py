@@ -81,3 +81,20 @@ def test_evidence_excerpt_mutation_is_detected(bundle):
     report = validate_bundle(bundle)
     assert not report["scaffold_valid"]
     assert any("excerpt digest" in e for e in report["errors"])
+
+
+def test_exposure_coverage_four_files_98_records() -> None:
+    """审计 v2 §2：暴露集覆盖必须 4/4 文件通过、共 98 条。"""
+    import sys
+    from pathlib import Path
+
+    repo = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(repo))
+    from benchmark.pace_research.verify_exposure_coverage import verify_exposure_coverage
+
+    rep = verify_exposure_coverage(
+        repo / "benchmark/qa/dataset/pace_conditions_v1/legacy_exposure_inventory.json"
+    )
+    assert rep["files_failed"] == 0
+    assert rep["total_exposure_questions"] == 98
+    assert rep["files_passed"] == 4
