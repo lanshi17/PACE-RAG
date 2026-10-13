@@ -1,0 +1,170 @@
+{
+  "schema_version": "r2-scaffold-v1",
+  "status": "planning",
+  "created_at": "2026-10-13",
+  "code_baseline": "c638d52",
+  "intended_use": "public_authoring_scaffold_not_evaluation_dataset",
+  "tasks": [
+    {
+      "task_id": "GA",
+      "name": "孕周边界与区间",
+      "mechanism_group": "GA_BOUNDARY",
+      "scope": "明确端点、开闭界、跨界区间及近边界稳定对照；只按真实条款，不能把概括时段变成硬阈值。",
+      "planned_dev_families": 2,
+      "planned_hidden_families": 12,
+      "planned_variants_per_family": 3,
+      "coverage_dimensions": [
+        "exact_boundary",
+        "straddling_interval",
+        "within_window_control"
+      ],
+      "planned_hidden_substrata": [
+        {
+          "coverage_dimension": "exact_boundary",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "straddling_interval",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "within_window_control",
+          "family_slots": 4
+        }
+      ]
+    },
+    {
+      "task_id": "PM",
+      "name": "人群与检查方法",
+      "mechanism_group": "POPULATION_METHOD",
+      "scope": "胎数/风险、检查目的/途径或测量方法与条款范围相匹配，明确范围差异不等于真实冲突。",
+      "planned_dev_families": 2,
+      "planned_hidden_families": 12,
+      "planned_variants_per_family": 3,
+      "coverage_dimensions": [
+        "population_scope",
+        "technical_feasibility",
+        "method_reference_compatibility"
+      ],
+      "planned_hidden_substrata": [
+        {
+          "coverage_dimension": "population_scope",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "technical_feasibility",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "method_reference_compatibility",
+          "family_slots": 4
+        }
+      ]
+    },
+    {
+      "task_id": "UN",
+      "name": "条件缺失",
+      "mechanism_group": "UNKNOWN_CONDITION",
+      "scope": "缺失条件保留未知；分别记录合理澄清、可回答的一般分支与无依据拒答。",
+      "planned_dev_families": 2,
+      "planned_hidden_families": 12,
+      "planned_variants_per_family": 3,
+      "coverage_dimensions": [
+        "missing_condition",
+        "partial_information",
+        "sufficient_information_control"
+      ],
+      "planned_hidden_substrata": [
+        {
+          "coverage_dimension": "missing_condition",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "partial_information",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "sufficient_information_control",
+          "family_slots": 4
+        }
+      ]
+    },
+    {
+      "task_id": "VC",
+      "name": "版本与真实冲突",
+      "mechanism_group": "VERSION_CONFLICT",
+      "scope": "区分历史查询、部分替代、同范围真实矛盾及表面范围差异；缺少双侧原文不标真实冲突。",
+      "planned_dev_families": 2,
+      "planned_hidden_families": 12,
+      "planned_variants_per_family": 3,
+      "coverage_dimensions": [
+        "version_scope",
+        "confirmed_same_scope_conflict",
+        "apparent_scope_difference",
+        "missing_source_behavior"
+      ],
+      "planned_hidden_substrata": [
+        {
+          "coverage_dimension": "version_scope",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "confirmed_same_scope_conflict",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "apparent_scope_difference",
+          "family_slots": 2
+        },
+        {
+          "coverage_dimension": "missing_source_behavior",
+          "family_slots": 2
+        }
+      ]
+    },
+    {
+      "task_id": "CE",
+      "name": "互补证据与同源冗余",
+      "mechanism_group": "COMPLEMENT_REDUNDANCY",
+      "scope": "同源不同角色可互补，同文转载不算独立支持；冗余由内容与来源共同判定。",
+      "planned_dev_families": 2,
+      "planned_hidden_families": 12,
+      "planned_variants_per_family": 3,
+      "coverage_dimensions": [
+        "same_source_complement",
+        "duplicate_origin",
+        "budget_competition"
+      ],
+      "planned_hidden_substrata": [
+        {
+          "coverage_dimension": "same_source_complement",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "duplicate_origin",
+          "family_slots": 4
+        },
+        {
+          "coverage_dimension": "budget_competition",
+          "family_slots": 4
+        }
+      ]
+    }
+  ],
+  "variants": [
+    "base",
+    "condition_change",
+    "invariant_control"
+  ],
+  "sample_size_status": "resource_starting_point_not_power_justified",
+  "independent_unit": "scenario_family",
+  "generalization_scope": "new_scenarios_in_same_corpus_only",
+  "hidden_gold_frozen": false,
+  "primary_endpoint": "expert_adjudicated_inapplicable_evidence_use_per_valid_answer_family_equal_weight",
+  "minimum_effect_planning_only": {
+    "absolute_error_rate_reduction": 0.05,
+    "final_noninferiority_margin": 0.01,
+    "faithfulness_completeness_coverage_margin": 0.02,
+    "unsupported_refusal_increase_margin": 0.02
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "schema_version": "r2-audit-v1",
+  "date": "2026-10-12",
+  "records": [
+    {
+      "family_id": "R2-DEV-GA-01",
+      "task_id": "GA",
+      "change_axis": "gestational_age_days",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-GA-01-01",
+        "R2-DEV-GA-01-02",
+        "R2-DEV-GA-01-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "family_id": "R2-DEV-GA-02",
+      "task_id": "GA",
+      "change_axis": "gestational_age_interval_days",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-GA-02-01",
+        "R2-DEV-GA-02-02",
+        "R2-DEV-GA-02-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "family_id": "R2-DEV-PM-01",
+      "task_id": "PM",
+      "change_axis": "fetal_count",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-PM-01-01",
+        "R2-DEV-PM-01-02",
+        "R2-DEV-PM-01-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "family_id": "R2-DEV-PM-02",
+      "task_id": "PM",
+      "change_axis": "transvaginal_feasible",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-PM-02-01",
+        "R2-DEV-PM-02-02",
+        "R2-DEV-PM-02-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "family_id": "R2-DEV-UN-01",
+      "task_id": "UN",
+      "change_axis": "chorionicity",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-UN-01-01",
+        "R2-DEV-UN-01-02",
+        "R2-DEV-UN-01-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "family_id": "R2-DEV-UN-02",
+      "task_id": "UN",
+      "change_axis": "caliper_matches_reference",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-UN-02-01",
+        "R2-DEV-UN-02-02",
+        "R2-DEV-UN-02-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "family_id": "R2-DEV-VC-01",
+      "task_id": "VC",
+      "change_axis": "knowledge_cutoff_year",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-VC-01-01",
+        "R2-DEV-VC-01-02",
+        "R2-DEV-VC-01-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "family_id": "R2-DEV-CE-01",
+      "task_id": "CE",
+      "change_axis": "bladder_empty",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-CE-01-01",
+        "R2-DEV-CE-01-02",
+        "R2-DEV-CE-01-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "family_id": "R2-DEV-CE-02",
+      "task_id": "CE",
+      "change_axis": "scan_count",
+      "declared_changed_keys_match_axis": true,
+      "variant_types": [
+        "base",
+        "condition_change",
+        "invariant_control"
+      ],
+      "invariant_control_conditions_equal_base": true,
+      "question_id_prefixes": [
+        "R2-DEV-CE-02-01",
+        "R2-DEV-CE-02-02",
+        "R2-DEV-CE-02-03"
+      ],
+      "audit": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    }
+  ],
+  "summary": {
+    "families_audited": 9,
+    "single_variable_clean": 9,
+    "invariant_conditions_clean": 9
+  }
+}

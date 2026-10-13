@@ -1,0 +1,527 @@
+{
+  "schema_version": "r2-scaffold-v1",
+  "status": "public_unreviewed_development_drafts",
+  "records": [
+    {
+      "scenario_family_id": "R2-DEV-GA-01",
+      "task_id": "GA",
+      "clinical_template_id": "amniocentesis_lower_bound",
+      "title": "羊膜腔穿刺条款的孕周下界",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "gestational_age_days",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-GA-01-01",
+          "variant_type": "base",
+          "question": "可靠定孕周为14周6天，讨论羊膜腔穿刺的指南时间范围。按ISUOG 2016条款，这是否已满足孕周下界？仅解释该条款，不判断个体是否应接受操作。",
+          "known_conditions": {
+            "gestational_age_days": 104,
+            "procedure": "amniocentesis"
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-GA-01-02",
+          "variant_type": "condition_change",
+          "question": "可靠定孕周为15周0天，讨论羊膜腔穿刺的指南时间范围。按ISUOG 2016条款，这是否已满足孕周下界？仅解释该条款，不判断个体是否应接受操作。",
+          "known_conditions": {
+            "gestational_age_days": 105,
+            "procedure": "amniocentesis"
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-GA-01-03",
+          "variant_type": "invariant_control",
+          "question": "可靠定孕周为14+6周；仅解释ISUOG 2016羊膜腔穿刺条款的孕周下界，当前是否满足？不作个体操作决定。",
+          "known_conditions": {
+            "gestational_age_days": 104,
+            "procedure": "amniocentesis"
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-AMNIO"
+      ],
+      "proposed_relation": "下界满足状态可能改变；其余操作指征不得由孕周单独推出。",
+      "clinical_review_focus": "审核15+0端点、可靠孕周前提以及“满足时间条件不等于操作指征成立”。旧安全题讨论流产风险，仍需人工排查模板重叠。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "scenario_family_id": "R2-DEV-GA-02",
+      "task_id": "GA",
+      "clinical_template_id": "mri_timing_uncertain_interval",
+      "title": "MRI时点跨界区间与非硬性阈值",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "gestational_age_interval_days",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-GA-02-01",
+          "variant_type": "base",
+          "question": "胎儿MRI咨询中的可靠孕周只能确定为17+5至18+2周。按2023指南，能否把整个区间一律套用“18周前通常无额外信息”的描述？请保留条款中的限定。",
+          "known_conditions": {
+            "gestational_age_interval_days": [
+              124,
+              128
+            ],
+            "exam": "fetal_mri"
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-GA-02-02",
+          "variant_type": "condition_change",
+          "question": "胎儿MRI咨询中的可靠孕周只能确定为18+0至18+2周。按2023指南，能否把整个区间一律套用“18周前通常无额外信息”的描述？请保留条款中的限定。",
+          "known_conditions": {
+            "gestational_age_interval_days": [
+              126,
+              128
+            ],
+            "exam": "fetal_mri"
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-GA-02-03",
+          "variant_type": "invariant_control",
+          "question": "目前孕周估计范围为17周5天到18周2天。2023胎儿MRI指南的“18周前通常无额外信息”能否覆盖整个范围？请说明适用限制。",
+          "known_conditions": {
+            "gestational_age_interval_days": [
+              124,
+              128
+            ],
+            "exam": "fetal_mri"
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-MRI23"
+      ],
+      "proposed_relation": "跨界与完全位于边界后的范围判断不同，但不得强制临床结论翻转。",
+      "clinical_review_focus": "“通常”不能转成禁忌或18周后的必然收益；区间只检验范围匹配，不给患者安排检查。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "scenario_family_id": "R2-DEV-PM-01",
+      "task_id": "PM",
+      "clinical_template_id": "nipt_statement_population_scope",
+      "title": "NIPT声明的人群范围",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "fetal_count",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-PM-01-01",
+          "variant_type": "base",
+          "question": "仅判断文件适用范围：拟用于单胎常规染色体筛查咨询的ISPD 2023 NIPT立场声明，是否覆盖这类妊娠？不要据此扩展到未写明的人群。",
+          "known_conditions": {
+            "fetal_count": 1,
+            "purpose": "document_scope"
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-PM-01-02",
+          "variant_type": "condition_change",
+          "question": "仅判断文件适用范围：拟用于双胎常规染色体筛查咨询的ISPD 2023 NIPT立场声明，是否覆盖这类妊娠？不要据此扩展到未写明的人群。",
+          "known_conditions": {
+            "fetal_count": 2,
+            "purpose": "document_scope"
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-PM-01-03",
+          "variant_type": "invariant_control",
+          "question": "对单胎妊娠的常规染色体筛查咨询，ISPD 2023这份NIPT声明的讨论范围是否适用？这里只判断文件范围。",
+          "known_conditions": {
+            "fetal_count": 1,
+            "purpose": "document_scope"
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-NIPT"
+      ],
+      "proposed_relation": "文件范围判断随胎数改变；筛查与诊断的区分应保持。",
+      "clinical_review_focus": "不要将本文未覆盖双胎解释为双胎不能做NIPT，也不要补造另一声明的推荐。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "scenario_family_id": "R2-DEV-PM-02",
+      "task_id": "PM",
+      "clinical_template_id": "neurosonography_route_feasibility",
+      "title": "针对性神经超声的途径可行性",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "transvaginal_feasible",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-PM-02-01",
+          "variant_type": "base",
+          "question": "讨论针对性胎儿神经超声的一般检查途径，现已确认经阴道途径技术上可行。按CNS part 2指南，应怎样表述首选途径及适用限制？",
+          "known_conditions": {
+            "exam": "targeted_neurosonography",
+            "transvaginal_feasible": true
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-PM-02-02",
+          "variant_type": "condition_change",
+          "question": "讨论针对性胎儿神经超声的一般检查途径，现已确认经阴道途径技术上不可行。按CNS part 2指南，应怎样表述首选途径及适用限制？",
+          "known_conditions": {
+            "exam": "targeted_neurosonography",
+            "transvaginal_feasible": false
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-PM-02-03",
+          "variant_type": "invariant_control",
+          "question": "针对性胎儿神经超声已确认可以采用经阴道途径。请依据CNS part 2说明一般的途径选择及限制。",
+          "known_conditions": {
+            "exam": "targeted_neurosonography",
+            "transvaginal_feasible": true
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-NEURO"
+      ],
+      "proposed_relation": "可行性变化影响推荐的途径分支；检查目的保持。",
+      "clinical_review_focus": "途径选择条件不能替代操作者判断；不能将筛查与专科检查混同。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "scenario_family_id": "R2-DEV-UN-01",
+      "task_id": "UN",
+      "clinical_template_id": "twin_monitoring_missing_chorionicity",
+      "title": "双胎监测的未知绒毛膜性",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "chorionicity",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-UN-01-01",
+          "variant_type": "base",
+          "question": "无并发症双胎，孕20周，未提供绒毛膜性。依据2025双胎指南，能否直接给出唯一的后续超声间隔？请解释已知条件允许说明的分支。",
+          "known_conditions": {
+            "fetal_count": 2,
+            "complicated": false,
+            "chorionicity": null,
+            "gestational_age_days": 140
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-UN-01-02",
+          "variant_type": "condition_change",
+          "question": "无并发症双胎，孕20周，已确认双绒毛膜。依据2025双胎指南，能否直接给出唯一的后续超声间隔？请解释已知条件允许说明的分支。",
+          "known_conditions": {
+            "fetal_count": 2,
+            "complicated": false,
+            "chorionicity": "dichorionic",
+            "gestational_age_days": 140
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-UN-01-03",
+          "variant_type": "invariant_control",
+          "question": "孕20周、目前无并发症的双胎，资料未写绒毛膜性。请按2025指南说明后续超声间隔能否直接确定，以及可以解释的条件分支。",
+          "known_conditions": {
+            "fetal_count": 2,
+            "complicated": false,
+            "chorionicity": null,
+            "gestational_age_days": 140
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-TWIN"
+      ],
+      "proposed_relation": "补充关键条件可缩小分支；无关医学事实不能自动补全。",
+      "clinical_review_focus": "缺少绒毛膜性不等于阴性，不应全面拒绝一般知识解释；补全绒毛膜性也不免除新并发症影响。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "scenario_family_id": "R2-DEV-UN-02",
+      "task_id": "UN",
+      "clinical_template_id": "biometry_missing_caliper_reference",
+      "title": "测量与参考曲线约定缺失",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "caliper_matches_reference",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-UN-02-01",
+          "variant_type": "base",
+          "question": "一份头围报告写明采用的参考曲线，但未说明卡尺放置是否与该曲线方法一致。能否仅凭一个数值确认测量方法可比？请说明已知与缺失的核验信息。",
+          "known_conditions": {
+            "measurement": "HC",
+            "reference_curve_named": true,
+            "caliper_matches_reference": null
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-UN-02-02",
+          "variant_type": "condition_change",
+          "question": "一份头围报告写明采用的参考曲线，且已核实卡尺放置与该曲线方法一致。能否仅凭一个数值确认测量方法可比？请说明已知与缺失的核验信息。",
+          "known_conditions": {
+            "measurement": "HC",
+            "reference_curve_named": true,
+            "caliper_matches_reference": true
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-UN-02-03",
+          "variant_type": "invariant_control",
+          "question": "头围报告有参考曲线名称，却缺少卡尺放置与曲线方法的一致性信息。要判断方法可比，还需要核对什么？",
+          "known_conditions": {
+            "measurement": "HC",
+            "reference_curve_named": true,
+            "caliper_matches_reference": null
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-CALIPER"
+      ],
+      "proposed_relation": "方法匹配信息由未知变为已知；生长或诊断结论仍不可由此单独得出。",
+      "clinical_review_focus": "这是一项方法适用性检查，不能将方法一致升级为生长正常或排除异常。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "scenario_family_id": "R2-DEV-VC-01",
+      "task_id": "VC",
+      "clinical_template_id": "mri_publication_cutoff_same_clause",
+      "title": "MRI版本链中的历史可用知识",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "knowledge_cutoff_year",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-VC-01-01",
+          "variant_type": "base",
+          "question": "请只依据截至2020年已经公开的ISUOG胎儿MRI指南，解释18周前MRI额外信息的条款，并标明版本。不要引入之后的更新。",
+          "known_conditions": {
+            "knowledge_cutoff_year": 2020,
+            "topic": "mri_before_18_weeks"
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-VC-01-02",
+          "variant_type": "condition_change",
+          "question": "请只依据截至2024年已经公开的ISUOG胎儿MRI指南，解释18周前MRI额外信息的条款，并标明版本。不要引入之后的更新。",
+          "known_conditions": {
+            "knowledge_cutoff_year": 2024,
+            "topic": "mri_before_18_weeks"
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-VC-01-03",
+          "variant_type": "invariant_control",
+          "question": "以2020年为公开知识截止年，ISUOG胎儿MRI指南怎样描述18周前的额外信息？请注明当时可用版本。",
+          "known_conditions": {
+            "knowledge_cutoff_year": 2020,
+            "topic": "mri_before_18_weeks"
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-MRI17",
+        "E-MRI23"
+      ],
+      "proposed_relation": "可引用版本随公开截止改变；两段临床限定可能保持，不能要求答案观点必然改变。",
+      "clinical_review_focus": "需要专家核验条款与公开时间。2017/2023相似措辞不构成真实冲突；不得推断整篇旧版全部废止。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "scenario_family_id": "R2-DEV-VC-02",
+      "task_id": "VC",
+      "clinical_template_id": "same_scope_true_conflict_pending_sources",
+      "title": "同适用范围真实冲突的开发试标保留项",
+      "split": "dev",
+      "status": "blocked_missing_bilateral_sources",
+      "change_axis": null,
+      "variants": [],
+      "candidate_evidence_ids": [],
+      "proposed_relation": null,
+      "clinical_review_focus": "需两份可得原文和专家确认：相同人群、孕周、目的及有效范围下确有不相容建议。不得改写PRE012的假设冲突作为新证据。找到原文后仅改变一个有依据的条件，设置稳定对照。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden"
+    },
+    {
+      "scenario_family_id": "R2-DEV-CE-01",
+      "task_id": "CE",
+      "clinical_template_id": "cervix_complementary_technique_roles",
+      "title": "宫颈长度测量的同源互补条款",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "bladder_empty",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-CE-01-01",
+          "variant_type": "base",
+          "question": "经阴道宫颈长度测量已排空膀胱并取得三次测量记录。请按2022指南共同说明准备条件、需要显示的结构和选取有效记录的要求。",
+          "known_conditions": {
+            "exam": "transvaginal_cervical_length",
+            "bladder_empty": true,
+            "three_recorded_measurements": true
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-CE-01-02",
+          "variant_type": "condition_change",
+          "question": "经阴道宫颈长度测量未排空膀胱并取得三次测量记录。请按2022指南共同说明准备条件、需要显示的结构和选取有效记录的要求。",
+          "known_conditions": {
+            "exam": "transvaginal_cervical_length",
+            "bladder_empty": false,
+            "three_recorded_measurements": true
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-CE-01-03",
+          "variant_type": "invariant_control",
+          "question": "已排空膀胱，完成三次经阴道宫颈长度测量记录。依据2022指南，需要核对哪些结构、准备条件，以及如何选取记录值？",
+          "known_conditions": {
+            "exam": "transvaginal_cervical_length",
+            "bladder_empty": true,
+            "three_recorded_measurements": true
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-CERVIX-PREP",
+        "E-CERVIX-LANDMARK",
+        "E-CERVIX-REPEAT"
+      ],
+      "proposed_relation": "准备条件改变影响合规性表述，其余角色仍需覆盖；不可一并删除有效测量条款。",
+      "clinical_review_focus": "三个角色来自同一表格，不是三个独立研究；需PDF版面复核，不能由机械三段拼接认定完整支持。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    },
+    {
+      "scenario_family_id": "R2-DEV-CE-02",
+      "task_id": "CE",
+      "clinical_template_id": "biometry_size_growth_report_roles",
+      "title": "生物测量的大小、生长与报告依据",
+      "split": "dev",
+      "status": "draft_for_pilot",
+      "change_axis": "scan_count",
+      "variants": [
+        {
+          "draft_question_id": "R2-DEV-CE-02-01",
+          "variant_type": "base",
+          "question": "这是一次方法讨论：现有1次技术合格且方法可比的胎儿生物测量。按2019指南，请区分大小与生长，并说明EFW报告应保留哪些计算和参考依据；不要预测个体结局。",
+          "known_conditions": {
+            "scan_count": 1,
+            "measurements_comparable": true,
+            "clinical_outcome_requested": false
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-CE-02-02",
+          "variant_type": "condition_change",
+          "question": "这是一次方法讨论：现有2次在不同时间完成、技术合格且方法可比的胎儿生物测量。按2019指南，请区分大小与生长，并说明EFW报告应保留哪些计算和参考依据；不要预测个体结局。",
+          "known_conditions": {
+            "scan_count": 2,
+            "measurements_comparable": true,
+            "clinical_outcome_requested": false
+          }
+        },
+        {
+          "draft_question_id": "R2-DEV-CE-02-03",
+          "variant_type": "invariant_control",
+          "question": "仅有一次技术合格、方法可比的胎儿生物测量。依据2019指南，大小和生长有何区别，EFW结果需注明哪些计算与参考信息？不作个体预后判断。",
+          "known_conditions": {
+            "scan_count": 1,
+            "measurements_comparable": true,
+            "clinical_outcome_requested": false
+          }
+        }
+      ],
+      "candidate_evidence_ids": [
+        "E-GROWTH",
+        "E-REPORT",
+        "E-CALIPER"
+      ],
+      "proposed_relation": "可讨论的时间变化随测量次数改变；方法与报告依据的角色应保持。",
+      "clinical_review_focus": "两次测量是必要条件之一，不足以自动证明增长异常或正常；不把合成问题当真实纵向临床验证。",
+      "gold": null,
+      "review_records": [],
+      "template_overlap_review": "pending",
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "single_variable": true,
+        "invariant_conditions_identical_to_base": true,
+        "note": "base vs invariant_control 差异仅在问题措辞（同义改写），known_conditions 完全一致"
+      }
+    }
+  ],
+  "audit_20261012": {
+    "summary": {
+      "families_audited": 9,
+      "single_variable_clean": 9,
+      "invariant_conditions_clean": 9
+    }
+  }
+}
