@@ -1,0 +1,130 @@
+{
+  "schema_version": "anchor-verify-v2",
+  "results": [
+    {
+      "evidence_id": "E-AMNIO",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 440,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-MRI17",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 140,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [
+        675
+      ],
+      "multi_anchor_coverage": true
+    },
+    {
+      "evidence_id": "E-MRI23",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 675,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [
+        140
+      ],
+      "multi_anchor_coverage": true
+    },
+    {
+      "evidence_id": "E-NIPT",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 63,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-NEURO",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 88,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-TWIN",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 224,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-CALIPER",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 490,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-CERVIX-PREP",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 327,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-CERVIX-LANDMARK",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 327,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-CERVIX-REPEAT",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 327,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-GROWTH",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 489,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    },
+    {
+      "evidence_id": "E-REPORT",
+      "source_doc_sha_match": true,
+      "snapshot_anchor": 494,
+      "snapshot_chunk_exists": true,
+      "full_excerpt_containment": true,
+      "chunk_source_matches_manifest": true,
+      "other_anchors_containing_prefix": [],
+      "multi_anchor_coverage": false
+    }
+  ],
+  "reproducible_count": 12
+}
