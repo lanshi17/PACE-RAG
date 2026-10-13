@@ -1,90 +1,118 @@
-# R2 开发试标包审计报告（2026-10-12）
+# R2 开发试标包审计报告 v2（2026-10-12 初版，2026-10-12 修订）
 
 > 任务：27 道开发草案整理为可交专家独立审核的材料包。审计覆盖预注册
 > pace-research-plan.md §5.2 的审核材料要求。**本报告不代表专家审核完成，
-> 不增加隐藏题计数。**
+> 不增加隐藏题计数。实际隐藏题仍为 0，gold 保持未冻结。**
+>
+> v2 修订（审计补正 §5）：统一状态计数（互斥统计）、重叠分数更名为
+> "启发式候选分数"、按家族组织复核（整家族标记）、补 A/B 独立审核包、
+> 补锚点可复现校验 v2 与暴露集覆盖校验。"9/9 通过"限定为**结构一致性**；
+> 语义有效性仍待专家审核。不变对照以保持含义为目标，不要求制造临床差异。
 
-## 1. 证据核对（12/12 通过）
+## 1. 状态计数（互斥统计）
 
-| 检查 | 结果 |
+| 状态 | 家族 | 题 | 说明 |
+|---|---:|---:|---|
+| 草案总量 | 9 | 27 | 9 个三变体家族（base/condition_change/invariant_control） |
+| 结构一致性通过 | 9 | 27 | 变体三元组、单变量性、不变对照条件一致性——**仅结构** |
+| 待裁定（整家族） | 2 | 6 | CE-01、GA-01：启发式重叠分 ≥0.5，整家族标记待专家裁定派生关系 |
+| 语义复核待做 | 9 | 27 | **全部家族**保留人工语义复核要求——低分不证明独立 |
+| 缺源保留 | 1 | 0 | VC-02：corpus 阈值搜索未找到双侧冲突原文（审计记录在家族字段） |
+| 隐藏题实际数量 | — | **0** | 60 个隐藏家族配额尚未出题 |
+
+互斥口径：每题有且仅有一个主状态。结构一致性通过是送审前置条件，不是
+送审充分条件；语义有效性（派生关系、变体区分度、gold 合理性）全部待专家。
+
+## 2. 锚点可复现校验 v2（12/12 通过）
+
+四步校验（`benchmark/pace_research/verify_anchors_v2.py`）：
+
+| 步骤 | 检查 | 结果 |
+|---|---|---|
+| 来源文档 | 文件存在 + input_text_sha256 匹配 | 12/12 |
+| 证据库快照 | 声明锚点的 chunk 存在 | 12/12 |
+| 来源一致 | chunk.source_id == manifest source_id（错来源反例） | 12/12 |
+| 完整摘录 | 摘录完整包含于锚点 chunk 文本（空白归一化） | 12/12 |
+
+- 多锚点覆盖：2 行有其他 chunk 也含摘录前缀（允许，逐条记录于
+  `anchor_verification.json`）；
+- 反例检出：错来源、仅前缀相同但非完整包含的候选会记 failure——当前无；
+- PDF 布局复核继续单列待专家确认。
+
+## 3. 历史暴露集覆盖 v2（4/4 文件通过，98 条）
+
+`legacy_exposure_inventory.json` 驱动（`verify_exposure_coverage.py`）：
+
+| 文件 | 声明 | 实际 | sha256 | 结论 |
+|---|---:|---:|---|---|
+| sample_questions.json | 50 | 50 | 匹配 | pass |
+| preclinical_challenge_draft.json | 12 | 12 | 匹配 | pass |
+| sample_questions_l4_safety.json | 6 | 6 | 匹配 | pass |
+| condition_pairs.json | 30 | 30 | 匹配 | pass |
+
+缺失或不一致 → 脚本报错退出（审计标记未完成）。condition_pairs.json 30 个
+变体已纳入覆盖。回退测试：`tests/test_r2_scaffold.py` 回归测试覆盖 98 条断言。
+
+## 4. 重叠审计 v2：启发式候选分数（非"语义重叠"）
+
+- 分数更名：**启发式候选分数**（术语概念 ID + 归一化数值的 jaccard）——
+  没有依据称它为语义重叠的"保守下界"；
+- 中英同义词映射到统一概念 ID（14 个概念），孕周"14周6天"统一为
+  `ga_days:104` 后比对；
+- 全部 27 题标记 `semantic_review_required=true`——**低分不证明独立**；
+- 命中分 ≥0.3 的变体所在**整家族**标记 `family_flagged_for_adjudication=true`：
+  当前 5 个家族（CE-01、CE-02、GA-01、PM-01、UN-02）15 行；
+- 产物：`template_overlap_audit_v2.json`（v1 词面版保留于 git 历史）。
+
+## 5. 三变体设计审查（结构一致性 9/9）
+
+| 检查 | 结果 | 说明 |
+|---|---|---|
+| 变体类型三元组 | 9/9 | base / condition_change / invariant_control |
+| known_conditions 单变量性 | 9/9 | 差异键 == 声明 change_axis |
+| invariant_control 条件与 base 一致 | 9/9 | 问题措辞同义改写，known_conditions 逐位相同 |
+
+- 不变对照以保持含义为目标，不要求制造临床差异——专家需确认同义改写
+  不引入语义变化；
+- 应变项/应保持项清单已在 A/B 审核包中作为待填字段（见 §6）。
+
+## 6. A/B 独立审核包与合并仲裁
+
+`review_package_A.json` / `review_package_B.json`：各覆盖 27 题，**临床判断
+字段全部留空**（适用性三值判定、必需陈述、禁止断言、应变项/应保持项、
+派生关系判断及理由、耗时、审核者标识、时间、材料版本）。
+
+`merge_arbitration_template.json`：逐题合并行（agreements / disagreements /
+arbitration），保留双方原始意见与仲裁依据，不覆盖。
+
+`review_package_A.json` 与 `B.json` **结构完全一致**——独立填写由流程保证，
+不由文件差异保证。
+
+## 7. 真实冲突家族核查（VC-01 / VC-02）
+
+- **VC-01（MRI 版本链）**：双侧原文均在语料且坐标验证通过；base(cutoff
+  2020) 只含 E-MRI17，condition_change(cutoff 2024) 含两版——语义为版本
+  更新而非冲突，与审核焦点一致。
+- **VC-02**：corpus 阈值搜索（25/15/10 mm 宫颈长度）显示的是不同临床动作
+  在不同阈值/语境——`blocked_missing_bilateral_sources` 状态确认保留，
+  审计记录写入家族字段。
+
+## 8. 修订日志
+
+| 文件 | 修订（v2 相对 v1） |
 |---|---|
-| input_text_sha256 与语料文件一致 | 12/12 |
-| excerpt 在声明坐标 char_start:char_end 处精确匹配（空白归一化后） | 12/12 |
-| 真值层锚点映射（归一化 excerpt 前缀匹配 EvidenceStore chunk） | 12/12 |
+| anchor_verification.json | 新增：四步校验 v2 + 反例检出 |
+| verify_exposure_coverage.py | 新增：暴露集覆盖校验（4 文件 98 条） |
+| template_overlap_audit_v2.py / .json | 新增：概念 ID + 归一化数值的启发式候选分数，整家族标记 |
+| review_package_A/B.json | 新增：独立 A/B 审核包（替代共享 dual_review_template） |
+| merge_arbitration_template.json | 新增：合并与仲裁记录模板 |
+| tests/test_r2_scaffold.py | 补暴露集覆盖回归测试；锚点断言同步更新 |
+| 本报告 | 状态计数互斥化、分数更名、按家族组织复核、A/B 包说明 |
 
-- 坐标系 `raw_corpus_text_unicode_codepoints_half_open` 逐条验证；
-- 原 `evidence_store_anchor_id=None` 已更新为验证后的锚点（E-AMNIO→440、
-  E-MRI17→140、E-MRI23→675、E-NIPT→63、E-NEURO→88、E-TWIN→224、
-  E-CALIPER→490、E-CERVIX-PREP/LANDMARK/REPEAT→327、E-GROWTH→489、
-  E-REPORT→494）；`locator_status` 更新为 `text_verified_anchor_mapped_…`；
-- `validate_r2_scaffold.py` 断言同步更新（anchor 需为已映射的数字 ID），
-  9 项测试通过。
-- 残留：PDF 页面布局复核（`pdf_layout_review_pending`）仍待专家确认——
-  文本坐标与 PDF 视觉布局的对应需人工查验。
+## 9. 遗留（外部依赖或需配额）
 
-## 2. 三变体设计审查（9/9 通过）
-
-| 检查 | 结果 |
-|---|---|
-| 变体类型三元组 = base/condition_change/invariant_control | 9/9 |
-| known_conditions 差异键 == 声明 change_axis（单变量性） | 9/9 |
-| invariant_control 的 known_conditions 与 base 完全一致 | 9/9 |
-
-- 单变量性审计写入 `variant_audit.json` 与逐家族 `audit_20261012` 字段。
-- "可能应变/应保持"清单：各家族 invariant_control 的问题措辞已做同义改写
-  （如 GA-01 BASE "14周6天" vs INVARIANT "14+6周"），known_conditions 逐位
-  相同——专家需确认该改写不引入语义变化，并补充逐家族的必需陈述与禁止
-  断言（当前 gold 字段为空，属待填项）。
-- 结构性风险（待专家确认）：UN-02 的不变对照与 base 的措辞差异极小，
-  需专家判断该变体是否具有区分度。
-
-## 3. 模板重叠审查（vs 历史 68 题）
-
-- 词面 5-shingle（中英跨语言）：全部 0.0——语言不同，词面法不可用。
-- 跨语言特征近似（术语+数字 jaccard，保守下界）：均值 0.231；
-  ≥0.5 的 4 题：R2-DEV-GA-01-01（vs PU-L1-008）、R2-DEV-UN-02-01/02/03
-  （vs PU-L2-025）。**文字不同不视为独立——这 4 题标记派生关系待专家裁定**。
-- 审计产物：`template_overlap_audit.json`（逐题最近历史题与重叠度）。
-
-## 4. 真实冲突家族核查（VC-01 / VC-02）
-
-- **VC-01（MRI 版本链）**：双侧原文均在语料且坐标验证通过（E-MRI17 2017 /
-  E-MRI23 2023）。措辞相似不构成真实冲突——家族设计正确地做**版本更新**
-  （cutoff 2020 vs 2024），而非冲突判定。base/condition_change 的差异仅在
-  cutoff 年（2020→2024），invariant_control 用同 cutoff 2020。语义检查通过。
-- **VC-02（同适用范围真实冲突）**：corpus 全文阈值搜索（宫颈长度 25/15/10 mm）
-  显示这些是**不同临床动作在不同阈值/语境**（筛查切点、环扎考虑、回顾性
-  亚组、胎盘随访），不构成"同人群+同孕周+同目的的不相容建议"。
-  `blocked_missing_bilateral_sources` 状态**确认保留**，审计记录写入家族字段。
-
-## 5. 送审数量汇总
-
-| 状态 | 数量 | 说明 |
-|---|---:|---|
-| **可送审**（证据映射完成 + 变体审计通过） | **27 题 / 9 家族** | 需专家补 gold、必需陈述、禁止断言 |
-| 待修订（重叠待裁定） | 4 题（GA-01-01、UN-02-01/02/03） | 派生关系由专家裁定后可送审 |
-| 缺源保留 | 1 家族（VC-02，0 题） | 找到双侧原文后才出题 |
-
-## 6. 双人审核模板
-
-`benchmark/qa/dataset/pace_conditions_v1/dual_review_template.json`：27 行，
-每行含题干、known_conditions、证据摘录与锚点、空白 reviewer_A/reviewer_B
-字段（适用性三值判定/必需陈述/禁止断言/应保持项/耗时）+ dispute 列。
-审核流程：两人独立填写、分歧第三名仲裁（预注册 §5.2）。
-
-## 7. 修订日志
-
-| 文件 | 修订 |
-|---|---|
-| evidence_candidates.json | 12 条记录补 `evidence_store_anchor_id`、`locator_status` 更新、`audit_20261012` 字段 |
-| dev_families.json | 9 家族补 `audit_20261012` 字段；VC-02 补审计记录 |
-| variant_audit.json | 新增：9 家族单变量性与不变对照审计 |
-| template_overlap_audit.json | 新增：跨语言特征重叠审计 |
-| dual_review_template.json | 新增：双人审核模板（27 行） |
-| validate_r2_scaffold.py / tests | anchor 断言从 None 改为已映射数字 ID |
-
-## 8. 遗留（不在本任务范围）
-
-- PDF 布局复核（专家）；gold/必需陈述/禁止断言填充（专家）；
-- 4 题派生关系裁定（专家）；语义去重、功效论证（待隐藏集规模冻结）；
-- MMR 离线对比与 S 冻结（需配额或实现）。
+- 专家审核（gold/必需陈述/禁止断言/派生关系裁定/4 题重叠裁定）——外部依赖；
+- 语义去重、功效论证（待隐藏集规模冻结）；
+- MMR 离线对比（需 vdb 向量逐对余弦，实现待做）与 S 冻结；
+- PDF 布局复核（专家）；
+- required Judge 失败语义强制化已实现（`66f1b08`），R1 v3 重跑待配额。
