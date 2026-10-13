@@ -1,0 +1,307 @@
+{
+  "schema_version": "r2-merge-arbitration-v1",
+  "instructions": {
+    "flow": "A/B 提交后逐字段对比；一致自动合并；分歧填 dispute_arbitration 并由第三名仲裁",
+    "rule": "保留双方原始意见与仲裁依据，不覆盖"
+  },
+  "rows": [
+    {
+      "draft_question_id": "R2-DEV-GA-01-01",
+      "family_id": "R2-DEV-GA-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-02",
+      "family_id": "R2-DEV-GA-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-03",
+      "family_id": "R2-DEV-GA-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-01",
+      "family_id": "R2-DEV-GA-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-02",
+      "family_id": "R2-DEV-GA-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-03",
+      "family_id": "R2-DEV-GA-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-01",
+      "family_id": "R2-DEV-PM-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-02",
+      "family_id": "R2-DEV-PM-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-03",
+      "family_id": "R2-DEV-PM-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-01",
+      "family_id": "R2-DEV-PM-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-02",
+      "family_id": "R2-DEV-PM-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-03",
+      "family_id": "R2-DEV-PM-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-01",
+      "family_id": "R2-DEV-UN-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-02",
+      "family_id": "R2-DEV-UN-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-03",
+      "family_id": "R2-DEV-UN-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-01",
+      "family_id": "R2-DEV-UN-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-02",
+      "family_id": "R2-DEV-UN-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-03",
+      "family_id": "R2-DEV-UN-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-01",
+      "family_id": "R2-DEV-VC-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-02",
+      "family_id": "R2-DEV-VC-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-03",
+      "family_id": "R2-DEV-VC-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-01",
+      "family_id": "R2-DEV-CE-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-02",
+      "family_id": "R2-DEV-CE-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-03",
+      "family_id": "R2-DEV-CE-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-01",
+      "family_id": "R2-DEV-CE-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-02",
+      "family_id": "R2-DEV-CE-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-03",
+      "family_id": "R2-DEV-CE-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": ""
+      }
+    }
+  ],
+  "arbitration_log": []
+}
