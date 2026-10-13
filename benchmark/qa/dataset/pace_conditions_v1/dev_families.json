@@ -400,7 +400,18 @@
       "gold": null,
       "review_records": [],
       "template_overlap_review": "pending",
-      "exposure": "public_development_never_promote_to_hidden"
+      "exposure": "public_development_never_promote_to_hidden",
+      "audit_20261012": {
+        "search": "corpus-wide threshold search (25/15/10 mm cervical length) across 26 ok documents",
+        "findings": [
+          "25 mm: pragmatic PTB screening cut-off in twins, 18-24w (role-of-ultrasound)",
+          "≤15 mm: cerclage consideration before 24w (same guideline, different action)",
+          "10 mm: retrospective cerclage efficacy subgroup (preterm-birth guideline)",
+          "≤15 mm lower placental edge: placenta previa follow-up (different question)"
+        ],
+        "conclusion": "different clinical actions at different thresholds — not a same-population conflict; bilateral conflict sources remain missing in current corpus",
+        "status_confirmed": "blocked_missing_bilateral_sources retained"
+      }
     },
     {
       "scenario_family_id": "R2-DEV-CE-01",

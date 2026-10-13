@@ -1,0 +1,1114 @@
+{
+  "schema_version": "r2-dual-review-template-v1",
+  "instructions": {
+    "flow": "两人独立填写 reviewer_A/reviewer_B，不得互看；分歧填入 dispute 并由第三名仲裁",
+    "适用性判定": "Applicable / Inapplicable / Unknown（三值，逐变体）",
+    "必需陈述": "gold answer 必须包含的陈述（逐条列出）",
+    "禁止断言": "gold answer 不得包含的断言（逐条列出）",
+    "应保持项": "invariant_control 中必须与 base 保持一致的内容",
+    "耗时分钟": "本题审核耗时（整数）"
+  },
+  "rows": [
+    {
+      "draft_question_id": "R2-DEV-GA-01-01",
+      "family_id": "R2-DEV-GA-01",
+      "variant_type": "base",
+      "question": "可靠定孕周为14周6天，讨论羊膜腔穿刺的指南时间范围。按ISUOG 2016条款，这是否已满足孕周下界？仅解释该条款，不判断个体是否应接受操作。",
+      "known_conditions": {
+        "gestational_age_days": 104,
+        "procedure": "amniocentesis"
+      },
+      "evidence_ids": [
+        "E-AMNIO"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-AMNIO",
+          "excerpt": "Amniocentesis should be performed at or beyond\n15 + 0 completed weeks of gestation ( GRADE OF\nRECOMMENDATION: A).",
+          "anchor_id": "440",
+          "page": "1-1"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-02",
+      "family_id": "R2-DEV-GA-01",
+      "variant_type": "condition_change",
+      "question": "可靠定孕周为15周0天，讨论羊膜腔穿刺的指南时间范围。按ISUOG 2016条款，这是否已满足孕周下界？仅解释该条款，不判断个体是否应接受操作。",
+      "known_conditions": {
+        "gestational_age_days": 105,
+        "procedure": "amniocentesis"
+      },
+      "evidence_ids": [
+        "E-AMNIO"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-AMNIO",
+          "excerpt": "Amniocentesis should be performed at or beyond\n15 + 0 completed weeks of gestation ( GRADE OF\nRECOMMENDATION: A).",
+          "anchor_id": "440",
+          "page": "1-1"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-03",
+      "family_id": "R2-DEV-GA-01",
+      "variant_type": "invariant_control",
+      "question": "可靠定孕周为14+6周；仅解释ISUOG 2016羊膜腔穿刺条款的孕周下界，当前是否满足？不作个体操作决定。",
+      "known_conditions": {
+        "gestational_age_days": 104,
+        "procedure": "amniocentesis"
+      },
+      "evidence_ids": [
+        "E-AMNIO"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-AMNIO",
+          "excerpt": "Amniocentesis should be performed at or beyond\n15 + 0 completed weeks of gestation ( GRADE OF\nRECOMMENDATION: A).",
+          "anchor_id": "440",
+          "page": "1-1"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-01",
+      "family_id": "R2-DEV-GA-02",
+      "variant_type": "base",
+      "question": "胎儿MRI咨询中的可靠孕周只能确定为17+5至18+2周。按2023指南，能否把整个区间一律套用“18周前通常无额外信息”的描述？请保留条款中的限定。",
+      "known_conditions": {
+        "gestational_age_interval_days": [
+          124,
+          128
+        ],
+        "exam": "fetal_mri"
+      },
+      "evidence_ids": [
+        "E-MRI23"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-MRI23",
+          "excerpt": "Fetal MRI performed before 18 weeks does not usually\nprovide information additional to that obtained on\n(transvaginal) ultrasound examination. In some cases,\nadditional information can be obtained before 22 weeks\n25,\nbut MRI becomes helpful increasingly thereafter.",
+          "anchor_id": "675",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-02",
+      "family_id": "R2-DEV-GA-02",
+      "variant_type": "condition_change",
+      "question": "胎儿MRI咨询中的可靠孕周只能确定为18+0至18+2周。按2023指南，能否把整个区间一律套用“18周前通常无额外信息”的描述？请保留条款中的限定。",
+      "known_conditions": {
+        "gestational_age_interval_days": [
+          126,
+          128
+        ],
+        "exam": "fetal_mri"
+      },
+      "evidence_ids": [
+        "E-MRI23"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-MRI23",
+          "excerpt": "Fetal MRI performed before 18 weeks does not usually\nprovide information additional to that obtained on\n(transvaginal) ultrasound examination. In some cases,\nadditional information can be obtained before 22 weeks\n25,\nbut MRI becomes helpful increasingly thereafter.",
+          "anchor_id": "675",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-03",
+      "family_id": "R2-DEV-GA-02",
+      "variant_type": "invariant_control",
+      "question": "目前孕周估计范围为17周5天到18周2天。2023胎儿MRI指南的“18周前通常无额外信息”能否覆盖整个范围？请说明适用限制。",
+      "known_conditions": {
+        "gestational_age_interval_days": [
+          124,
+          128
+        ],
+        "exam": "fetal_mri"
+      },
+      "evidence_ids": [
+        "E-MRI23"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-MRI23",
+          "excerpt": "Fetal MRI performed before 18 weeks does not usually\nprovide information additional to that obtained on\n(transvaginal) ultrasound examination. In some cases,\nadditional information can be obtained before 22 weeks\n25,\nbut MRI becomes helpful increasingly thereafter.",
+          "anchor_id": "675",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-01",
+      "family_id": "R2-DEV-PM-01",
+      "variant_type": "base",
+      "question": "仅判断文件适用范围：拟用于单胎常规染色体筛查咨询的ISPD 2023 NIPT立场声明，是否覆盖这类妊娠？不要据此扩展到未写明的人群。",
+      "known_conditions": {
+        "fetal_count": 1,
+        "purpose": "document_scope"
+      },
+      "evidence_ids": [
+        "E-NIPT"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-NIPT",
+          "excerpt": "In this statement, we cover the role of NIPT for routine screening\nfor chromosome conditions in unselected populations of people with\nsingleton pregnancies. Non ‐ invasive prenatal testing for twin preg-\nnancies was recently addressed in a separate ISPD position state-\nment and will not be covered here.",
+          "anchor_id": "63",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-02",
+      "family_id": "R2-DEV-PM-01",
+      "variant_type": "condition_change",
+      "question": "仅判断文件适用范围：拟用于双胎常规染色体筛查咨询的ISPD 2023 NIPT立场声明，是否覆盖这类妊娠？不要据此扩展到未写明的人群。",
+      "known_conditions": {
+        "fetal_count": 2,
+        "purpose": "document_scope"
+      },
+      "evidence_ids": [
+        "E-NIPT"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-NIPT",
+          "excerpt": "In this statement, we cover the role of NIPT for routine screening\nfor chromosome conditions in unselected populations of people with\nsingleton pregnancies. Non ‐ invasive prenatal testing for twin preg-\nnancies was recently addressed in a separate ISPD position state-\nment and will not be covered here.",
+          "anchor_id": "63",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-03",
+      "family_id": "R2-DEV-PM-01",
+      "variant_type": "invariant_control",
+      "question": "对单胎妊娠的常规染色体筛查咨询，ISPD 2023这份NIPT声明的讨论范围是否适用？这里只判断文件范围。",
+      "known_conditions": {
+        "fetal_count": 1,
+        "purpose": "document_scope"
+      },
+      "evidence_ids": [
+        "E-NIPT"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-NIPT",
+          "excerpt": "In this statement, we cover the role of NIPT for routine screening\nfor chromosome conditions in unselected populations of people with\nsingleton pregnancies. Non ‐ invasive prenatal testing for twin preg-\nnancies was recently addressed in a separate ISPD position state-\nment and will not be covered here.",
+          "anchor_id": "63",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-01",
+      "family_id": "R2-DEV-PM-02",
+      "variant_type": "base",
+      "question": "讨论针对性胎儿神经超声的一般检查途径，现已确认经阴道途径技术上可行。按CNS part 2指南，应怎样表述首选途径及适用限制？",
+      "known_conditions": {
+        "exam": "targeted_neurosonography",
+        "transvaginal_feasible": true
+      },
+      "evidence_ids": [
+        "E-NEURO"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-NEURO",
+          "excerpt": "The transvaginal approach is the preferred method\nto perform an adequate high-resolution targeted\nneurosonographic examination. When this is not\ntechnically feasible (e.g. breech presentation; twin preg-\nnancy), the examination is performed transabdominally\n(GOOD PRACTICE POINT ).",
+          "anchor_id": "88",
+          "page": "1-1"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-02",
+      "family_id": "R2-DEV-PM-02",
+      "variant_type": "condition_change",
+      "question": "讨论针对性胎儿神经超声的一般检查途径，现已确认经阴道途径技术上不可行。按CNS part 2指南，应怎样表述首选途径及适用限制？",
+      "known_conditions": {
+        "exam": "targeted_neurosonography",
+        "transvaginal_feasible": false
+      },
+      "evidence_ids": [
+        "E-NEURO"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-NEURO",
+          "excerpt": "The transvaginal approach is the preferred method\nto perform an adequate high-resolution targeted\nneurosonographic examination. When this is not\ntechnically feasible (e.g. breech presentation; twin preg-\nnancy), the examination is performed transabdominally\n(GOOD PRACTICE POINT ).",
+          "anchor_id": "88",
+          "page": "1-1"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-03",
+      "family_id": "R2-DEV-PM-02",
+      "variant_type": "invariant_control",
+      "question": "针对性胎儿神经超声已确认可以采用经阴道途径。请依据CNS part 2说明一般的途径选择及限制。",
+      "known_conditions": {
+        "exam": "targeted_neurosonography",
+        "transvaginal_feasible": true
+      },
+      "evidence_ids": [
+        "E-NEURO"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-NEURO",
+          "excerpt": "The transvaginal approach is the preferred method\nto perform an adequate high-resolution targeted\nneurosonographic examination. When this is not\ntechnically feasible (e.g. breech presentation; twin preg-\nnancy), the examination is performed transabdominally\n(GOOD PRACTICE POINT ).",
+          "anchor_id": "88",
+          "page": "1-1"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-01",
+      "family_id": "R2-DEV-UN-01",
+      "variant_type": "base",
+      "question": "无并发症双胎，孕20周，未提供绒毛膜性。依据2025双胎指南，能否直接给出唯一的后续超声间隔？请解释已知条件允许说明的分支。",
+      "known_conditions": {
+        "fetal_count": 2,
+        "complicated": false,
+        "chorionicity": null,
+        "gestational_age_days": 140
+      },
+      "evidence_ids": [
+        "E-TWIN"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-TWIN",
+          "excerpt": "Women with an uncomplicated dichorionic twin\npregnancy should have a ﬁrst-trimester scan, a second-\ntrimester anomaly scan and scans every 4 weeks\nthereafter. Complicated dichorionic twins should be\nscanned more frequently, depending on the condition\nand its severity ( GOOD PRACTICE POINT ).\n• Uncomplicated monochorionic twins should have a\nﬁrst-trimester scan and be scanned every 2 weeks after\n16 weeks, in order to detect TTTS in a timely manner.\nComplicated monochorionic twins should be scanned\nmore frequently, depending on the condition and its\nseverity (GRADE OF RECOMMENDATION: C ).",
+          "anchor_id": "224",
+          "page": "4-4"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-02",
+      "family_id": "R2-DEV-UN-01",
+      "variant_type": "condition_change",
+      "question": "无并发症双胎，孕20周，已确认双绒毛膜。依据2025双胎指南，能否直接给出唯一的后续超声间隔？请解释已知条件允许说明的分支。",
+      "known_conditions": {
+        "fetal_count": 2,
+        "complicated": false,
+        "chorionicity": "dichorionic",
+        "gestational_age_days": 140
+      },
+      "evidence_ids": [
+        "E-TWIN"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-TWIN",
+          "excerpt": "Women with an uncomplicated dichorionic twin\npregnancy should have a ﬁrst-trimester scan, a second-\ntrimester anomaly scan and scans every 4 weeks\nthereafter. Complicated dichorionic twins should be\nscanned more frequently, depending on the condition\nand its severity ( GOOD PRACTICE POINT ).\n• Uncomplicated monochorionic twins should have a\nﬁrst-trimester scan and be scanned every 2 weeks after\n16 weeks, in order to detect TTTS in a timely manner.\nComplicated monochorionic twins should be scanned\nmore frequently, depending on the condition and its\nseverity (GRADE OF RECOMMENDATION: C ).",
+          "anchor_id": "224",
+          "page": "4-4"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-03",
+      "family_id": "R2-DEV-UN-01",
+      "variant_type": "invariant_control",
+      "question": "孕20周、目前无并发症的双胎，资料未写绒毛膜性。请按2025指南说明后续超声间隔能否直接确定，以及可以解释的条件分支。",
+      "known_conditions": {
+        "fetal_count": 2,
+        "complicated": false,
+        "chorionicity": null,
+        "gestational_age_days": 140
+      },
+      "evidence_ids": [
+        "E-TWIN"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-TWIN",
+          "excerpt": "Women with an uncomplicated dichorionic twin\npregnancy should have a ﬁrst-trimester scan, a second-\ntrimester anomaly scan and scans every 4 weeks\nthereafter. Complicated dichorionic twins should be\nscanned more frequently, depending on the condition\nand its severity ( GOOD PRACTICE POINT ).\n• Uncomplicated monochorionic twins should have a\nﬁrst-trimester scan and be scanned every 2 weeks after\n16 weeks, in order to detect TTTS in a timely manner.\nComplicated monochorionic twins should be scanned\nmore frequently, depending on the condition and its\nseverity (GRADE OF RECOMMENDATION: C ).",
+          "anchor_id": "224",
+          "page": "4-4"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-01",
+      "family_id": "R2-DEV-UN-02",
+      "variant_type": "base",
+      "question": "一份头围报告写明采用的参考曲线，但未说明卡尺放置是否与该曲线方法一致。能否仅凭一个数值确认测量方法可比？请说明已知与缺失的核验信息。",
+      "known_conditions": {
+        "measurement": "HC",
+        "reference_curve_named": true,
+        "caliper_matches_reference": null
+      },
+      "evidence_ids": [
+        "E-CALIPER"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-CALIPER",
+          "excerpt": "Calipers should be placed as described\nin the charts that are chosen for gestational age or\nsize determination.",
+          "anchor_id": "490",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-02",
+      "family_id": "R2-DEV-UN-02",
+      "variant_type": "condition_change",
+      "question": "一份头围报告写明采用的参考曲线，且已核实卡尺放置与该曲线方法一致。能否仅凭一个数值确认测量方法可比？请说明已知与缺失的核验信息。",
+      "known_conditions": {
+        "measurement": "HC",
+        "reference_curve_named": true,
+        "caliper_matches_reference": true
+      },
+      "evidence_ids": [
+        "E-CALIPER"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-CALIPER",
+          "excerpt": "Calipers should be placed as described\nin the charts that are chosen for gestational age or\nsize determination.",
+          "anchor_id": "490",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-03",
+      "family_id": "R2-DEV-UN-02",
+      "variant_type": "invariant_control",
+      "question": "头围报告有参考曲线名称，却缺少卡尺放置与曲线方法的一致性信息。要判断方法可比，还需要核对什么？",
+      "known_conditions": {
+        "measurement": "HC",
+        "reference_curve_named": true,
+        "caliper_matches_reference": null
+      },
+      "evidence_ids": [
+        "E-CALIPER"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-CALIPER",
+          "excerpt": "Calipers should be placed as described\nin the charts that are chosen for gestational age or\nsize determination.",
+          "anchor_id": "490",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-01",
+      "family_id": "R2-DEV-VC-01",
+      "variant_type": "base",
+      "question": "请只依据截至2020年已经公开的ISUOG胎儿MRI指南，解释18周前MRI额外信息的条款，并标明版本。不要引入之后的更新。",
+      "known_conditions": {
+        "knowledge_cutoff_year": 2020,
+        "topic": "mri_before_18_weeks"
+      },
+      "evidence_ids": [
+        "E-MRI17",
+        "E-MRI23"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-MRI17",
+          "excerpt": "Fetal MRI performed before 18 weeks does not\nusually provide information additional to that obtained\non ultrasound examination. In some cases, additional\ninformation can be obtained before 22 weeks 13 but\nMRI becomes increasingly helpful thereafter.",
+          "anchor_id": "140",
+          "page": "2-2"
+        },
+        {
+          "evidence_id": "E-MRI23",
+          "excerpt": "Fetal MRI performed before 18 weeks does not usually\nprovide information additional to that obtained on\n(transvaginal) ultrasound examination. In some cases,\nadditional information can be obtained before 22 weeks\n25,\nbut MRI becomes helpful increasingly thereafter.",
+          "anchor_id": "675",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-02",
+      "family_id": "R2-DEV-VC-01",
+      "variant_type": "condition_change",
+      "question": "请只依据截至2024年已经公开的ISUOG胎儿MRI指南，解释18周前MRI额外信息的条款，并标明版本。不要引入之后的更新。",
+      "known_conditions": {
+        "knowledge_cutoff_year": 2024,
+        "topic": "mri_before_18_weeks"
+      },
+      "evidence_ids": [
+        "E-MRI17",
+        "E-MRI23"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-MRI17",
+          "excerpt": "Fetal MRI performed before 18 weeks does not\nusually provide information additional to that obtained\non ultrasound examination. In some cases, additional\ninformation can be obtained before 22 weeks 13 but\nMRI becomes increasingly helpful thereafter.",
+          "anchor_id": "140",
+          "page": "2-2"
+        },
+        {
+          "evidence_id": "E-MRI23",
+          "excerpt": "Fetal MRI performed before 18 weeks does not usually\nprovide information additional to that obtained on\n(transvaginal) ultrasound examination. In some cases,\nadditional information can be obtained before 22 weeks\n25,\nbut MRI becomes helpful increasingly thereafter.",
+          "anchor_id": "675",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-03",
+      "family_id": "R2-DEV-VC-01",
+      "variant_type": "invariant_control",
+      "question": "以2020年为公开知识截止年，ISUOG胎儿MRI指南怎样描述18周前的额外信息？请注明当时可用版本。",
+      "known_conditions": {
+        "knowledge_cutoff_year": 2020,
+        "topic": "mri_before_18_weeks"
+      },
+      "evidence_ids": [
+        "E-MRI17",
+        "E-MRI23"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-MRI17",
+          "excerpt": "Fetal MRI performed before 18 weeks does not\nusually provide information additional to that obtained\non ultrasound examination. In some cases, additional\ninformation can be obtained before 22 weeks 13 but\nMRI becomes increasingly helpful thereafter.",
+          "anchor_id": "140",
+          "page": "2-2"
+        },
+        {
+          "evidence_id": "E-MRI23",
+          "excerpt": "Fetal MRI performed before 18 weeks does not usually\nprovide information additional to that obtained on\n(transvaginal) ultrasound examination. In some cases,\nadditional information can be obtained before 22 weeks\n25,\nbut MRI becomes helpful increasingly thereafter.",
+          "anchor_id": "675",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-01",
+      "family_id": "R2-DEV-CE-01",
+      "variant_type": "base",
+      "question": "经阴道宫颈长度测量已排空膀胱并取得三次测量记录。请按2022指南共同说明准备条件、需要显示的结构和选取有效记录的要求。",
+      "known_conditions": {
+        "exam": "transvaginal_cervical_length",
+        "bladder_empty": true,
+        "three_recorded_measurements": true
+      },
+      "evidence_ids": [
+        "E-CERVIX-PREP",
+        "E-CERVIX-LANDMARK",
+        "E-CERVIX-REPEAT"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-CERVIX-PREP",
+          "excerpt": "Pre-exam Maternal bladder empty",
+          "anchor_id": "327",
+          "page": "3-3"
+        },
+        {
+          "evidence_id": "E-CERVIX-LANDMARK",
+          "excerpt": "Required structures Inferior bladder border, external os, endocervical canal and mucosa, internal os (limited by edge of mucosa)",
+          "anchor_id": "327",
+          "page": "3-3"
+        },
+        {
+          "evidence_id": "E-CERVIX-REPEAT",
+          "excerpt": "Repetition Obtain three distinct measurements and choose the shortest technically correct one",
+          "anchor_id": "327",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-02",
+      "family_id": "R2-DEV-CE-01",
+      "variant_type": "condition_change",
+      "question": "经阴道宫颈长度测量未排空膀胱并取得三次测量记录。请按2022指南共同说明准备条件、需要显示的结构和选取有效记录的要求。",
+      "known_conditions": {
+        "exam": "transvaginal_cervical_length",
+        "bladder_empty": false,
+        "three_recorded_measurements": true
+      },
+      "evidence_ids": [
+        "E-CERVIX-PREP",
+        "E-CERVIX-LANDMARK",
+        "E-CERVIX-REPEAT"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-CERVIX-PREP",
+          "excerpt": "Pre-exam Maternal bladder empty",
+          "anchor_id": "327",
+          "page": "3-3"
+        },
+        {
+          "evidence_id": "E-CERVIX-LANDMARK",
+          "excerpt": "Required structures Inferior bladder border, external os, endocervical canal and mucosa, internal os (limited by edge of mucosa)",
+          "anchor_id": "327",
+          "page": "3-3"
+        },
+        {
+          "evidence_id": "E-CERVIX-REPEAT",
+          "excerpt": "Repetition Obtain three distinct measurements and choose the shortest technically correct one",
+          "anchor_id": "327",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-03",
+      "family_id": "R2-DEV-CE-01",
+      "variant_type": "invariant_control",
+      "question": "已排空膀胱，完成三次经阴道宫颈长度测量记录。依据2022指南，需要核对哪些结构、准备条件，以及如何选取记录值？",
+      "known_conditions": {
+        "exam": "transvaginal_cervical_length",
+        "bladder_empty": true,
+        "three_recorded_measurements": true
+      },
+      "evidence_ids": [
+        "E-CERVIX-PREP",
+        "E-CERVIX-LANDMARK",
+        "E-CERVIX-REPEAT"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-CERVIX-PREP",
+          "excerpt": "Pre-exam Maternal bladder empty",
+          "anchor_id": "327",
+          "page": "3-3"
+        },
+        {
+          "evidence_id": "E-CERVIX-LANDMARK",
+          "excerpt": "Required structures Inferior bladder border, external os, endocervical canal and mucosa, internal os (limited by edge of mucosa)",
+          "anchor_id": "327",
+          "page": "3-3"
+        },
+        {
+          "evidence_id": "E-CERVIX-REPEAT",
+          "excerpt": "Repetition Obtain three distinct measurements and choose the shortest technically correct one",
+          "anchor_id": "327",
+          "page": "3-3"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-01",
+      "family_id": "R2-DEV-CE-02",
+      "variant_type": "base",
+      "question": "这是一次方法讨论：现有1次技术合格且方法可比的胎儿生物测量。按2019指南，请区分大小与生长，并说明EFW报告应保留哪些计算和参考依据；不要预测个体结局。",
+      "known_conditions": {
+        "scan_count": 1,
+        "measurements_comparable": true,
+        "clinical_outcome_requested": false
+      },
+      "evidence_ids": [
+        "E-GROWTH",
+        "E-REPORT",
+        "E-CALIPER"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-GROWTH",
+          "excerpt": "It is important to differentiate between the\nconcept of fetal size at a given timepoint and fetal growth,\nthe latter being a dynamic process, the assessment of\nwhich requires at least two ultrasound scans separated\nin time.",
+          "anchor_id": "489",
+          "page": "1-1"
+        },
+        {
+          "evidence_id": "E-REPORT",
+          "excerpt": "EFW in grams (with centile and/or Z-score,\nformula and reference/standard used);",
+          "anchor_id": "494",
+          "page": "6-6"
+        },
+        {
+          "evidence_id": "E-CALIPER",
+          "excerpt": "Calipers should be placed as described\nin the charts that are chosen for gestational age or\nsize determination.",
+          "anchor_id": "490",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-02",
+      "family_id": "R2-DEV-CE-02",
+      "variant_type": "condition_change",
+      "question": "这是一次方法讨论：现有2次在不同时间完成、技术合格且方法可比的胎儿生物测量。按2019指南，请区分大小与生长，并说明EFW报告应保留哪些计算和参考依据；不要预测个体结局。",
+      "known_conditions": {
+        "scan_count": 2,
+        "measurements_comparable": true,
+        "clinical_outcome_requested": false
+      },
+      "evidence_ids": [
+        "E-GROWTH",
+        "E-REPORT",
+        "E-CALIPER"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-GROWTH",
+          "excerpt": "It is important to differentiate between the\nconcept of fetal size at a given timepoint and fetal growth,\nthe latter being a dynamic process, the assessment of\nwhich requires at least two ultrasound scans separated\nin time.",
+          "anchor_id": "489",
+          "page": "1-1"
+        },
+        {
+          "evidence_id": "E-REPORT",
+          "excerpt": "EFW in grams (with centile and/or Z-score,\nformula and reference/standard used);",
+          "anchor_id": "494",
+          "page": "6-6"
+        },
+        {
+          "evidence_id": "E-CALIPER",
+          "excerpt": "Calipers should be placed as described\nin the charts that are chosen for gestational age or\nsize determination.",
+          "anchor_id": "490",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-03",
+      "family_id": "R2-DEV-CE-02",
+      "variant_type": "invariant_control",
+      "question": "仅有一次技术合格、方法可比的胎儿生物测量。依据2019指南，大小和生长有何区别，EFW结果需注明哪些计算与参考信息？不作个体预后判断。",
+      "known_conditions": {
+        "scan_count": 1,
+        "measurements_comparable": true,
+        "clinical_outcome_requested": false
+      },
+      "evidence_ids": [
+        "E-GROWTH",
+        "E-REPORT",
+        "E-CALIPER"
+      ],
+      "evidence_excerpts": [
+        {
+          "evidence_id": "E-GROWTH",
+          "excerpt": "It is important to differentiate between the\nconcept of fetal size at a given timepoint and fetal growth,\nthe latter being a dynamic process, the assessment of\nwhich requires at least two ultrasound scans separated\nin time.",
+          "anchor_id": "489",
+          "page": "1-1"
+        },
+        {
+          "evidence_id": "E-REPORT",
+          "excerpt": "EFW in grams (with centile and/or Z-score,\nformula and reference/standard used);",
+          "anchor_id": "494",
+          "page": "6-6"
+        },
+        {
+          "evidence_id": "E-CALIPER",
+          "excerpt": "Calipers should be placed as described\nin the charts that are chosen for gestational age or\nsize determination.",
+          "anchor_id": "490",
+          "page": "2-2"
+        }
+      ],
+      "reviewer_A": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "reviewer_B": {
+        "适用性判定": "",
+        "必需陈述": "",
+        "禁止断言": "",
+        "应保持项": "",
+        "耗时分钟": ""
+      },
+      "dispute": ""
+    }
+  ]
+}
