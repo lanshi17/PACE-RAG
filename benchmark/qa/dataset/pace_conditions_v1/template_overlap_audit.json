@@ -1,0 +1,227 @@
+{
+  "method": "术语+数字特征 jaccard（跨语言近似，保守下界）",
+  "n_new": 27,
+  "n_hist": 68,
+  "mean_overlap": 0.231,
+  "high_overlap_ge_0_5": [
+    {
+      "draft_question_id": "R2-DEV-GA-01-01",
+      "family_id": "R2-DEV-GA-01",
+      "feature_overlap": 0.5,
+      "closest_hist_id": "PU-L1-008",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-01",
+      "family_id": "R2-DEV-UN-02",
+      "feature_overlap": 0.5,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-02",
+      "family_id": "R2-DEV-UN-02",
+      "feature_overlap": 0.5,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-03",
+      "family_id": "R2-DEV-UN-02",
+      "feature_overlap": 0.5,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50"
+    }
+  ],
+  "rows": [
+    {
+      "draft_question_id": "R2-DEV-GA-01-01",
+      "family_id": "R2-DEV-GA-01",
+      "feature_overlap": 0.5,
+      "closest_hist_id": "PU-L1-008",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-02",
+      "family_id": "R2-DEV-GA-01",
+      "feature_overlap": 0.286,
+      "closest_hist_id": "PU-L1-008",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-03",
+      "family_id": "R2-DEV-GA-01",
+      "feature_overlap": 0.333,
+      "closest_hist_id": "PU-L1-008",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-01",
+      "family_id": "R2-DEV-GA-02",
+      "feature_overlap": 0.286,
+      "closest_hist_id": "PU-L1-008",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-02",
+      "family_id": "R2-DEV-GA-02",
+      "feature_overlap": 0.286,
+      "closest_hist_id": "PU-L1-008",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-03",
+      "family_id": "R2-DEV-GA-02",
+      "feature_overlap": 0.25,
+      "closest_hist_id": "PU-L1-008",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-01",
+      "family_id": "R2-DEV-PM-01",
+      "feature_overlap": 0.167,
+      "closest_hist_id": "PU-L3-PRE007",
+      "closest_hist_src": "hist12"
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-02",
+      "family_id": "R2-DEV-PM-01",
+      "feature_overlap": 0.2,
+      "closest_hist_id": "PU-L3-PRE007",
+      "closest_hist_src": "hist12"
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-03",
+      "family_id": "R2-DEV-PM-01",
+      "feature_overlap": 0.167,
+      "closest_hist_id": "PU-L3-PRE007",
+      "closest_hist_src": "hist12"
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-01",
+      "family_id": "R2-DEV-PM-02",
+      "feature_overlap": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-02",
+      "family_id": "R2-DEV-PM-02",
+      "feature_overlap": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-03",
+      "family_id": "R2-DEV-PM-02",
+      "feature_overlap": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-01",
+      "family_id": "R2-DEV-UN-01",
+      "feature_overlap": 0.2,
+      "closest_hist_id": "PU-L4-009",
+      "closest_hist_src": "l4safety6"
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-02",
+      "family_id": "R2-DEV-UN-01",
+      "feature_overlap": 0.2,
+      "closest_hist_id": "PU-L4-009",
+      "closest_hist_src": "l4safety6"
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-03",
+      "family_id": "R2-DEV-UN-01",
+      "feature_overlap": 0.2,
+      "closest_hist_id": "PU-L4-009",
+      "closest_hist_src": "l4safety6"
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-01",
+      "family_id": "R2-DEV-UN-02",
+      "feature_overlap": 0.5,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-02",
+      "family_id": "R2-DEV-UN-02",
+      "feature_overlap": 0.5,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-03",
+      "family_id": "R2-DEV-UN-02",
+      "feature_overlap": 0.5,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-01",
+      "family_id": "R2-DEV-VC-01",
+      "feature_overlap": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-02",
+      "family_id": "R2-DEV-VC-01",
+      "feature_overlap": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-03",
+      "family_id": "R2-DEV-VC-01",
+      "feature_overlap": 0.0,
+      "closest_hist_id": null,
+      "closest_hist_src": null
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-01",
+      "family_id": "R2-DEV-CE-01",
+      "feature_overlap": 0.25,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-02",
+      "family_id": "R2-DEV-CE-01",
+      "feature_overlap": 0.25,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-03",
+      "family_id": "R2-DEV-CE-01",
+      "feature_overlap": 0.25,
+      "closest_hist_id": "PU-L1-015",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-01",
+      "family_id": "R2-DEV-CE-02",
+      "feature_overlap": 0.333,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-02",
+      "family_id": "R2-DEV-CE-02",
+      "feature_overlap": 0.333,
+      "closest_hist_id": "PU-L2-025",
+      "closest_hist_src": "hist50"
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-03",
+      "family_id": "R2-DEV-CE-02",
+      "feature_overlap": 0.25,
+      "closest_hist_id": "PU-L1-019",
+      "closest_hist_src": "hist50"
+    }
+  ]
+}
