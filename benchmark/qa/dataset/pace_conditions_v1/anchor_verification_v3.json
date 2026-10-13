@@ -1,0 +1,209 @@
+{
+  "schema_version": "anchor-verify-v3",
+  "reproducible": 12,
+  "total": 12,
+  "fail_count": 0,
+  "snapshot_identity": {
+    "chunk_count": 341,
+    "content_fingerprint": "6d10b569c8164de7f7477961a7c746f5cb20d19c8dc929489f472778781dbecc"
+  },
+  "exit_code_meaning": "0 = all pass; 1 = at least one fail record",
+  "results": [
+    {
+      "evidence_id": "E-AMNIO",
+      "declared_anchor_id": 440,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG_2016_invasive-prenatal-diagnosis--73c6027ffd5a.txt",
+        "sha256": "9a43fa15e362b75cc4368ffe97fbebd2849850499fb92900eaa3fd3b389766ac",
+        "manifest_source_id": "ISUOG_2016_invasive-prenatal-diagnosis"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG_2016_invasive-prenatal-diagnosis",
+        "text_sha256": "594a92a8fe652255e833c743981c275b92aa4be77b2c27363e54269640e685e0"
+      }
+    },
+    {
+      "evidence_id": "E-MRI17",
+      "declared_anchor_id": 140,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [
+        675
+      ],
+      "source_document": {
+        "file": "ISUOG-Practice-Guidelines-fetal-MRI--e1f6ec8ed154.txt",
+        "sha256": "9ef6d958593d7c0dd606e1cc5de0328de20fc22cfc445c93474157419b56f100",
+        "manifest_source_id": "ISUOG-Practice-Guidelines-fetal-MRI"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG-Practice-Guidelines-fetal-MRI",
+        "text_sha256": "779653ad2408dd65dec3f8cb6fc4a1b4daa6c7e84e21f1655a1dde9c0321f1ba"
+      }
+    },
+    {
+      "evidence_id": "E-MRI23",
+      "declared_anchor_id": 675,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [
+        140
+      ],
+      "source_document": {
+        "file": "Updated-ISUOG-Practice-Guidelines-performance-of-fetal-magnetic-resonance-1--3b924de5b1d7.txt",
+        "sha256": "6dd6ffbe96c3d5745cf284d4c28cd5ea04b7e91d7c836a4b6d9f224d507ddf85",
+        "manifest_source_id": "Updated-ISUOG-Practice-Guidelines-performance-of-fetal-magnetic-resonance-1"
+      },
+      "anchor_chunk": {
+        "source_id": "Updated-ISUOG-Practice-Guidelines-performance-of-fetal-magnetic-resonance-1",
+        "text_sha256": "bc3af5c55f88cf61570fe7abb6e542af843019fbfebae8cc84b411199e7e0fd5"
+      }
+    },
+    {
+      "evidence_id": "E-NIPT",
+      "declared_anchor_id": 63,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISPD-nipt-2023--e4a5ce3272e7.txt",
+        "sha256": "f9ece3974b8826c0cdb921665734102e839ef1d53ca462f0e0b5aa515bdec371",
+        "manifest_source_id": "ISPD-nipt-2023"
+      },
+      "anchor_chunk": {
+        "source_id": "ISPD-nipt-2023",
+        "text_sha256": "827eb70419ba191929ebb1259c934d3452c86d99eb1b64fb48aad7cd3ba7dd5d"
+      }
+    },
+    {
+      "evidence_id": "E-NEURO",
+      "declared_anchor_id": 88,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG-Practice-Guidelines-CNS-part-2-targeted-neurosonography--6bf1c9117d79.txt",
+        "sha256": "a2eae5e4ea524db8de87aa58355aad2b1c6601498a1f872dd0bfd3f8c642372f",
+        "manifest_source_id": "ISUOG-Practice-Guidelines-CNS-part-2-targeted-neurosonography"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG-Practice-Guidelines-CNS-part-2-targeted-neurosonography",
+        "text_sha256": "7bffd06e6887b791b9ce8cee3424ba48911267c93c8870960aa1c347d3f68186"
+      }
+    },
+    {
+      "evidence_id": "E-TWIN",
+      "declared_anchor_id": 224,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG-Practice-Guidelines-role-of-ultrasound-in-twin-pregnancy--47b3784a3f04.txt",
+        "sha256": "60cbb1d9c69e05ff4d483db2b11f96978dc5a5cc88cbcb305bb2dae4afdad913",
+        "manifest_source_id": "ISUOG-Practice-Guidelines-role-of-ultrasound-in-twin-pregnancy"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG-Practice-Guidelines-role-of-ultrasound-in-twin-pregnancy",
+        "text_sha256": "adcdf382d2f476287efde67737cc186b5b6053cf27cce653ad71470805c28369"
+      }
+    },
+    {
+      "evidence_id": "E-CALIPER",
+      "declared_anchor_id": 490,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG_2019_fetal-biometry-growth--695f6e9d10a1.txt",
+        "sha256": "20cc266da6dd2ebb15ae9337aeb8e087e8b4c29fe0f7f7bae0730906db9a7c66",
+        "manifest_source_id": "ISUOG_2019_fetal-biometry-growth"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG_2019_fetal-biometry-growth",
+        "text_sha256": "b578f2dbcb66bb726f0380e9c90d87d2e306b31956f442b694f921562d3fb040"
+      }
+    },
+    {
+      "evidence_id": "E-CERVIX-PREP",
+      "declared_anchor_id": 327,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth--0400d0c3945c.txt",
+        "sha256": "c78d0ef0a6c2d5c0102a30251daa06bf1bdb17b6c995b84f8e7aec7613e9b617",
+        "manifest_source_id": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth",
+        "text_sha256": "23652feafd133db2eca16fb84c026e38e501e365704040a819476ac4a81d1adf"
+      }
+    },
+    {
+      "evidence_id": "E-CERVIX-LANDMARK",
+      "declared_anchor_id": 327,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth--0400d0c3945c.txt",
+        "sha256": "c78d0ef0a6c2d5c0102a30251daa06bf1bdb17b6c995b84f8e7aec7613e9b617",
+        "manifest_source_id": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth",
+        "text_sha256": "23652feafd133db2eca16fb84c026e38e501e365704040a819476ac4a81d1adf"
+      }
+    },
+    {
+      "evidence_id": "E-CERVIX-REPEAT",
+      "declared_anchor_id": 327,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth--0400d0c3945c.txt",
+        "sha256": "c78d0ef0a6c2d5c0102a30251daa06bf1bdb17b6c995b84f8e7aec7613e9b617",
+        "manifest_source_id": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG-Practice-Guidelines-ultrasound-in-preterm-birth",
+        "text_sha256": "23652feafd133db2eca16fb84c026e38e501e365704040a819476ac4a81d1adf"
+      }
+    },
+    {
+      "evidence_id": "E-GROWTH",
+      "declared_anchor_id": 489,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG_2019_fetal-biometry-growth--695f6e9d10a1.txt",
+        "sha256": "20cc266da6dd2ebb15ae9337aeb8e087e8b4c29fe0f7f7bae0730906db9a7c66",
+        "manifest_source_id": "ISUOG_2019_fetal-biometry-growth"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG_2019_fetal-biometry-growth",
+        "text_sha256": "e0203181bae8c671b42acf1430fc637781197b8e5b8125bcc9b794d85022fa96"
+      }
+    },
+    {
+      "evidence_id": "E-REPORT",
+      "declared_anchor_id": 494,
+      "verdict": "pass",
+      "failures": [],
+      "candidate_anchors": [],
+      "source_document": {
+        "file": "ISUOG_2019_fetal-biometry-growth--695f6e9d10a1.txt",
+        "sha256": "20cc266da6dd2ebb15ae9337aeb8e087e8b4c29fe0f7f7bae0730906db9a7c66",
+        "manifest_source_id": "ISUOG_2019_fetal-biometry-growth"
+      },
+      "anchor_chunk": {
+        "source_id": "ISUOG_2019_fetal-biometry-growth",
+        "text_sha256": "e3c8bb4ef56d8ee460b16fc2c2bf6cf3d27efec81e10d13eb8c126a23bc73128"
+      }
+    }
+  ]
+}
