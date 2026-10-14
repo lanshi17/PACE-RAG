@@ -318,7 +318,7 @@ def test_anchor_v3_prefix_only_and_missing_file() -> None:
 
 
 def test_exposure_gate_failure_paths() -> None:
-    """审计 v5 §2：file_missing / sha256_mismatch → 覆盖失败 + 重叠入口 exit 2 + 不覆盖已有重叠产物。"""
+    """审计 v6：file_missing / 仅哈希变化（记录数不变）→ 覆盖失败 + 重叠入口 exit 2 + 实际 --out 未被覆盖。"""
     import json
     import subprocess
     import sys
@@ -327,48 +327,77 @@ def test_exposure_gate_failure_paths() -> None:
     repo = Path(__file__).resolve().parents[1]
     base = repo / "benchmark/qa/dataset/pace_conditions_v1"
     inv = json.loads((base / "legacy_exposure_inventory.json").read_text(encoding="utf-8"))
-    overlap_path = base / "template_overlap_audit_v3.json"
-    overlap_before = overlap_path.read_bytes()
+    repo_overlap_path = base / "template_overlap_audit_v3.json"
+    repo_overlap_before = repo_overlap_path.read_bytes()
+    SENTINEL = b"SENTINEL-overlap-product-must-not-be-overwritten"
 
-    def run_gate(tmp: Path, mutate_records) -> subprocess.CompletedProcess:
+    def run_gate(tmp: Path, mutate_records) -> tuple[subprocess.CompletedProcess, Path]:
         inv2 = {**inv, "records": [dict(r) for r in inv["records"]]}
         mutate_records(inv2["records"], tmp)
         inv_path = tmp / "inv.json"
         inv_path.write_text(json.dumps(inv2, ensure_ascii=False), encoding="utf-8")
-        return subprocess.run(
+        out_path = tmp / "overlap_out.json"
+        out_path.write_bytes(SENTINEL)
+        result = subprocess.run(
             [
                 sys.executable,
                 str(repo / "benchmark/pace_research/template_overlap_audit_v3.py"),
                 "--inventory",
                 str(inv_path),
                 "--out",
-                str(tmp / "overlap_out.json"),
+                str(out_path),
             ],
             capture_output=True,
             text=True,
             cwd=repo,
         )
+        return result, out_path
 
     with tempfile.TemporaryDirectory() as tmp1, tempfile.TemporaryDirectory() as tmp2:
         # 场景 1：文件缺失
         def mutate_missing(records, tmp):
             records[0]["path"] = str(tmp / "no_such_file.json")
 
-        r1 = run_gate(Path(tmp1), mutate_missing)
+        r1, out1 = run_gate(Path(tmp1), mutate_missing)
         assert r1.returncode == 2, f"expected exit 2, got {r1.returncode}: {r1.stderr[:200]}"
         assert "file_missing" in r1.stderr or "file_missing" in r1.stdout
+        # 实际 --out 目标的字节完全不变
+        assert out1.read_bytes() == SENTINEL, "actual --out target was overwritten (file_missing)"
 
-        # 场景 2：内容改变、记录数不变 → sha256_mismatch
+        # 场景 2：仅内容改变、记录数不变 → count_match=True, sha_match=False
         def mutate_sha(records, tmp):
             src = repo / records[0]["path"]
             tampered = tmp / "tampered.json"
             data = json.loads(src.read_text(encoding="utf-8"))
-            tampered.write_text(json.dumps(data[:-1], ensure_ascii=False), encoding="utf-8")
+            # 修改第一条记录内容，记录数保持不变
+            if isinstance(data, list):
+                data[0] = {**data[0], "_tampered": True}
+            else:
+                raise AssertionError("expected list-shaped exposure file for tampering")
+            tampered.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
             records[0]["path"] = str(tampered)
 
-        r2 = run_gate(Path(tmp2), mutate_sha)
+        r2, out2 = run_gate(Path(tmp2), mutate_sha)
         assert r2.returncode == 2, f"expected exit 2, got {r2.returncode}: {r2.stderr[:200]}"
         assert "sha256_mismatch" in r2.stderr or "sha256_mismatch" in r2.stdout
+        # 直接验证覆盖检查的内部结果：记录数相同但哈希不符
+        from benchmark.pace_research.verify_exposure_coverage import verify_exposure_coverage
 
-    # 已有重叠产物未被覆盖
-    assert overlap_path.read_bytes() == overlap_before, "existing overlap product was overwritten"
+        inv_sha = {**inv, "records": [dict(r) for r in inv["records"]]}
+        tampered_path = Path(tmp2) / "tampered.json"
+        original = json.loads((repo / inv["records"][0]["path"]).read_text(encoding="utf-8"))
+        tampered_path.write_text(
+            json.dumps([{**original[0], "_tampered": True}] + original[1:], ensure_ascii=False),
+            encoding="utf-8",
+        )
+        inv_sha["records"][0]["path"] = str(tampered_path)
+        inv_sha_path = Path(tmp2) / "inv_sha.json"
+        inv_sha_path.write_text(json.dumps(inv_sha, ensure_ascii=False), encoding="utf-8")
+        rep = verify_exposure_coverage(inv_sha_path)
+        entry = rep["results"][0]
+        assert entry["count_match"] is True, f"count must match: {entry}"
+        assert entry["sha_match"] is False, f"sha must mismatch: {entry}"
+        assert out2.read_bytes() == SENTINEL, "actual --out target was overwritten (sha256_mismatch)"
+
+    # 仓库真实产物未被覆盖
+    assert repo_overlap_path.read_bytes() == repo_overlap_before, "repo overlap product was overwritten"

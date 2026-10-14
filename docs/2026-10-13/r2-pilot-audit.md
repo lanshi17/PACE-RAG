@@ -84,9 +84,8 @@ condition_pairs 30），sha256 与计数逐条匹配。缺失/不符 → 报错�
 
 ## 7. A/B 独立审核包 v2
 
-`review_package_A.json` / `review_package_B.json`：当前结构为**每份包对应
-一名审核者**（`reviewer_id: A` / `B`），各 27 题逐题含 `reviewer_A` 与
-`reviewer_B` 独立填答区（适用性判定/必需陈述/禁止断言/耗时/完成时间戳），
+`review_package_A.json` / `review_package_B.json`：**每份包对应一名审核者，
+各含 27 题**；逐题包含临床判断、条件变化、派生关系、耗时和完成时间字段，
 临床判断字段全部留空。材料绑定：4 文件 sha256 + 字节数 + git_baseline。
 提示语在 `instructions`，填答字段为空列表。
 
