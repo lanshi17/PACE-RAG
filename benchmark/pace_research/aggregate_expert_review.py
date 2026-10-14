@@ -1,19 +1,31 @@
-"""专家双审记录汇总 v2（审计补正 §1–§4）：完整性决定状态、材料内容核验、
-派生关系比较、gold 完整导出、工时缺失/非法明确报告。
+"""专家双审记录汇总 v3（审计补正 §1–§3）：完整性契约、双方理由保留、
+内容基准纳入材料绑定、工时缺失/非法明确报告。
 
 用法：
     uv run python benchmark/pace_research/aggregate_expert_review.py \
-        --reviewed-a PATH --reviewed-b PATH [--out DIR]
+        --reviewed-a PATH --reviewed-b PATH [--materials-dir DIR] [--out DIR]
 
 输入：专家填写后的 review_package_A.json / review_package_B.json。
+--materials-dir：材料目录（默认仓库 pace_conditions_v1）；测试用临时副本。
+
+审核完成契约（§1）：
+- 适用性判定必须为 Applicable/Inapplicable/Unknown；
+- 必需陈述/禁止断言/应变项/应保持项（按变体要求）：每个元素必须是非空白
+  字符串；"已审核且无此项"必须显式写 ["无"]，空列表视为尚未填写；
+- 派生关系：判断非空且理由非空；
+- 完成时间必须为 ISO 格式。
+
+内容基准（§3）：从**已绑定材料**构造——dev_families.json 提供
+家族/变体/题干/条件/证据 ID，evidence_candidates.json 提供证据摘录；
+dual_review_template.json 不再作为基准。
 
 状态（互斥，逐题）：
 - incomplete_pending_completion  任一审核者记录未完成（不进 gold）
 - pending_arbitration            双方已完成但存在分歧（含派生关系判断）
 - agreed_pending_signoff         双方已完成且全部一致（进入 gold 草稿）
 
-拒绝（SystemExit 非零）：材料哈希漂移、题集重复/遗漏、题干/条件/证据与
-原材料不符。CLI 恒返回 0（拒绝路径除外）——记录级问题用状态表达，不用退出码。
+拒绝（SystemExit 非零）：材料哈希漂移、题集重复/遗漏、填写包内容漂移、
+基准漂移。CLI 恒返回 0（拒绝路径除外）。
 """
 
 from __future__ import annotations
@@ -37,6 +49,7 @@ MATERIAL_FILES = [
     "legacy_exposure_inventory.json",
 ]
 APPLICABILITY_ENUM = {"Applicable", "Inapplicable", "Unknown"}
+NONE_MARKER = "无"
 EXPECTED_N = 27
 
 
@@ -44,42 +57,80 @@ def _sha256_file(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
 
-def _load_filled(path: Path, expect_reviewer: str) -> dict[str, Any]:
+def _build_baseline(materials_dir: Path) -> dict[str, dict[str, Any]]:
+    """从已绑定材料构造内容基准（§3）：身份字段 + 证据摘录。"""
+    dev = json.loads((materials_dir / "dev_families.json").read_text(encoding="utf-8"))
+    cand = json.loads((materials_dir / "evidence_candidates.json").read_text(encoding="utf-8"))
+    excerpt_by_id = {r["evidence_id"]: r["excerpt"] for r in cand["records"]}
+    baseline: dict[str, dict[str, Any]] = {}
+    for rec in dev["records"]:
+        eids = rec.get("candidate_evidence_ids") or []
+        evidence = [{"evidence_id": eid, "excerpt": excerpt_by_id[eid]} for eid in eids]
+        for v in rec["variants"]:
+            baseline[v["draft_question_id"]] = {
+                "family_id": rec["scenario_family_id"],
+                "variant_type": v["variant_type"],
+                "question": v["question"],
+                "known_conditions": v["known_conditions"],
+                "evidence_ids": eids,
+                "evidence": evidence,
+            }
+    return baseline
+
+
+def _check_content_identity(
+    pkg: dict[str, Any], baseline: dict[str, dict[str, Any]], src: str
+) -> None:
+    """填写包逐题核对家族/变体/题干/条件/证据（§2/§3 拒绝漂移）。"""
+    for r in pkg["rows"]:
+        qid = r["draft_question_id"]
+        b = baseline[qid]
+        for key in ("family_id", "variant_type", "question", "known_conditions"):
+            assert r[key] == b[key], f"{src}: {qid}.{key} drifted from bound materials"
+        got = r.get("evidence_excerpts") or []
+        got_ids = [e.get("evidence_id") for e in got]
+        assert got_ids == b["evidence_ids"], f"{src}: {qid} evidence ids drifted"
+        for e in got:
+            expected_excerpt = next(x["excerpt"] for x in b["evidence"] if x["evidence_id"] == e["evidence_id"])
+            assert e.get("excerpt") == expected_excerpt, (
+                f"{src}: {qid} evidence {e['evidence_id']} excerpt drifted"
+            )
+
+
+def _load_filled(
+    path: Path, expect_reviewer: str, materials_dir: Path, baseline: dict[str, dict[str, Any]]
+) -> dict[str, Any]:
     pkg = json.loads(path.read_text(encoding="utf-8"))
     assert pkg["reviewer_id"] == expect_reviewer, f"{path}: reviewer_id={pkg['reviewer_id']}"
-    # 材料哈希必须与绑定值一致（拒绝 §2 材料漂移）
+    # 材料哈希必须与绑定值一致（材料漂移拒绝）
     for f in MATERIAL_FILES:
         bound = pkg["material_version"]["files"][f]["sha256"]
-        actual = _sha256_file(BASE / f)
+        actual = _sha256_file(materials_dir / f)
         assert bound == actual, f"{path}: material hash mismatch for {f}"
-    # 题目身份：27 个唯一 ID，无重复无遗漏（拒绝 §2）
-    dual = json.loads((BASE / "dual_review_template.json").read_text(encoding="utf-8"))
-    expected_ids = [r["draft_question_id"] for r in dual["rows"]]
+    # 题目身份：27 个唯一 ID，无重复无遗漏
     got_ids = [r["draft_question_id"] for r in pkg["rows"]]
     assert len(got_ids) == EXPECTED_N, f"{path}: rows={len(got_ids)} != {EXPECTED_N}"
     dupes = [q for q, c in Counter(got_ids).items() if c > 1]
     assert not dupes, f"{path}: duplicate ids {dupes}"
-    assert set(got_ids) == set(expected_ids), (
-        f"{path}: id set mismatch; missing={sorted(set(expected_ids) - set(got_ids))} "
-        f"extra={sorted(set(got_ids) - set(expected_ids))}"
-    )
-    # 材料内容核验：家族/变体/题干/条件/证据与 dual_review_template 原材料一致
-    dual_by_id = {r["draft_question_id"]: r for r in dual["rows"]}
-    for r in pkg["rows"]:
-        d = dual_by_id[r["draft_question_id"]]
-        for key in ("family_id", "variant_type", "question", "known_conditions", "evidence_excerpts"):
-            assert r[key] == d[key], (
-                f"{path}: {r['draft_question_id']}.{key} drifted from source material"
-            )
+    missing = sorted(set(baseline) - set(got_ids))
+    extra = sorted(set(got_ids) - set(baseline))
+    assert not missing and not extra, f"{path}: id set mismatch; missing={missing} extra={extra}"
+    # 内容核验：与绑定材料构造的基准逐题比对
+    _check_content_identity(pkg, baseline, str(path))
     return pkg
 
 
 def _is_filled(v: Any) -> bool:
     if isinstance(v, str):
         return bool(v.strip())
-    if isinstance(v, list):
-        return len(v) > 0
     return v is not None
+
+
+def _list_complete(v: Any) -> bool:
+    """声明式列表完整性：空列表=尚未填写；元素必须是非空白字符串或"无"。"""
+    if not isinstance(v, list) or len(v) == 0:
+        return False
+    return all(isinstance(x, str) and (x.strip() == NONE_MARKER or x.strip()) for x in v)
 
 
 _ISO_SEPARATORS = ("T", " ")
@@ -100,8 +151,7 @@ def _valid_timestamp(v: Any) -> bool:
 
 
 def _variant_required_fields(variant_type: str) -> list[str]:
-    """按变体要求列出必填的条件字段（§1：区分'已审核且无此项'与'尚未填写'）。"""
-    req = ["适用性判定"]
+    req: list[str] = []
     if variant_type == "condition_change":
         req.append("应变项")
     elif variant_type == "invariant_control":
@@ -110,18 +160,26 @@ def _variant_required_fields(variant_type: str) -> list[str]:
 
 
 def _record_complete(r: dict[str, Any]) -> tuple[bool, list[str]]:
-    """返回 (完整?, 缺失列表)。未完成记录 → incomplete_pending_completion。"""
+    """返回 (完整?, 缺失列表)（§1 契约）。"""
     missing: list[str] = []
     cf = r.get("clinical_fields") or {}
+    app = cf.get("适用性判定")
+    if not _is_filled(app):
+        missing.append("适用性判定")
+    elif app not in APPLICABILITY_ENUM:
+        missing.append(f"适用性判定非法值:{app}")
+    for field in ("必需陈述", "禁止断言"):
+        if not _list_complete(cf.get(field)):
+            missing.append(field if _is_filled(cf.get(field)) else f"{field}(未填写)")
     for field in _variant_required_fields(r["variant_type"]):
-        if field == "适用性判定":
-            v = cf.get("适用性判定")
-            if not _is_filled(v):
-                missing.append("适用性判定")
-            elif v not in APPLICABILITY_ENUM:
-                missing.append(f"适用性判定非法值:{v}")
-        elif not _is_filled((r.get("conditional_fields") or {}).get(field)):
-            missing.append(field)
+        v = (r.get("conditional_fields") or {}).get(field)
+        if not _list_complete(v):
+            missing.append(field if _is_filled(v) else f"{field}(未填写)")
+    dr = r.get("derived_relationship") or {}
+    if not _is_filled(dr.get("判断")):
+        missing.append("派生关系判断")
+    if not _is_filled(dr.get("理由")):
+        missing.append("派生关系理由")
     if not _is_filled(r.get("完成时间")):
         missing.append("完成时间")
     elif not _valid_timestamp(r.get("完成时间")):
@@ -130,7 +188,7 @@ def _record_complete(r: dict[str, Any]) -> tuple[bool, list[str]]:
 
 
 def _parse_minutes(v: Any) -> tuple[str, float | None]:
-    """工时解析（§4）：缺失/非法明确报告，不静默归零。返回 (状态, 值|None)。"""
+    """工时解析（缺失/非法明确报告，不静默归零）。"""
     if v is None or (isinstance(v, str) and not v.strip()):
         return ("missing", None)
     try:
@@ -151,9 +209,11 @@ def _diffs(ra: dict[str, Any], rb: dict[str, Any]) -> list[dict[str, Any]]:
         ("应变项", ra["conditional_fields"].get("应变项"), rb["conditional_fields"].get("应变项")),
         ("应保持项", ra["conditional_fields"].get("应保持项"), rb["conditional_fields"].get("应保持项")),
         (
-            "派生关系判断",
-            (ra.get("derived_relationship") or {}).get("判断"),
-            (rb.get("derived_relationship") or {}).get("判断"),
+            "派生关系",
+            {"判断": (ra.get("derived_relationship") or {}).get("判断"),
+             "理由": (ra.get("derived_relationship") or {}).get("理由")},
+            {"判断": (rb.get("derived_relationship") or {}).get("判断"),
+             "理由": (rb.get("derived_relationship") or {}).get("理由")},
         ),
     ]
     for key, fa, fb in pairs:
@@ -162,15 +222,16 @@ def _diffs(ra: dict[str, Any], rb: dict[str, Any]) -> list[dict[str, Any]]:
     return out
 
 
-def aggregate(path_a: Path, path_b: Path, out_dir: Path) -> dict[str, Any]:
-    pkg_a = _load_filled(path_a, "A")
-    pkg_b = _load_filled(path_b, "B")
+def aggregate(path_a: Path, path_b: Path, out_dir: Path, materials_dir: Path) -> dict[str, Any]:
+    baseline = _build_baseline(materials_dir)
+    assert len(baseline) == EXPECTED_N, f"baseline has {len(baseline)} questions != {EXPECTED_N}"
+    pkg_a = _load_filled(path_a, "A", materials_dir, baseline)
+    pkg_b = _load_filled(path_b, "B", materials_dir, baseline)
     rows_a = {r["draft_question_id"]: r for r in pkg_a["rows"]}
     rows_b = {r["draft_question_id"]: r for r in pkg_b["rows"]}
-    # 双方填写文件的内容身份（§3 gold 绑定）
     filled_hashes = {"reviewer_A_file_sha256": _sha256_file(path_a), "reviewer_B_file_sha256": _sha256_file(path_b)}
 
-    ovl = json.loads((BASE / "template_overlap_audit_v3.json").read_text(encoding="utf-8"))
+    ovl = json.loads((materials_dir / "template_overlap_audit_v3.json").read_text(encoding="utf-8"))
     flagged_families = set(ovl["flagged_families"])
 
     validation: list[dict[str, Any]] = []
@@ -186,14 +247,15 @@ def aggregate(path_a: Path, path_b: Path, out_dir: Path) -> dict[str, Any]:
         ok_a, miss_a = _record_complete(ra)
         ok_b, miss_b = _record_complete(rb)
         for who, r, ok, miss in (("A", ra, ok_a, miss_a), ("B", rb, ok_b, miss_b)):
-            validation.append({"draft_question_id": qid, "reviewer": who, "complete": ok, "missing": miss})
-        # 工时（§4）
+            validation.append(
+                {"draft_question_id": qid, "reviewer": who, "complete": ok, "missing": miss,
+                 "input_file": f"{path_a.name if who == 'A' else path_b.name}#{qid}"}
+            )
         for who, r in (("A", ra), ("B", rb)):
             state, minutes = _parse_minutes(r.get("耗时分钟"))
             worktime["per_question"].append(
                 {"draft_question_id": qid, "reviewer": who, "state": state, "minutes": minutes}
             )
-        # 状态：完整性优先于分歧（未完成 → 待补全，不进 gold、不进仲裁）
         if not (ok_a and ok_b):
             status = "incomplete_pending_completion"
         else:
@@ -205,13 +267,13 @@ def aggregate(path_a: Path, path_b: Path, out_dir: Path) -> dict[str, Any]:
                         "draft_question_id": qid,
                         "family_id": fid,
                         "priority": "high" if fid in flagged_families else "normal",
+                        "input_files": {"reviewer_A": f"{path_a.name}#{qid}", "reviewer_B": f"{path_b.name}#{qid}"},
                         "items": diffs,
                         "arbitration": {"decision": "", "basis": "", "arbitrator": "", "时间": ""},
                     }
                 )
             else:
                 status = "agreed_pending_signoff"
-                # gold 完整导出（§3）：必需陈述/禁止断言/条件字段/派生关系
                 gold.append(
                     {
                         "draft_question_id": qid,
@@ -226,6 +288,7 @@ def aggregate(path_a: Path, path_b: Path, out_dir: Path) -> dict[str, Any]:
                             "应变项": ra["conditional_fields"].get("应变项"),
                             "应保持项": ra["conditional_fields"].get("应保持项"),
                             "派生关系判断": (ra.get("derived_relationship") or {}).get("判断"),
+                            "派生关系理由": (ra.get("derived_relationship") or {}).get("理由"),
                         },
                         "sources": {
                             "reviewer_A": f"{path_a.name}#{qid}",
@@ -287,9 +350,10 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--reviewed-a", type=Path, required=True)
     parser.add_argument("--reviewed-b", type=Path, required=True)
+    parser.add_argument("--materials-dir", type=Path, default=BASE)
     parser.add_argument("--out", type=Path, default=BASE / "expert_review")
     args = parser.parse_args()
-    aggregate(args.reviewed_a, args.reviewed_b, args.out)
+    aggregate(args.reviewed_a, args.reviewed_b, args.out, args.materials_dir)
     return 0
 
 
