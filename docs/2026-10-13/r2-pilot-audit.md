@@ -123,3 +123,27 @@ condition_pairs 30），sha256 与计数逐条匹配。缺失/不符 → 报错�
 - MMR 离线对比与 S 冻结（需配额）；
 - PDF 布局复核（专家）；
 - required Judge 失败语义已强制化（`66f1b08`），R1 v3 重跑待配额。
+
+## 11. 专家开发试标登记（2026-10-14）
+
+范围：27 题 / 9 家族，双审 54 份题级记录。状态：**外部依赖，专家尚未落实**。
+
+| 事项 | 状态 | 依赖 |
+|---|---|---|
+| 双人独立审核（适用性/必需陈述/禁止断言/应变-应保持/依据/时间/材料版本） | 待专家 | 临床专家 2 名 |
+| 12 段证据 PDF 布局与医学支持复核 | 待专家（`pdf_layout_review_pending`） | 临床专家 |
+| 单变量变化与不变对照复核；5 个标记家族优先 | 待专家 | 临床专家 |
+| 分歧仲裁（第三名专家，保留双方原始意见） | 待专家 | 仲裁人 1 名 |
+| VC-02 缺源项 | 单列，不进入可用性统计 | — |
+| 汇总工具 | 已交付 `aggregate_expert_review.py` | — |
+
+汇总入口（专家填毕后运行，材料哈希不符即拒绝）：
+
+```bash
+uv run python benchmark/pace_research/aggregate_expert_review.py \
+  --reviewed-a review_package_A_填毕.json \
+  --reviewed-b review_package_B_填毕.json
+```
+
+输出：validation_report / disagreement_log / family_status_table /
+worktime_summary / gold_draft（gold 未冻结，隐藏题仍为 0）。
