@@ -1,5 +1,11 @@
 # R2 送审包审计报告 v4（2026-10-13 初版；v4 修订 2026-10-13）
 
+> v5 修订（失败路径回归）：锚点反例补齐——同源摘录前缀相同/后文不同 →
+> `full_excerpt_not_contained`（CLI exit 1）、来源文件缺失 →
+> `source_file_missing`（CLI exit 1）；暴露集失败路径——历史文件缺失 →
+> `file_missing`、内容改变记录数不变 → `sha256_mismatch`（均使重叠入口
+> exit 2，且不覆盖已有重叠产物）。固化为仓库测试（`00e1ff6`）。
+>
 > v4 修订（一致性补丁）：材料哈希同步为最终产物（A/B 包 + 仲裁模板三份
 > 清单逐文件校验）、匹配理由改用实际历史题文本（16 条非零分数全部复算）、
 > GA 解析 `num:6` 泄漏修复（`14+6` 特征层仅 `ga_days:104`）、反例验证固化为
@@ -47,7 +53,7 @@
 `verify_exposure_coverage.py`：以 `legacy_exposure_inventory.json` 驱动，
 覆盖 4 文件 98 条（sample_questions 50 + preclinical_draft 12 + l4_safety 6 +
 condition_pairs 30），sha256 与计数逐条匹配。缺失/不符 → 报错退出 +
-审计标记未完成。回归测试覆盖 98 条断言。
+审计标记未完成。回归测试断言 98 条记录的覆盖校验。
 
 ## 4. 重叠审计 v3
 
@@ -78,13 +84,15 @@ condition_pairs 30），sha256 与计数逐条匹配。缺失/不符 → 报错�
 
 ## 7. A/B 独立审核包 v2
 
-`review_package_A.json` / `review_package_B.json`：各 27 题，结构完全一致，
-临床判断字段全部留空。v2 修正：材料哈希绑定（4 文件 sha256 + 字节数 +
-git_baseline）；每行含 `reviewer_A`/`reviewer_B` 独立字段（含完成时间戳）；
-提示语从填答字段移入 `instructions`；`conditional_fields` 改为空列表（填答）。
+`review_package_A.json` / `review_package_B.json`：当前结构为**每份包对应
+一名审核者**（`reviewer_id: A` / `B`），各 27 题逐题含 `reviewer_A` 与
+`reviewer_B` 独立填答区（适用性判定/必需陈述/禁止断言/耗时/完成时间戳），
+临床判断字段全部留空。材料绑定：4 文件 sha256 + 字节数 + git_baseline。
+提示语在 `instructions`，填答字段为空列表。
 
 `merge_arbitration_template.json`：逐题合并行 + `arbitration_requirements`
-（仲裁时间/依据/人标识）+ `reviewer_A_ref`/`reviewer_B_ref` 双向引用。
+（仲裁时间/依据/人标识）+ `reviewer_A_ref`/`reviewer_B_ref` 双向引用；
+材料清单与 A/B 包一致。
 
 ## 8. 送审数量汇总（互斥口径，同 §1）
 
