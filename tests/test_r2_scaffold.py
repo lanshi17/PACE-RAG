@@ -127,3 +127,116 @@ def test_overlap_v3_exposure_gate() -> None:
         Path(__file__).resolve().parents[1] / "benchmark/qa/dataset/pace_conditions_v1/legacy_exposure_inventory.json"
     )
     assert rep["files_failed"] == 0, "exposure gate must pass before overlap audit"
+
+
+def test_anchor_v3_counterexamples() -> None:
+    """审计 v4 §1：锚点校验反例检出——错来源、缺失锚点、非零退出码。"""
+    import json
+    import tempfile
+    from pathlib import Path
+
+    from benchmark.pace_research.verify_anchors_v3 import verify_anchors_v3
+
+    repo = Path(__file__).resolve().parents[1]
+
+    evidence = json.loads(
+        (repo / "benchmark/qa/dataset/pace_conditions_v1/evidence_candidates.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    bad1 = dict(evidence["records"][0])
+    bad1["evidence_id"] = "TEST-MISSING-ANCHOR"
+    bad1["evidence_store_anchor_id"] = "99999"
+    bad2 = dict(evidence["records"][1])
+    bad2["evidence_id"] = "TEST-WRONG-SOURCE"
+    bad2["input_file"] = evidence["records"][2]["input_file"]
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        (tmp_path / "evidence.json").write_text(
+            json.dumps({**evidence, "records": evidence["records"] + [bad1, bad2]}, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        rep = verify_anchors_v3(tmp_path / "evidence.json", repo / "benchmark/data/evidence_store", repo / "benchmark/data/corpus")
+    assert rep["fail_count"] >= 2
+    fails = [r for r in rep["results"] if r["verdict"] == "fail"]
+    assert any("snapshot_anchor_missing" in r["failures"] for r in fails)
+    assert any(any("wrong_source" in f for f in r["failures"]) for r in fails)
+    assert rep["snapshot_identity"]["chunk_count"] == 341
+
+
+def test_ga_synonym_feature_equivalence() -> None:
+    """审计 v4 §2：完整特征层同义孕周等价（无 num 泄漏）。"""
+    from benchmark.pace_research.template_overlap_audit_v3 import extract_features_v3
+
+    f1 = extract_features_v3("14周6天")
+    f2 = extract_features_v3("14+6周")
+    f3 = extract_features_v3("14+6")
+    assert f1 == f2 == f3, f"feature sets differ: {f1} vs {f2} vs {f3}"
+    assert "num:6" not in f1
+    assert "ga_days:104" in f1
+
+
+def test_anchor_v3_cli_nonzero_exit_on_failure() -> None:
+    """审计 v4 §1：CLI 层反例产生非零退出码。"""
+    import json
+    import subprocess
+    import sys
+    import tempfile
+    from pathlib import Path
+
+    repo = Path(__file__).resolve().parents[1]
+    evidence_path = repo / "benchmark/qa/dataset/pace_conditions_v1/evidence_candidates.json"
+    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+    bad = dict(evidence["records"][0])
+    bad["evidence_id"] = "TEST-CLI-FAIL"
+    bad["evidence_store_anchor_id"] = "99999"
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp_path = Path(tmp)
+        (tmp_path / "evidence.json").write_text(
+            json.dumps({**evidence, "records": evidence["records"] + [bad]}, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        result = subprocess.run(
+            [sys.executable, str(repo / "benchmark/pace_research/verify_anchors_v3.py"), "--evidence", str(tmp_path / "evidence.json"), "--out", str(tmp_path / "out.json")],
+            capture_output=True,
+            text=True,
+            cwd=repo,
+        )
+        assert result.returncode != 0, f"expected nonzero exit, got {result.returncode}"
+        out = json.loads((tmp_path / "out.json").read_text(encoding="utf-8"))
+    fails = [r for r in out["results"] if r["verdict"] == "fail"]
+    assert any("snapshot_anchor_missing" in r["failures"] for r in fails)
+
+
+def test_material_hash_consistency() -> None:
+    """审计 v4 §1：三份审核包绑定的材料哈希与当前文件一致；材料变化必须使检查失败。"""
+    import hashlib
+    import json
+    from pathlib import Path
+
+    repo = Path(__file__).resolve().parents[1]
+    base = repo / "benchmark/qa/dataset/pace_conditions_v1"
+    files = ["dev_families.json", "evidence_candidates.json", "template_overlap_audit_v3.json", "legacy_exposure_inventory.json"]
+    actual = {f: hashlib.sha256((base / f).read_bytes()).hexdigest() for f in files}
+    for pkg_name in ("review_package_A.json", "review_package_B.json", "merge_arbitration_template.json"):
+        pkg = json.loads((base / pkg_name).read_text(encoding="utf-8"))
+        bound = pkg["material_version"]["files"]
+        for f in files:
+            assert bound[f]["sha256"] == actual[f], f"{pkg_name} bound hash mismatch for {f}"
+
+
+def test_overlap_v3_match_reason_uses_hist_text() -> None:
+    """审计 v4 §2：非零分数行的 match_reason 必须含实际历史题文本（非来源标签）。"""
+    import json
+    from pathlib import Path
+
+    repo = Path(__file__).resolve().parents[1]
+    base = repo / "benchmark/qa/dataset/pace_conditions_v1"
+    ovl = json.loads((base / "template_overlap_audit_v3.json").read_text(encoding="utf-8"))
+    nonzero = [r for r in ovl["rows"] if r["heuristic_candidate_score"] > 0]
+    assert nonzero, "expected nonzero-score rows"
+    for r in nonzero:
+        reason = r.get("match_reason") or ""
+        assert "hist question:" in reason, f"{r['draft_question_id']} missing hist text in reason"
+        # 来源标签如 'hist50' 不应单独作为理由内容
+        assert not reason.strip().startswith("hist"), f"{r['draft_question_id']} reason starts with source label"

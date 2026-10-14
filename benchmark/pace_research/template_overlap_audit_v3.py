@@ -86,10 +86,21 @@ def extract_features_v3(question: str) -> set[str]:
                 break
     for d in parse_ga_days(question):
         feats.add(f"ga_days:{d}")
-    # 裸数字（不含周/天单位的，避免与 ga_days 重复）
+    # 裸数字（孕周表达式内的数字已被 ga_days 消费，不再作为 num 特征）
+    ga_spans = [m.span() for m in re.finditer(
+        r"(\d+)\s*(?:周|\+)\s*(\d+)(?:\s*天)?", question
+    )]
     plain_nums = set()
     for m in re.finditer(r"\b(\d{1,4})\b", question):
         span = m.span()
+        # 跳过孕周表达式内的数字（前后被 GA span 覆盖，或是 GA 表达式组成部分）
+        in_ga = any(s <= span[0] and span[1] <= e for s, e in ga_spans)
+        # 附加检查：'N+M' 的 M 部分单独出现（span[0] 在 + 后面但 GA span 匹配
+        # 因顺序问题未覆盖）——检查前一个字符是否为 + 或 周
+        before = question[max(0, span[0] - 2) : span[0]]
+        preceded_by_ga = bool(re.search(r"[+＋周]\s*$", before))
+        if in_ga or preceded_by_ga:
+            continue
         after = question[span[1] : span[1] + 2]
         if not re.match(r"\s*(周|天|[+＋])", after):
             plain_nums.add(m.group(1))
@@ -132,6 +143,7 @@ def overlap_report_v3() -> dict[str, Any]:
         file_hashes[rel] = hashlib.sha256(p.read_bytes()).hexdigest()
         for q in json.loads(p.read_text(encoding="utf-8")):
             hist.append((q.get("question_id", "?"), src, q.get("question", "")))
+    hist_text_by_id = {hid: hq for hid, _, hq in hist}
 
     rows: list[dict[str, Any]] = []
     flagged_families: set[str] = set()
@@ -145,9 +157,11 @@ def overlap_report_v3() -> dict[str, Any]:
                 j = len(feats & hfeats) / len(union) if union else 0.0
                 if j > best[0]:
                     best = (j, hid, hsrc)
+            matched_hist_text = hist_text_by_id.get(best[1], "")
             match_reason = (
-                f"shared concepts/numbers: "
-                f"{sorted(extract_features_v3(v['question']) & extract_features_v3(best[2]))[:8]}"
+                f"shared features: "
+                f"{sorted(extract_features_v3(v['question']) & extract_features_v3(matched_hist_text))[:8]}; "
+                f"hist question: {matched_hist_text[:80]}"
                 if best[1]
                 else None
             )
@@ -171,7 +185,6 @@ def overlap_report_v3() -> dict[str, Any]:
 
     flagged_rows = [r for r in rows if r["family_flagged_for_adjudication"]]
     # 互斥状态计数（题级，草案 27 题逐题唯一归类）
-    dev_family_ids = {r["scenario_family_id"] for r in dev["records"]}
     status_counts: dict[str, int] = {}
     for r in dev["records"]:
         for v in r["variants"]:

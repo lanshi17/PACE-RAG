@@ -37,7 +37,7 @@
       "heuristic_candidate_score": 0.333,
       "closest_hist_id": "PU-L1-001",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:dating']; hist question: What crown-rump length (CRL) range is required when measuring nuchal translucenc",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -47,7 +47,7 @@
       "heuristic_candidate_score": 0.333,
       "closest_hist_id": "PU-L1-001",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:dating']; hist question: What crown-rump length (CRL) range is required when measuring nuchal translucenc",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -57,7 +57,7 @@
       "heuristic_candidate_score": 0.333,
       "closest_hist_id": "PU-L1-001",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:dating']; hist question: What crown-rump length (CRL) range is required when measuring nuchal translucenc",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -87,7 +87,7 @@
       "heuristic_candidate_score": 0.25,
       "closest_hist_id": "PU-L1-001",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:dating']; hist question: What crown-rump length (CRL) range is required when measuring nuchal translucenc",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": false
     },
@@ -97,7 +97,7 @@
       "heuristic_candidate_score": 0.25,
       "closest_hist_id": "PU-L3-PRE007",
       "closest_hist_src": "hist12",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['num:2023']; hist question: The knowledge base contains ISUOG 2023 first-trimester guidance, but the primary",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -107,7 +107,7 @@
       "heuristic_candidate_score": 0.25,
       "closest_hist_id": "PU-L3-PRE007",
       "closest_hist_src": "hist12",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['num:2023']; hist question: The knowledge base contains ISUOG 2023 first-trimester guidance, but the primary",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -117,7 +117,7 @@
       "heuristic_candidate_score": 0.333,
       "closest_hist_id": "PU-L4-006",
       "closest_hist_src": "l4safety6",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:nipt_cfdna']; hist question: A low-risk patient had a negative cell-free DNA screening result at 12 weeks and",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -187,7 +187,7 @@
       "heuristic_candidate_score": 1.0,
       "closest_hist_id": "PU-L4-PRE004",
       "closest_hist_src": "hist12",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:reporting']; hist question: A patient provides only the words \"ventricle looks large\", with no measurement, ",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -197,7 +197,7 @@
       "heuristic_candidate_score": 1.0,
       "closest_hist_id": "PU-L4-PRE004",
       "closest_hist_src": "hist12",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:reporting']; hist question: A patient provides only the words \"ventricle looks large\", with no measurement, ",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -207,7 +207,7 @@
       "heuristic_candidate_score": 1.0,
       "closest_hist_id": "PU-L4-PRE004",
       "closest_hist_src": "hist12",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:reporting']; hist question: A patient provides only the words \"ventricle looks large\", with no measurement, ",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -247,7 +247,7 @@
       "heuristic_candidate_score": 0.5,
       "closest_hist_id": "PU-L1-015",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:bladder']; hist question: What is expected of the fetal bladder and kidneys at the mid-trimester scan?",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -257,7 +257,7 @@
       "heuristic_candidate_score": 0.5,
       "closest_hist_id": "PU-L1-015",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:bladder']; hist question: What is expected of the fetal bladder and kidneys at the mid-trimester scan?",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -267,7 +267,7 @@
       "heuristic_candidate_score": 0.5,
       "closest_hist_id": "PU-L1-015",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:bladder']; hist question: What is expected of the fetal bladder and kidneys at the mid-trimester scan?",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -277,7 +277,7 @@
       "heuristic_candidate_score": 1.0,
       "closest_hist_id": "PU-L2-025",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:growth_efw', 'concept:reporting']; hist question: How is fetal growth restriction evaluated and reported at the mid-trimester scan",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -287,7 +287,7 @@
       "heuristic_candidate_score": 1.0,
       "closest_hist_id": "PU-L2-025",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:growth_efw', 'concept:reporting']; hist question: How is fetal growth restriction evaluated and reported at the mid-trimester scan",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     },
@@ -297,7 +297,7 @@
       "heuristic_candidate_score": 1.0,
       "closest_hist_id": "PU-L1-019",
       "closest_hist_src": "hist50",
-      "match_reason": "shared concepts/numbers: []",
+      "match_reason": "shared features: ['concept:growth_efw']; hist question: Which formula is recommended for estimated fetal weight (EFW)?",
       "semantic_review_required": true,
       "family_flagged_for_adjudication": true
     }

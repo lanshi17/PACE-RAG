@@ -1,392 +1,6 @@
 {
-  "schema_version": "r2-merge-arbitration-v1",
-  "instructions": {
-    "flow": "A/B 提交后逐字段对比；一致自动合并；分歧填 dispute_arbitration 并由第三名仲裁",
-    "rule": "保留双方原始意见与仲裁依据，不覆盖"
-  },
-  "rows": [
-    {
-      "draft_question_id": "R2-DEV-GA-01-01",
-      "family_id": "R2-DEV-GA-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-GA-01-02",
-      "family_id": "R2-DEV-GA-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-GA-01-03",
-      "family_id": "R2-DEV-GA-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-03",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-GA-02-01",
-      "family_id": "R2-DEV-GA-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-GA-02-02",
-      "family_id": "R2-DEV-GA-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-GA-02-03",
-      "family_id": "R2-DEV-GA-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-03",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-PM-01-01",
-      "family_id": "R2-DEV-PM-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-PM-01-02",
-      "family_id": "R2-DEV-PM-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-PM-01-03",
-      "family_id": "R2-DEV-PM-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-03",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-PM-02-01",
-      "family_id": "R2-DEV-PM-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-PM-02-02",
-      "family_id": "R2-DEV-PM-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-PM-02-03",
-      "family_id": "R2-DEV-PM-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-03",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-UN-01-01",
-      "family_id": "R2-DEV-UN-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-UN-01-02",
-      "family_id": "R2-DEV-UN-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-UN-01-03",
-      "family_id": "R2-DEV-UN-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-03",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-UN-02-01",
-      "family_id": "R2-DEV-UN-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-UN-02-02",
-      "family_id": "R2-DEV-UN-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-UN-02-03",
-      "family_id": "R2-DEV-UN-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-03",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-VC-01-01",
-      "family_id": "R2-DEV-VC-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-VC-01-02",
-      "family_id": "R2-DEV-VC-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-VC-01-03",
-      "family_id": "R2-DEV-VC-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-03",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-CE-01-01",
-      "family_id": "R2-DEV-CE-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-CE-01-02",
-      "family_id": "R2-DEV-CE-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-CE-01-03",
-      "family_id": "R2-DEV-CE-01",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-03",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-CE-02-01",
-      "family_id": "R2-DEV-CE-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-01",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-01",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-CE-02-02",
-      "family_id": "R2-DEV-CE-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-02",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-02",
-      "完成时间": ""
-    },
-    {
-      "draft_question_id": "R2-DEV-CE-02-03",
-      "family_id": "R2-DEV-CE-02",
-      "agreements": {},
-      "disagreements": [],
-      "arbitration": {
-        "decision": "",
-        "basis": "",
-        "arbitrator": ""
-      },
-      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-03",
-      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-03",
-      "完成时间": ""
-    }
-  ],
-  "arbitration_log": [],
+  "schema_version": "r2-merge-arbitration-v2",
   "material_version": {
-    "description": "dev_families.json@audit_20261012 + evidence_candidates.json@audit_20261012",
     "files": {
       "dev_families.json": {
         "sha256": "cc1433935c4d7160b1ad28ea6f0d8df87baa52646ccf7011c392e95a6e6b6413",
@@ -397,8 +11,8 @@
         "bytes": 18842
       },
       "template_overlap_audit_v3.json": {
-        "sha256": "f56dd02f16068910cf9a95681041ed1eb364268d564a13bef0c6a1a901ba6c66",
-        "bytes": 10138
+        "sha256": "d9234cb60c04715eacffcece3b148c3c974e7d71556f5d5a911099a9f292d89d",
+        "bytes": 12165
       },
       "legacy_exposure_inventory.json": {
         "sha256": "f9f2626d832197de8b9c61fc4fc08657de38185faae6b7e03ab66e102cbbd13d",
@@ -408,12 +22,392 @@
     "git_baseline": "27c233a"
   },
   "reviewer_references": {
-    "reviewer_A": "review_package_A.json",
-    "reviewer_B": "review_package_B.json"
+    "A": "review_package_A.json",
+    "B": "review_package_B.json"
   },
   "arbitration_requirements": {
-    "仲裁时间": "ISO 格式时间戳",
-    "仲裁依据": "必填，引用双方原始意见",
+    "仲裁时间": "ISO 时间戳",
+    "仲裁依据": "引用双方原始意见",
     "仲裁人": "第三名审核者标识"
-  }
+  },
+  "rows": [
+    {
+      "draft_question_id": "R2-DEV-GA-01-01",
+      "family_id": "R2-DEV-GA-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-02",
+      "family_id": "R2-DEV-GA-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-01-03",
+      "family_id": "R2-DEV-GA-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-01-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-01",
+      "family_id": "R2-DEV-GA-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-02",
+      "family_id": "R2-DEV-GA-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-GA-02-03",
+      "family_id": "R2-DEV-GA-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-GA-02-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-GA-02-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-01",
+      "family_id": "R2-DEV-PM-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-02",
+      "family_id": "R2-DEV-PM-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-01-03",
+      "family_id": "R2-DEV-PM-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-01-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-01",
+      "family_id": "R2-DEV-PM-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-02",
+      "family_id": "R2-DEV-PM-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-PM-02-03",
+      "family_id": "R2-DEV-PM-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-PM-02-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-PM-02-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-01",
+      "family_id": "R2-DEV-UN-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-02",
+      "family_id": "R2-DEV-UN-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-01-03",
+      "family_id": "R2-DEV-UN-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-01-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-01",
+      "family_id": "R2-DEV-UN-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-02",
+      "family_id": "R2-DEV-UN-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-UN-02-03",
+      "family_id": "R2-DEV-UN-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-UN-02-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-UN-02-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-01",
+      "family_id": "R2-DEV-VC-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-02",
+      "family_id": "R2-DEV-VC-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-VC-01-03",
+      "family_id": "R2-DEV-VC-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-VC-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-VC-01-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-01",
+      "family_id": "R2-DEV-CE-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-02",
+      "family_id": "R2-DEV-CE-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-01-03",
+      "family_id": "R2-DEV-CE-01",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-01-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-01-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-01",
+      "family_id": "R2-DEV-CE-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-01",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-01",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-02",
+      "family_id": "R2-DEV-CE-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-02",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-02",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    },
+    {
+      "draft_question_id": "R2-DEV-CE-02-03",
+      "family_id": "R2-DEV-CE-02",
+      "reviewer_A_ref": "review_package_A.json#R2-DEV-CE-02-03",
+      "reviewer_B_ref": "review_package_B.json#R2-DEV-CE-02-03",
+      "agreements": {},
+      "disagreements": [],
+      "arbitration": {
+        "decision": "",
+        "basis": "",
+        "arbitrator": "",
+        "时间": ""
+      }
+    }
+  ]
 }

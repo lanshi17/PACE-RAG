@@ -31,7 +31,7 @@
 ## 2. 锚点可复现校验 v3（12/12 pass，exit=0）
 
 `verify_anchors_v3.py`：统一入口 + 统一 JSON（`anchor_verification_v3.json`） +
-失败非零退出码 + 快照身份指纹（468 chunks 的 content_fingerprint）。
+失败非零退出码 + 快照身份指纹（341 chunks 的 content_fingerprint，与 EvidenceStore 一致）。
 四步校验：来源文档 sha → 证据库快照锚点 → 来源一致（manifest 对照）→ 完整摘录
 包含。前缀命中改记 `candidate_anchors`（候选，非"多锚点覆盖"）。
 反例检出测试：错来源、缺失锚点均产生明确失败记录与非零退出码。
