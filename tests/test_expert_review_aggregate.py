@@ -296,3 +296,66 @@ def test_invalid_worktime_reported_not_zeroed(tmp_path: Path) -> None:
     counts = _statuses(tmp_path, "o1")
     assert counts["incomplete_pending_completion"] == 1
     assert counts["agreed_pending_signoff"] == 26
+
+
+@pytest.mark.parametrize(
+    "value",
+    ["", "   ", [], ["非空"], {}, {"判断": "x"}, 0, 1, True, False],
+)
+def test_non_text_derived_fields_are_incomplete(tmp_path: Path, value) -> None:
+    """派生判断/理由只接受非空白字符串；列表、对象、数字、布尔一律待补全。"""
+    mdir = _make_materials(tmp_path)
+
+    def bad(pkg, who):
+        if who == "A":
+            pkg["rows"][0]["derived_relationship"]["判断"] = value
+            pkg["rows"][0]["derived_relationship"]["理由"] = value
+
+    pa = _make_filled(tmp_path, "A", bad, mdir)
+    pb = _make_filled(tmp_path, "B", None, mdir)
+    result = _run(tmp_path, pa, pb, out="o1", mdir=mdir)
+    assert result.returncode == 0
+    counts = _statuses(tmp_path, "o1")
+    assert counts == {"incomplete_pending_completion": 1, "agreed_pending_signoff": 26}
+    val = json.loads((tmp_path / "o1" / "validation_report.json").read_text(encoding="utf-8"))
+    row = next(x for x in val["rows"] if not x["complete"])
+    assert "派生关系判断" in row["missing"] and "派生关系理由" in row["missing"]
+
+
+def test_normal_text_derived_fields_pass(tmp_path: Path) -> None:
+    """正例：正常文本的派生判断/理由通过完整性检查。"""
+    mdir = _make_materials(tmp_path)
+    pa = _make_filled(tmp_path, "A", None, mdir)
+    pb = _make_filled(tmp_path, "B", None, mdir)
+    result = _run(tmp_path, pa, pb, out="o1", mdir=mdir)
+    assert result.returncode == 0
+    assert _statuses(tmp_path, "o1") == {"agreed_pending_signoff": 27}
+
+
+@pytest.mark.parametrize(
+    ("key", "value"),
+    [("anchor_id", "999999"), ("page", "999-999")],
+)
+def test_anchor_and_page_drift_rejected(tmp_path: Path, key: str, value: str) -> None:
+    """锚点/页码与绑定的 evidence_candidates.json 不一致 → 拒绝（CLI 非零退出，指明字段）。"""
+    mdir = _make_materials(tmp_path)
+
+    def drift(pkg, who):
+        if who == "A":
+            pkg["rows"][0]["evidence_excerpts"][0][key] = value
+
+    pa = _make_filled(tmp_path, "A", drift, mdir)
+    pb = _make_filled(tmp_path, "B", None, mdir)
+    result = _run(tmp_path, pa, pb, out="o1", mdir=mdir)
+    assert result.returncode != 0
+    assert f"{key} drifted from bound materials" in result.stderr
+
+
+def test_anchor_page_expected_values_come_from_bound_candidates(tmp_path: Path) -> None:
+    """未篡改的填写包通过；预期锚点/页码来自绑定候选文件（E-AMNIO → 440, 1-1）。"""
+    mdir = _make_materials(tmp_path)
+    pa = _make_filled(tmp_path, "A", None, mdir)
+    pb = _make_filled(tmp_path, "B", None, mdir)
+    assert _run(tmp_path, pa, pb, out="o1", mdir=mdir).returncode == 0
+    ev = json.loads(pa.read_text(encoding="utf-8"))["rows"][0]["evidence_excerpts"][0]
+    assert (ev["anchor_id"], ev["page"]) == ("440", "1-1")

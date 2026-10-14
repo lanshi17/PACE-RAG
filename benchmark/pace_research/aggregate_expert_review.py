@@ -61,11 +61,18 @@ def _build_baseline(materials_dir: Path) -> dict[str, dict[str, Any]]:
     """从已绑定材料构造内容基准（§3）：身份字段 + 证据摘录。"""
     dev = json.loads((materials_dir / "dev_families.json").read_text(encoding="utf-8"))
     cand = json.loads((materials_dir / "evidence_candidates.json").read_text(encoding="utf-8"))
-    excerpt_by_id = {r["evidence_id"]: r["excerpt"] for r in cand["records"]}
+    loc_by_id = {
+        r["evidence_id"]: {
+            "excerpt": r["excerpt"],
+            "anchor_id": str(r["evidence_store_anchor_id"]),
+            "page": f"{r['page_start']}-{r['page_end']}",
+        }
+        for r in cand["records"]
+    }
     baseline: dict[str, dict[str, Any]] = {}
     for rec in dev["records"]:
         eids = rec.get("candidate_evidence_ids") or []
-        evidence = [{"evidence_id": eid, "excerpt": excerpt_by_id[eid]} for eid in eids]
+        evidence = [{"evidence_id": eid, **loc_by_id[eid]} for eid in eids]
         for v in rec["variants"]:
             baseline[v["draft_question_id"]] = {
                 "family_id": rec["scenario_family_id"],
@@ -91,10 +98,11 @@ def _check_content_identity(
         got_ids = [e.get("evidence_id") for e in got]
         assert got_ids == b["evidence_ids"], f"{src}: {qid} evidence ids drifted"
         for e in got:
-            expected_excerpt = next(x["excerpt"] for x in b["evidence"] if x["evidence_id"] == e["evidence_id"])
-            assert e.get("excerpt") == expected_excerpt, (
-                f"{src}: {qid} evidence {e['evidence_id']} excerpt drifted"
-            )
+            exp = next(x for x in b["evidence"] if x["evidence_id"] == e["evidence_id"])
+            for key in ("excerpt", "anchor_id", "page"):
+                assert e.get(key) == exp[key], (
+                    f"{src}: {qid} evidence {e['evidence_id']} {key} drifted from bound materials"
+                )
 
 
 def _load_filled(
@@ -118,6 +126,11 @@ def _load_filled(
     # 内容核验：与绑定材料构造的基准逐题比对
     _check_content_identity(pkg, baseline, str(path))
     return pkg
+
+
+def _is_text_filled(v: Any) -> bool:
+    """派生判断/理由：仅非空白字符串可接受（列表、对象、数字、布尔均不算）。"""
+    return isinstance(v, str) and bool(v.strip())
 
 
 def _is_filled(v: Any) -> bool:
@@ -176,9 +189,9 @@ def _record_complete(r: dict[str, Any]) -> tuple[bool, list[str]]:
         if not _list_complete(v):
             missing.append(field if _is_filled(v) else f"{field}(未填写)")
     dr = r.get("derived_relationship") or {}
-    if not _is_filled(dr.get("判断")):
+    if not _is_text_filled(dr.get("判断")):
         missing.append("派生关系判断")
-    if not _is_filled(dr.get("理由")):
+    if not _is_text_filled(dr.get("理由")):
         missing.append("派生关系理由")
     if not _is_filled(r.get("完成时间")):
         missing.append("完成时间")
