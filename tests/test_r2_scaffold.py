@@ -240,3 +240,135 @@ def test_overlap_v3_match_reason_uses_hist_text() -> None:
         assert "hist question:" in reason, f"{r['draft_question_id']} missing hist text in reason"
         # 来源标签如 'hist50' 不应单独作为理由内容
         assert not reason.strip().startswith("hist"), f"{r['draft_question_id']} reason starts with source label"
+
+
+def _write_anchor_fixture(tmp_path: Path, repo: Path, mutate) -> tuple[Path, Path]:
+    """审计 v5：构造隔离的锚点校验材料（复制语料文件到临时目录）。"""
+    import json
+    import shutil
+
+    evidence = json.loads(
+        (repo / "benchmark/qa/dataset/pace_conditions_v1/evidence_candidates.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    records = [dict(r) for r in evidence["records"]]
+    # 修改 input_file 指向临时语料目录（相对路径保持结构）
+    for r in records:
+        r["input_file"] = "TMP/input/" + r["input_file"].split("/")[-1]
+    mutate(records, tmp_path, repo)
+    (tmp_path / "evidence.json").write_text(
+        json.dumps({**evidence, "records": records}, ensure_ascii=False), encoding="utf-8"
+    )
+    # 复制语料文件到 tmp/input/（未 mutate 修改的文件保持原内容）
+    corpus_input = repo / "benchmark/data/corpus/input"
+    (tmp_path / "input").mkdir(exist_ok=True)
+    shutil.copy(repo / "benchmark/data/corpus/corpus_manifest.json", tmp_path / "corpus_manifest.json")
+    for r in records:
+        fname = r["input_file"].split("/")[-1]
+        src = corpus_input / fname
+        if src.is_file() and not (tmp_path / "input" / fname).exists():
+            shutil.copy(src, tmp_path / "input" / fname)
+    return tmp_path / "evidence.json", tmp_path
+
+
+def test_anchor_v3_prefix_only_and_missing_file() -> None:
+    """审计 v5 §1：前缀相同后文不同 → full_excerpt_not_contained；文件缺失 → source_file_missing；CLI exit 1。"""
+    import json
+    import subprocess
+    import sys
+    import tempfile
+
+    repo = Path(__file__).resolve().parents[1]
+
+    def mutate_prefix(records, tmp_path, repo):
+        # 摘录前 80 字符与真实语料相同，但补上不同的后文 → 完整摘录不再包含
+        records[0]["excerpt"] = records[0]["excerpt"][:80] + "【被篡改的后文，与原文不同】"
+
+    def mutate_missing(records, tmp_path, repo):
+        # 不写 input/ 下的文件 → source_file_missing（fixture 只复制存在的原文件，
+        # 这里把第一条指向一个不存在的文件名）
+        records[0]["input_file"] = "TMP/input/definitely_missing_source.txt"
+
+    with tempfile.TemporaryDirectory() as tmp1, tempfile.TemporaryDirectory() as tmp2:
+        for mutate in (mutate_prefix, mutate_missing):
+            ev_path, tmp = _write_anchor_fixture(Path(tmp1 if mutate is mutate_prefix else tmp2), repo, mutate)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(repo / "benchmark/pace_research/verify_anchors_v3.py"),
+                    "--evidence",
+                    str(ev_path),
+                    "--store",
+                    str(repo / "benchmark/data/evidence_store"),
+                    "--corpus",
+                    str(tmp),
+                    "--out",
+                    str(tmp / "out.json"),
+                ],
+                capture_output=True,
+                text=True,
+                cwd=repo,
+            )
+            assert result.returncode == 1, f"expected exit 1, got {result.returncode}: {result.stdout}"
+            out = json.loads((tmp / "out.json").read_text(encoding="utf-8"))
+            fails = [r for r in out["results"] if r["verdict"] == "fail"]
+            expected = "full_excerpt_not_contained" if mutate is mutate_prefix else "source_file_missing"
+            assert any(expected in r["failures"] for r in fails), f"{expected} not in {fails}"
+
+
+def test_exposure_gate_failure_paths() -> None:
+    """审计 v5 §2：file_missing / sha256_mismatch → 覆盖失败 + 重叠入口 exit 2 + 不覆盖已有重叠产物。"""
+    import json
+    import subprocess
+    import sys
+    import tempfile
+
+    repo = Path(__file__).resolve().parents[1]
+    base = repo / "benchmark/qa/dataset/pace_conditions_v1"
+    inv = json.loads((base / "legacy_exposure_inventory.json").read_text(encoding="utf-8"))
+    overlap_path = base / "template_overlap_audit_v3.json"
+    overlap_before = overlap_path.read_bytes()
+
+    def run_gate(tmp: Path, mutate_records) -> subprocess.CompletedProcess:
+        inv2 = {**inv, "records": [dict(r) for r in inv["records"]]}
+        mutate_records(inv2["records"], tmp)
+        inv_path = tmp / "inv.json"
+        inv_path.write_text(json.dumps(inv2, ensure_ascii=False), encoding="utf-8")
+        return subprocess.run(
+            [
+                sys.executable,
+                str(repo / "benchmark/pace_research/template_overlap_audit_v3.py"),
+                "--inventory",
+                str(inv_path),
+                "--out",
+                str(tmp / "overlap_out.json"),
+            ],
+            capture_output=True,
+            text=True,
+            cwd=repo,
+        )
+
+    with tempfile.TemporaryDirectory() as tmp1, tempfile.TemporaryDirectory() as tmp2:
+        # 场景 1：文件缺失
+        def mutate_missing(records, tmp):
+            records[0]["path"] = str(tmp / "no_such_file.json")
+
+        r1 = run_gate(Path(tmp1), mutate_missing)
+        assert r1.returncode == 2, f"expected exit 2, got {r1.returncode}: {r1.stderr[:200]}"
+        assert "file_missing" in r1.stderr or "file_missing" in r1.stdout
+
+        # 场景 2：内容改变、记录数不变 → sha256_mismatch
+        def mutate_sha(records, tmp):
+            src = repo / records[0]["path"]
+            tampered = tmp / "tampered.json"
+            data = json.loads(src.read_text(encoding="utf-8"))
+            tampered.write_text(json.dumps(data[:-1], ensure_ascii=False), encoding="utf-8")
+            records[0]["path"] = str(tampered)
+
+        r2 = run_gate(Path(tmp2), mutate_sha)
+        assert r2.returncode == 2, f"expected exit 2, got {r2.returncode}: {r2.stderr[:200]}"
+        assert "sha256_mismatch" in r2.stderr or "sha256_mismatch" in r2.stdout
+
+    # 已有重叠产物未被覆盖
+    assert overlap_path.read_bytes() == overlap_before, "existing overlap product was overwritten"

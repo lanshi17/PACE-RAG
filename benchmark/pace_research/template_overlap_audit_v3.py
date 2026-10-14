@@ -109,18 +109,22 @@ def extract_features_v3(question: str) -> set[str]:
     return feats
 
 
-def overlap_report_v3() -> dict[str, Any]:
+def overlap_report_v3(inventory_path: Path | None = None) -> dict[str, Any]:
     # 强制暴露集前置
     sys.path.insert(0, str(REPO))
     from benchmark.pace_research.verify_exposure_coverage import verify_exposure_coverage
 
-    inv_path = REPO / "benchmark/qa/dataset/pace_conditions_v1/legacy_exposure_inventory.json"
+    inv_path = inventory_path or (
+        REPO / "benchmark/qa/dataset/pace_conditions_v1/legacy_exposure_inventory.json"
+    )
     exposure = verify_exposure_coverage(inv_path)
     if exposure["files_failed"] > 0:
         print(
             f"暴露集覆盖校验失败（{exposure['files_failed']} 文件），审计中止。",
             file=sys.stderr,
         )
+        for f in exposure["failures"]:
+            print(f"GATE-FAIL: {f.get('failures')} path={f.get('path')}", file=sys.stderr)
         raise SystemExit(2)
 
     dev = json.loads(
@@ -217,8 +221,21 @@ def overlap_report_v3() -> dict[str, Any]:
 
 
 if __name__ == "__main__":
-    rep = overlap_report_v3()
-    out = REPO / "benchmark/qa/dataset/pace_conditions_v1/template_overlap_audit_v3.json"
-    out.write_text(json.dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8")
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--inventory",
+        type=Path,
+        default=REPO / "benchmark/qa/dataset/pace_conditions_v1/legacy_exposure_inventory.json",
+    )
+    parser.add_argument(
+        "--out",
+        type=Path,
+        default=REPO / "benchmark/qa/dataset/pace_conditions_v1/template_overlap_audit_v3.json",
+    )
+    args = parser.parse_args()
+    rep = overlap_report_v3(args.inventory)
+    args.out.write_text(json.dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"flagged families: {rep['flagged_families']} | flagged rows: {rep['n_flagged_rows']}")
-    print(f"wrote {out}")
+    print(f"wrote {args.out}")
